@@ -1,0 +1,51 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [gzip]
+      Authorization: [Bearer b4c0n73n7fu1]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [PythonContentfulClient/0.1.0]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types/cat
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA81UTW/bMAy951cYOjdB7LZe4VuarkCBbpfmtKEHxaY7ovLHJCWrV+S/j5YtR3KC
+        Yuu2oidbjx96fKT4PAkCphrFkuCZfttDzVMYjiOr8dBN3TqwWywf2YmJMrig86q33ZksjhGzNiTN
+        4YkXtQBeI+sjd+a763xZ78d1HzzctqxKDaU2F/S+qQSuIVvoNnU0D0+n83gafVhFUXIWJ2E0uziP
+        vljnTZ15zvE0DKdRuArPk3mYnJ3OLuL54CxhiwqrkhLHRM+QYxmqWvDmGkGYYkpedFS6P0KWPW2W
+        gUol1rpLwT5B9WNmiLC8jW7l/mrK7kQnvKt7SGkENSdK+9leZFAr/wqerEit+FXKBf6ElpmWG7DS
+        MwnfNygPcaqGr4XBcy7UPqAqUJOqFne7M2Ir8BHU0OSB7q0PW74LKXmz93YJ+wQcxr7hdykPtaOG
+        Yj/annp3TbGuhDuhW9KPRoRaZtpzf2w8RwKklajkoQBLH7YCjK70WvaPFXihaWtQ+loilNkh8Uuy
+        BWPj0ef+P8kP7XMXysdSy6ZbGf2qGPVijVJ/y9wJs8/n8sBiS7qijfAmE/lCPwTmxx8RwYGA3Hnj
+        lvYNbcIHcAbv796Sty7+5PVvjxMn+G2Iv3ZvYcEfnL7bObnx4fcx9wulQPdzT1N0P9lNfgHq3q6K
+        tAcAAA==
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['0']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Length: ['517']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Date: ['Thu, 01 Dec 2016 22:56:37 GMT']
+      ETag: [W/"0fafeae5dc31f84b8a1f629e4fc7039a"]
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [MISS]
+      X-Cache-Hits: ['0']
+      X-Content-Type-Options: [nosniff, nosniff]
+      X-Contentful-Request-Id: [a96e1185fc65644af7327d90dc8e953c]
+      X-Served-By: [cache-gru7120-GRU]
+      X-Timer: ['S1480632996.792501,VS0,VE315']
+    status: {code: 200, message: OK}
+version: 1

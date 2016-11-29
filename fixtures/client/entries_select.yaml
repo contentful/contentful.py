@@ -1,0 +1,49 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [gzip]
+      Authorization: [Bearer b4c0n73n7fu1]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [PythonContentfulClient/0.1.0]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?content_type=cat&sys.id=nyancat&select=fields.name%2Csys
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"fields\":
+        {\n        \"name\": \"Nyan Cat\"\n      },\n      \"sys\": {\n        \"space\":
+        {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\":
+        \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n
+        \       \"id\": \"nyancat\",\n        \"type\": \"Entry\",\n        \"createdAt\":
+        \"2013-06-27T22:46:19.513Z\",\n        \"updatedAt\": \"2013-09-04T09:19:39.027Z\",\n
+        \       \"revision\": 5,\n        \"contentType\": {\n          \"sys\": {\n
+        \           \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n
+        \           \"id\": \"cat\"\n          }\n        },\n        \"locale\":
+        \"en-US\"\n      }\n    }\n  ]\n}\n"}
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['0']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Length: ['699']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Date: ['Thu, 01 Dec 2016 23:38:54 GMT']
+      ETag: ['"5bceeb558eb6136686e5aae912e25903"']
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [MISS]
+      X-Cache-Hits: ['0']
+      X-Content-Type-Options: [nosniff, nosniff]
+      X-Contentful-Request-Id: [3314de7c5281dd6c8ef123da29efb4d5]
+      X-Served-By: [cache-gru7126-GRU]
+      X-Timer: ['S1480635534.306083,VS0,VE283']
+    status: {code: 200, message: OK}
+version: 1
