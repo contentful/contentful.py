@@ -20,11 +20,11 @@ except (IOError, ImportError):
 
 package = 'contentful'
 requirements = [
-    'requests==2.12.1',
-    'python-dateutil==2.6.0'
+    'requests',
+    'python-dateutil'
 ]
 test_requirements = [
-    'vcrpy==1.7.4'
+    'vcrpy'
 ]
 
 
