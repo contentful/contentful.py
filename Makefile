@@ -70,7 +70,6 @@ docs:
 
 release: clean
 	python setup.py publish
-	python setup.py bdist_wheel upload
 
 dist: clean
 	python setup.py sdist
