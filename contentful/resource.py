@@ -1,4 +1,5 @@
 import dateutil.parser
+
 from .utils import snake_case
 
 
@@ -53,7 +54,7 @@ class Resource(object):
         if name in self.sys:
             return self.sys[name]
         raise AttributeError(
-            "'{0}' object has no attirube '{1}'".format(
+            "'{0}' object has no attribute '{1}'".format(
                 self.__class__.__name__,
                 name
             )
