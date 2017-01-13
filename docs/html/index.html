@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Contentful Delivery API SDK &#8212; Contentful 1.0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Contentful 1.0.2 documentation" href="#" />
+    <link rel="next" title="contentful" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contentful-delivery-api-sdk">
+<h1>Contentful Delivery API SDK<a class="headerlink" href="#contentful-delivery-api-sdk" title="Permalink to this headline">¶</a></h1>
+<p>Release v1.0.2.</p>
+<p><a class="reference external" href="https://www.contentful.com">Contentful</a> is a content management platform for web applications, mobile apps and connected devices.
+It allows you to create, edit &amp; manage content in the cloud and publish it anywhere via powerful API.
+Contentful offers tools for managing editorial teams and enabling cooperation between organizations.</p>
+<blockquote>
+<div>This SDK is intended to replace the former unofficial Python CDA SDK. The old SDK can still be found at: <a class="reference external" href="https://github.com/contentful-labs/contentful.py">https://github.com/contentful-labs/contentful.py</a></div></blockquote>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install Contentful from the Python Package Index:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">contentful</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Create a client:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">contentful</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">contentful</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;cfexampleapi&#39;</span><span class="p">,</span> <span class="s1">&#39;b4c0n73n7fu1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you plan on using the <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-preview-api/">Preview API</a> you need to specify the <code class="docutils literal"><span class="pre">api_url</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">contentful</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;cfexampleapi&#39;</span><span class="p">,</span> <span class="s1">&#39;b4c0n73n7fu1&#39;</span><span class="p">,</span> <span class="n">api_url</span><span class="o">=</span><span class="s1">&#39;preview.contentful.com&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can query for entries, assets, etc. very similar as described in the <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/">Delivery API Documentation</a>.
+Please note, that all methods of the Python client library are <code class="docutils literal"><span class="pre">snake_cased</span></code>, instead of JavaScript&#8217;s <code class="docutils literal"><span class="pre">camelCase</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">content_types</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can pass the usual filter options to the query:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">({</span><span class="s1">&#39;content_type&#39;</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">})</span> <span class="c1"># query for a content-type by its ID (not name)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">({</span><span class="s1">&#39;sys.id[ne]&#39;</span><span class="p">:</span> <span class="s1">&#39;nyancat&#39;</span><span class="p">})</span> <span class="c1"># query for all entries except &#39;nyancat&#39;</span>
+<span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">({</span><span class="s1">&#39;include&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1"># include one level of linked resources</span>
+<span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">({</span><span class="s1">&#39;content_type&#39;</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;include&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1"># you can also combine multiple parameters</span>
+</pre></div>
+</div>
+<p>The results are returned as <cite>contentful.resource.Resource &lt;contentful.resource.Resource&gt;</cite> objects. Multiple results will be returned as <cite>list</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">content_type</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">content_type</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">)</span>
+<span class="n">content_type</span><span class="o">.</span><span class="n">description</span> <span class="c1"># &quot;Meow.&quot;</span>
+</pre></div>
+</div>
+<p>System Properties behave the same and can be accessed via the <code class="docutils literal"><span class="pre">#sys</span></code> method:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">content_type</span><span class="o">.</span><span class="n">id</span> <span class="c1"># =&gt; &#39;cat&#39;</span>
+<span class="n">entry</span><span class="o">.</span><span class="n">type</span> <span class="c1"># =&gt; &#39;Entry&#39;</span>
+<span class="n">asset</span><span class="o">.</span><span class="n">sys</span> <span class="c1"># { &#39;id&#39;: &#39;...&#39;, &#39;type&#39;: &#39;...&#39; }</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-different-locales">
+<h2>Using different locales<a class="headerlink" href="#using-different-locales" title="Permalink to this headline">¶</a></h2>
+<p>Entries can have multiple locales, by default, the client only fetches the entry with only its default locale.
+If you want to fetch a different locale you can do the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">entries</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">({</span><span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="s1">&#39;de-DE&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Then all the fields will be fetched for the requested locale.</p>
+<p>Contentful Delivery API also allows to fetch all locales, you can do so by doing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">entries</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">({</span><span class="s1">&#39;content_type&#39;</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">})</span>
+
+<span class="c1"># assuming the entry has a field called name</span>
+<span class="n">my_spanish_name</span> <span class="o">=</span> <span class="n">entries</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="s1">&#39;es-AR&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>When requesting multiple locales, the object accessor shortcuts only work for the default locale.</p>
+</div>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
+<p>You can easily request a resource that is represented by a link by calling <code class="docutils literal"><span class="pre">#resolve</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">happycat</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;happycat&#39;</span><span class="p">)</span>
+<span class="n">happycat</span><span class="o">.</span><span class="n">space</span>
+<span class="c1"># &lt;Link[Space] id=&#39;cfexampleapi&#39;&gt;</span>
+<span class="n">happycat</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<span class="c1"># &lt;Space[Contentful Example API] id=&#39;cfexampleapi&#39;&gt;</span>
+</pre></div>
+</div>
+<p>This works for any kind of Resource.</p>
+</div>
+<div class="section" id="assets">
+<h2>Assets<a class="headerlink" href="#assets" title="Permalink to this headline">¶</a></h2>
+<p>There is a helpful method to add image resize options for an asset image:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">asset</span><span class="p">(</span><span class="s1">&#39;happycat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">url</span><span class="p">()</span>
+<span class="c1"># =&gt; &quot;//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/</span>
+<span class="c1">#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg&quot;</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">asset</span><span class="p">(</span><span class="s1">&#39;happycat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">fm</span><span class="o">=</span><span class="s1">&#39;jpg&#39;</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># =&gt; &quot;//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/</span>
+<span class="c1">#     382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg?w=300&amp;h=200&amp;fm=jpg&amp;q=100&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="entries">
+<h2>Entries<a class="headerlink" href="#entries" title="Permalink to this headline">¶</a></h2>
+<p>Entries can have fields in it&#8217;s default locale accessible with accessor methods:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nyancat</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
+<span class="n">nyancat</span><span class="o">.</span><span class="n">name</span>
+<span class="c1"># &#39;Nyan Cat&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="client-configuration-options">
+<h2>Client Configuration Options<a class="headerlink" href="#client-configuration-options" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">space_id</span></code>: Space ID of your target space.</p>
+<p><code class="docutils literal"><span class="pre">access_token</span></code>: API Access Token (Delivery by default, Preview if overriding api_url).</p>
+<p><code class="docutils literal"><span class="pre">api_url</span></code>: (optional) URL of the Contentful Target API, defaults to Delivery API (can be overriden for Preview API).</p>
+<p><code class="docutils literal"><span class="pre">api_version</span></code>: (optional) Target version of the Contentful API.</p>
+<p><code class="docutils literal"><span class="pre">default_locale</span></code>: (optional) Default Locale for your Space, defaults to &#8216;en-US&#8217;.</p>
+<p><code class="docutils literal"><span class="pre">https</span></code>: (optional) Boolean determining wether to use https or http, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">authorization_as_header</span></code>: (optional) Boolean determining wether to send access_token through a header or via GET params, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">raw_mode</span></code>: (optional) Boolean determining wether to process the response or return it raw after each API call, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">gzip_encoded</span></code>: (optional) Boolean determining wether to accept gzip encoded results, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">raise_errors</span></code>: (optional) Boolean determining wether to raise an exception on requests that aren&#8217;t successful, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">content_type_cache</span></code>: (optional) Boolean determining wether to store a Cache of the Content Types in order to properly coerce Entry fields, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">proxy_host</span></code>: (optional) URL for Proxy, defaults to None.</p>
+<p><code class="docutils literal"><span class="pre">proxy_port</span></code>: (optional) Port for Proxy, defaults to None.</p>
+<p><code class="docutils literal"><span class="pre">proxy_username</span></code>: (optional) Username for Proxy, defaults to None.</p>
+<p><code class="docutils literal"><span class="pre">proxy_password</span></code>: (optional) Password for Proxy, defaults to None.</p>
+<p><code class="docutils literal"><span class="pre">max_rate_limit_retries</span></code>: (optional) Maximum amount of retries after RateLimitError, defaults to 1.</p>
+<p><code class="docutils literal"><span class="pre">max_rate_limit_wait</span></code>: (optional) Timeout (in seconds) for waiting for retry after RateLimitError, defaults to 60.</p>
+</div>
+<div class="section" id="synchronization">
+<h2>Synchronization<a class="headerlink" href="#synchronization" title="Permalink to this headline">¶</a></h2>
+<p>The client also includes a wrapper for the synchronization endpoint.
+You can call it either with <code class="docutils literal"><span class="pre">initial=True</span></code> or with a previous <code class="docutils literal"><span class="pre">sync_token</span></code>,
+additional options are described in the <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization">API Documentation</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sync</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sync</span><span class="p">({</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span> <span class="c1"># Returns all content currently in space</span>
+<span class="c1"># &lt;SyncPage next_sync_token=&#39;w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE&#39;&gt;</span>
+
+<span class="n">sync</span><span class="o">.</span><span class="n">items</span>
+<span class="c1"># [&lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;5ETMRzkl9KM4omyMwKAOki&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;7qVBlCjpWE86Oseo40gAEY&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;ge1xHyH3QOWucKWCCAgIG&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;4MU1s3potiUEM2G4okYOqw&#39;&gt;,</span>
+<span class="c1">#   &lt;Asset id=&#39;1x0xpXu4pSGS4OukSyWGUK&#39; url=&#39;//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[dog] id=&#39;jake&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[cat] id=&#39;happycat&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[dog] id=&#39;6KntaYXaHSyIw8M6eo26OK&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[human] id=&#39;finn&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[cat] id=&#39;nyancat&#39;&gt;,</span>
+<span class="c1">#   &lt;Asset id=&#39;jake&#39; url=&#39;//images.contentful.com/cfexampleapi/4hlteQAXS8iS0YCMU6QMWg/2a4d826144f014109364ccf5c891d2dd/jake.png&#39;&gt;,</span>
+<span class="c1">#   &lt;Asset id=&#39;happycat&#39; url=&#39;//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg&#39;&gt;,</span>
+<span class="c1">#   &lt;Asset id=&#39;nyancat&#39; url=&#39;//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png&#39;&gt;,</span>
+<span class="c1">#   &lt;Entry[cat] id=&#39;garfield&#39;&gt;]</span>
+
+
+<span class="n">sync</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sync</span><span class="p">({</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Deletion&#39;</span><span class="p">})</span> <span class="c1"># Only returns deleted entries and assets</span>
+<span class="c1"># &lt;SyncPage next_sync_token=&#39;w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1w5zCrA3CnU7CgEvDtsK6w7B2wrRZwrwPIgDCjVo8PMOoUcK2wqTCl8O1wpY8wpjCkGM&#39;&gt;</span>
+
+<span class="n">sync</span><span class="o">.</span><span class="n">items</span>
+<span class="c1"># [&lt;DeletedEntry id=&#39;4rPdazIwWkuuKEAQgemSmO&#39;&gt;,</span>
+<span class="c1">#    &lt;DeletedAsset id=&#39;5c6VY0gWg0gwaIeYkUUiqG&#39;&gt;,</span>
+<span class="c1">#    &lt;DeletedAsset id=&#39;finn&#39;&gt;,</span>
+<span class="c1">#    &lt;DeletedAsset id=&#39;3MZPnjZTIskAIIkuuosCss&#39;&gt;,</span>
+<span class="c1">#    &lt;DeletedAsset id=&#39;4gp6taAwW4CmSgumq2ekUm&#39;&gt;,</span>
+<span class="c1">#    &lt;DeletedAsset id=&#39;1uf1qqyZuEuiwmigoUYkeu&#39;&gt;,</span>
+<span class="c1">#    &lt;DeletedAsset id=&#39;4hlteQAXS8iS0YCMU6QMWg&#39;&gt;,</span>
+<span class="c1">#    &lt;DeletedEntry id=&#39;CVebBDcQsSsu6yKKIayy&#39;&gt;]</span>
+
+<span class="n">sync</span> <span class="o">=</span> <span class="n">sync</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="n">client</span><span class="p">)</span> <span class="c1"># equivalent to client.sync(sync_token=sync.next_sync_token)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>To use the logger, use the standard library <code class="docutils literal"><span class="pre">logging</span></code> module:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">()</span>
+<span class="c1"># INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): cdn.contentful.com</span>
+<span class="c1"># DEBUG:requests.packages.urllib3.connectionpool:&quot;GET /spaces/cfexampleapi/entries HTTP/1.1&quot; 200 1994</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sdk-modules-reference">
+<h2>SDK Modules Reference<a class="headerlink" href="#sdk-modules-reference" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">contentful</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contentful.html">contentful package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.asset">contentful.asset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.client">contentful.client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.content_type">contentful.content_type module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.content_type_cache">contentful.content_type_cache module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contentful.html#contentful-content-type-cache">contentful.content_type_cache</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.content_type_field">contentful.content_type_field module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.content_type_field_types">contentful.content_type_field_types module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.deleted_asset">contentful.deleted_asset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.deleted_entry">contentful.deleted_entry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.entry">contentful.entry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.errors">contentful.errors module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contentful.html#contentful-errors">contentful.errors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.locale">contentful.locale module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contentful.html#contentful-locale">contentful.locale</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.resource">contentful.resource module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.resource_builder">contentful.resource_builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.space">contentful.space module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.sync_page">contentful.sync_page module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.utils">contentful.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (c) 2016 Contentful GmbH. See <a class="reference external" href="./LICENSE">LICENSE</a> for further details.</p>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>Feel free to improve this tool by submitting a Pull Request.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Contentful Delivery API SDK</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#using-different-locales">Using different locales</a></li>
+<li><a class="reference internal" href="#links">Links</a></li>
+<li><a class="reference internal" href="#assets">Assets</a></li>
+<li><a class="reference internal" href="#entries">Entries</a></li>
+<li><a class="reference internal" href="#client-configuration-options">Client Configuration Options</a></li>
+<li><a class="reference internal" href="#synchronization">Synchronization</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+<li><a class="reference internal" href="#sdk-modules-reference">SDK Modules Reference</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="modules.html" title="next chapter">contentful</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Contentful GmbH.
+      
+    </div>
+
+    
+    <a href="https://github.com/contentful/contentful.py" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

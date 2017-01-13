@@ -1,0 +1,1055 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>contentful package &#8212; Contentful 1.0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Contentful 1.0.2 documentation" href="index.html" />
+    <link rel="up" title="contentful" href="modules.html" />
+    <link rel="prev" title="contentful" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contentful-package">
+<h1>contentful package<a class="headerlink" href="#contentful-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-contentful.asset">
+<span id="contentful-asset-module"></span><h2>contentful.asset module<a class="headerlink" href="#module-contentful.asset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.asset.Asset">
+<em class="property">class </em><code class="descclassname">contentful.asset.</code><code class="descname">Asset</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.FieldsResource" title="contentful.resource.FieldsResource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.FieldsResource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets</a></p>
+<dl class="method">
+<dt id="contentful.asset.Asset.url">
+<code class="descname">url</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset.url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a formatted URL for the Asset&#8217;s File
+with serialized parameters.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_asset</span><span class="o">.</span><span class="n">url</span><span class="p">()</span>
+<span class="go">&quot;//images.contentful.com/spaces/foobar/...&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_asset</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">160</span><span class="p">)</span>
+<span class="go">&quot;//images.contentful.com/spaces/foobar/...?w=120&amp;h=160&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.client">
+<span id="contentful-client-module"></span><h2>contentful.client module<a class="headerlink" href="#module-contentful.client" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.client.Client">
+<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Constructs the API Client.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>space_id</strong> &#8211; Space ID of your target space.</li>
+<li><strong>access_token</strong> &#8211; API Access Token (Delivery by default,
+Preview if overriding api_url).</li>
+<li><strong>api_url</strong> &#8211; (optional) URL of the Contentful Target API,
+defaults to Delivery API (can be overriden for Preview API).</li>
+<li><strong>api_version</strong> &#8211; (optional) Target version of the Contentful API.</li>
+<li><strong>default_locale</strong> &#8211; (optional) Default Locale for your Space,
+defaults to &#8216;en-US&#8217;.</li>
+<li><strong>https</strong> &#8211; (optional) Boolean determining wether to use https
+or http, defaults to True.</li>
+<li><strong>authorization_as_header</strong> &#8211; (optional) Boolean determining wether
+to send access_token through a header or via GET params,
+defaults to True.</li>
+<li><strong>raw_mode</strong> &#8211; (optional) Boolean determining wether to process the
+response or return it raw after each API call, defaults to True.</li>
+<li><strong>gzip_encoded</strong> &#8211; (optional) Boolean determining wether to accept
+gzip encoded results, defaults to True.</li>
+<li><strong>raise_errors</strong> &#8211; (optional) Boolean determining wether to raise
+an exception on requests that aren&#8217;t successful, defaults to True.</li>
+<li><strong>content_type_cache</strong> &#8211; (optional) Boolean determining wether to
+store a Cache of the Content Types in order to properly coerce
+Entry fields, defaults to True.</li>
+<li><strong>proxy_host</strong> &#8211; (optional) URL for Proxy, defaults to None.</li>
+<li><strong>proxy_port</strong> &#8211; (optional) Port for Proxy, defaults to None.</li>
+<li><strong>proxy_username</strong> &#8211; (optional) Username for Proxy, defaults to None.</li>
+<li><strong>proxy_password</strong> &#8211; (optional) Password for Proxy, defaults to None.</li>
+<li><strong>max_rate_limit_retries</strong> &#8211; (optional) Maximum amount of retries
+after RateLimitError, defaults to 1.</li>
+<li><strong>max_rate_limit_wait</strong> &#8211; (optional) Timeout (in seconds) for waiting
+for retry after RateLimitError, defaults to 60.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#contentful.client.Client" title="contentful.client.Client"><code class="xref py py-class docutils literal"><span class="pre">Client</span></code></a> object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">contentful.Client</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">contentful</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">contentful</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;cfexampleapi&#39;</span><span class="p">,</span> <span class="s1">&#39;b4c0n73n7fu1&#39;</span><span class="p">)</span>
+<span class="go">&lt;contentful.Client space_id=&quot;cfexampleapi&quot;</span>
+<span class="go">  access_token=&quot;b4c0n73n7fu1&quot;</span>
+<span class="go">  default_locale=&quot;en-US&quot;&gt;</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="contentful.client.Client.asset">
+<code class="descname">asset</code><span class="sig-paren">(</span><em>asset_id</em>, <em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.asset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.asset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches an Asset by ID.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/asset/get-a-single-asset">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/asset/get-a-single-asset</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>asset_id</strong> &#8211; The ID of the target Asset.</li>
+<li><strong>query</strong> &#8211; (optional) Dict with API options.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><code class="xref py py-class docutils literal"><span class="pre">Asset</span></code> object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#contentful.asset.Asset" title="contentful.asset.Asset">contentful.asset.Asset</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nyancat_asset</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">asset</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
+<span class="go">&lt;Asset id=&#39;nyancat&#39; url=&#39;//images.contentful.com/cfex...&#39;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.assets">
+<code class="descname">assets</code><span class="sig-paren">(</span><em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.assets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.assets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches all Assets from the Space (up to the set limit, can be modified in <cite>query</cite>).</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/assets-collection/get-all-assets-of-a-space">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/assets-collection/get-all-assets-of-a-space</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <a class="reference internal" href="#contentful.asset.Asset" title="contentful.asset.Asset"><code class="xref py py-class docutils literal"><span class="pre">Asset</span></code></a> objects.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List of contentful.asset.Asset</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assets</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">assets</span><span class="p">()</span>
+<span class="go">[&lt;Asset id=&#39;1x0xpXu4pSGS4OukSyWGUK&#39; url=&#39;//images.content...&#39;&gt;,</span>
+<span class="go"> &lt;Asset id=&#39;happycat&#39; url=&#39;//images.contentful.com/cfexam...&#39;&gt;,</span>
+<span class="go"> &lt;Asset id=&#39;nyancat&#39; url=&#39;//images.contentful.com/cfexamp...&#39;&gt;,</span>
+<span class="go"> &lt;Asset id=&#39;jake&#39; url=&#39;//images.contentful.com/cfexamplea...&#39;&gt;]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.content_type">
+<code class="descname">content_type</code><span class="sig-paren">(</span><em>content_type_id</em>, <em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.content_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.content_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches a Content Type by ID.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types/content-type/get-a-single-content-type">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types/content-type/get-a-single-content-type</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>content_type_id</strong> &#8211; The ID of the target Content Type.</li>
+<li><strong>query</strong> &#8211; (optional) Dict with API options.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#contentful.content_type.ContentType" title="contentful.content_type.ContentType"><code class="xref py py-class docutils literal"><span class="pre">ContentType</span></code></a> object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#contentful.content_type.ContentType" title="contentful.content_type.ContentType">contentful.content_type.ContentType</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cat_content_type</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">content_type</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">)</span>
+<span class="go">&lt;ContentType[Cat] id=&#39;cat&#39;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.content_types">
+<code class="descname">content_types</code><span class="sig-paren">(</span><em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.content_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.content_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches all Content Types from the Space.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types/content-model/get-the-content-model-of-a-space">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types/content-model/get-the-content-model-of-a-space</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <a class="reference internal" href="#contentful.content_type.ContentType" title="contentful.content_type.ContentType"><code class="xref py py-class docutils literal"><span class="pre">ContentType</span></code></a> objects.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List of contentful.content_type.ContentType</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">content_types</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">content_types</span><span class="p">()</span>
+<span class="go">[&lt;ContentType[City] id=&#39;1t9IbcfdCk6m04uISSsaIK&#39;&gt;,</span>
+<span class="go"> &lt;ContentType[Human] id=&#39;human&#39;&gt;,</span>
+<span class="go"> &lt;ContentType[Dog] id=&#39;dog&#39;&gt;,</span>
+<span class="go"> &lt;ContentType[Cat] id=&#39;cat&#39;&gt;]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.entries">
+<code class="descname">entries</code><span class="sig-paren">(</span><em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.entries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches all Entries from the Space (up to the set limit, can be modified in <cite>query</cite>).</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries/entries-collection/get-all-entries-of-a-space">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries/entries-collection/get-all-entries-of-a-space</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <a class="reference internal" href="#contentful.entry.Entry" title="contentful.entry.Entry"><code class="xref py py-class docutils literal"><span class="pre">Entry</span></code></a> objects.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List of contentful.entry.Entry</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entries</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">()</span>
+<span class="go">[&lt;Entry[cat] id=&#39;happycat&#39;&gt;,</span>
+<span class="go"> &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;5ETMRzkl9KM4omyMwKAOki&#39;&gt;,</span>
+<span class="go"> &lt;Entry[dog] id=&#39;6KntaYXaHSyIw8M6eo26OK&#39;&gt;,</span>
+<span class="go"> &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;7qVBlCjpWE86Oseo40gAEY&#39;&gt;,</span>
+<span class="go"> &lt;Entry[cat] id=&#39;garfield&#39;&gt;,</span>
+<span class="go"> &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;4MU1s3potiUEM2G4okYOqw&#39;&gt;,</span>
+<span class="go"> &lt;Entry[cat] id=&#39;nyancat&#39;&gt;,</span>
+<span class="go"> &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;ge1xHyH3QOWucKWCCAgIG&#39;&gt;,</span>
+<span class="go"> &lt;Entry[human] id=&#39;finn&#39;&gt;,</span>
+<span class="go"> &lt;Entry[dog] id=&#39;jake&#39;&gt;]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.entry">
+<code class="descname">entry</code><span class="sig-paren">(</span><em>entry_id</em>, <em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches an Entry by ID.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries/entry/get-a-single-entry">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries/entry/get-a-single-entry</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>entry_id</strong> &#8211; The ID of the target Entry.</li>
+<li><strong>query</strong> &#8211; (optional) Dict with API options.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#contentful.entry.Entry" title="contentful.entry.Entry"><code class="xref py py-class docutils literal"><span class="pre">Entry</span></code></a> object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#contentful.entry.Entry" title="contentful.entry.Entry">contentful.entry.Entry</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nyancat_entry</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
+<span class="go">&lt;Entry[cat] id=&#39;nyancat&#39;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.space">
+<code class="descname">space</code><span class="sig-paren">(</span><em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the current Space.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces/get-a-space">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces/get-a-space</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#contentful.space.Space" title="contentful.space.Space"><code class="xref py py-class docutils literal"><span class="pre">Space</span></code></a> object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#contentful.space.Space" title="contentful.space.Space">contentful.space.Space</a></td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">space</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">space</span><span class="p">()</span>
+<span class="go">&lt;Space[Contentful Example API] id=&#39;cfexampleapi&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.sync">
+<code class="descname">sync</code><span class="sig-paren">(</span><em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches content from the Sync API.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization/initial-synchronization/query-entries">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization/initial-synchronization/query-entries</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#contentful.sync_page.SyncPage" title="contentful.sync_page.SyncPage"><code class="xref py py-class docutils literal"><span class="pre">SyncPage</span></code></a> object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#contentful.sync_page.SyncPage" title="contentful.sync_page.SyncPage">contentful.sync_page.SyncPage</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sync_page</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sync</span><span class="p">({</span><span class="s1">&#39;initial&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="go">&lt;SyncPage next_sync_token=&#39;w5ZGw6JFwqZmVcKsE8Kow4grw45QdybC...&#39;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.content_type">
+<span id="contentful-content-type-module"></span><h2>contentful.content_type module<a class="headerlink" href="#module-contentful.content_type" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.content_type.ContentType">
+<em class="property">class </em><code class="descclassname">contentful.content_type.</code><code class="descname">ContentType</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type.html#ContentType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type.ContentType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types</a></p>
+<dl class="method">
+<dt id="contentful.content_type.ContentType.field_for">
+<code class="descname">field_for</code><span class="sig-paren">(</span><em>field_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type.html#ContentType.field_for"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type.ContentType.field_for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the field for the given Field ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>field_id</strong> &#8211; ID for Field to fetch.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">ContentTypeField</span></code> object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">contentful.ContentTypeField</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.content_type_cache">
+<span id="contentful-content-type-cache-module"></span><h2>contentful.content_type_cache module<a class="headerlink" href="#module-contentful.content_type_cache" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contentful-content-type-cache">
+<h3>contentful.content_type_cache<a class="headerlink" href="#contentful-content-type-cache" title="Permalink to this headline">¶</a></h3>
+<p>This module implements the ContentTypeCache class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
+<li>2016 by Contentful GmbH.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">MIT, see LICENSE for more details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="contentful.content_type_cache.ContentTypeCache">
+<em class="property">class </em><code class="descclassname">contentful.content_type_cache.</code><code class="descname">ContentTypeCache</code><a class="reference internal" href="_modules/contentful/content_type_cache.html#ContentTypeCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_cache.ContentTypeCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Cache for Content Types.</p>
+<p>Used for properly coercing Entry fields.</p>
+<dl class="classmethod">
+<dt id="contentful.content_type_cache.ContentTypeCache.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>content_type_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_cache.html#ContentTypeCache.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_cache.ContentTypeCache.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches a Content Type from the Cache.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="contentful.content_type_cache.ContentTypeCache.update_cache">
+<em class="property">classmethod </em><code class="descname">update_cache</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_cache.html#ContentTypeCache.update_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_cache.ContentTypeCache.update_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the Cache with all Content Types from the Space.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-contentful.content_type_field">
+<span id="contentful-content-type-field-module"></span><h2>contentful.content_type_field module<a class="headerlink" href="#module-contentful.content_type_field" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.content_type_field.ContentTypeField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field.</code><code class="descname">ContentTypeField</code><span class="sig-paren">(</span><em>field_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field.html#ContentTypeField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field.ContentTypeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types</a></p>
+<dl class="method">
+<dt id="contentful.content_type_field.ContentTypeField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field.html#ContentTypeField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field.ContentTypeField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces the value to the proper type.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.content_type_field_types">
+<span id="contentful-content-type-field-types-module"></span><h2>contentful.content_type_field_types module<a class="headerlink" href="#module-contentful.content_type_field_types" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.content_type_field_types.ArrayField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">ArrayField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ArrayField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ArrayField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Array Coercion Class</p>
+<p>Coerces items in collection with it&#8217;s proper Coercion Class.</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.ArrayField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ArrayField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ArrayField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces array items with proper coercion.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.BasicField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">BasicField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BasicField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BasicField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.BasicField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BasicField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BasicField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just returns the value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.BooleanField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">BooleanField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BooleanField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BooleanField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Boolean Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.BooleanField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BooleanField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BooleanField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces value to boolean</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.DateField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">DateField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#DateField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.DateField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Date Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.DateField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#DateField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.DateField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces ISO8601 date to <code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code> object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.IntegerField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">IntegerField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#IntegerField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.IntegerField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Integer Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.IntegerField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#IntegerField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.IntegerField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces value to int</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.LinkField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">LinkField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#LinkField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.LinkField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Nothing should be done here as include resolution is handled within
+entries due to depth handling (explained within Entry).
+Only present as a placeholder for proper resolution within ContentType.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.LocationField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">LocationField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#LocationField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.LocationField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Location Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.LocationField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#LocationField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.LocationField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces value to Location object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.NumberField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">NumberField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#NumberField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.NumberField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Number Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.NumberField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#NumberField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.NumberField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces value to float</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.ObjectField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">ObjectField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ObjectField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ObjectField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Object Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.ObjectField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ObjectField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ObjectField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces value to dict</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.SymbolField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">SymbolField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#SymbolField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.SymbolField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Symbol Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.SymbolField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#SymbolField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.SymbolField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces value to str</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.TextField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">TextField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#TextField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.TextField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Text Coercion Class</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.TextField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#TextField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.TextField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces value to str</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.deleted_asset">
+<span id="contentful-deleted-asset-module"></span><h2>contentful.deleted_asset module<a class="headerlink" href="#module-contentful.deleted_asset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.deleted_asset.DeletedAsset">
+<em class="property">class </em><code class="descclassname">contentful.deleted_asset.</code><code class="descname">DeletedAsset</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/deleted_asset.html#DeletedAsset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.deleted_asset.DeletedAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.deleted_entry">
+<span id="contentful-deleted-entry-module"></span><h2>contentful.deleted_entry module<a class="headerlink" href="#module-contentful.deleted_entry" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.deleted_entry.DeletedEntry">
+<em class="property">class </em><code class="descclassname">contentful.deleted_entry.</code><code class="descname">DeletedEntry</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/deleted_entry.html#DeletedEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.deleted_entry.DeletedEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.entry">
+<span id="contentful-entry-module"></span><h2>contentful.entry module<a class="headerlink" href="#module-contentful.entry" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.entry.Entry">
+<em class="property">class </em><code class="descclassname">contentful.entry.</code><code class="descname">Entry</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/entry.html#Entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.entry.Entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.FieldsResource" title="contentful.resource.FieldsResource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.FieldsResource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.errors">
+<span id="contentful-errors-module"></span><h2>contentful.errors module<a class="headerlink" href="#module-contentful.errors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contentful-errors">
+<h3>contentful.errors<a class="headerlink" href="#contentful-errors" title="Permalink to this headline">¶</a></h3>
+<p>This module implements the Error classes.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/errors">https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/errors</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
+<li>2016 by Contentful GmbH.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">MIT, see LICENSE for more details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="exception">
+<dt id="contentful.errors.AccessDeniedError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">AccessDeniedError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#AccessDeniedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.AccessDeniedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>403</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.BadRequestError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">BadRequestError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#BadRequestError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.BadRequestError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>400</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.HTTPError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">HTTPError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#HTTPError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.HTTPError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Base HTTP Error Class</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.NotFoundError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">NotFoundError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#NotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.NotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>404</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.RateLimitExceededError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">RateLimitExceededError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#RateLimitExceededError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.RateLimitExceededError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>429</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.ServerError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">ServerError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#ServerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.ServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>500</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.ServiceUnavailableError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">ServiceUnavailableError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#ServiceUnavailableError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.ServiceUnavailableError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>503</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.UnauthorizedError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">UnauthorizedError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#UnauthorizedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.UnauthorizedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>401</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="contentful.errors.get_error">
+<code class="descclassname">contentful.errors.</code><code class="descname">get_error</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#get_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.get_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Error by HTTP Status Code</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-contentful.locale">
+<span id="contentful-locale-module"></span><h2>contentful.locale module<a class="headerlink" href="#module-contentful.locale" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contentful-locale">
+<h3>contentful.locale<a class="headerlink" href="#contentful-locale" title="Permalink to this headline">¶</a></h3>
+<p>This module implements the Locale class.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
+<li>2016 by Contentful GmbH.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">MIT, see LICENSE for more details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="contentful.locale.Locale">
+<em class="property">class </em><code class="descclassname">contentful.locale.</code><code class="descname">Locale</code><span class="sig-paren">(</span><em>locale_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/locale.html#Locale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.locale.Locale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization</a></p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-contentful.resource">
+<span id="contentful-resource-module"></span><h2>contentful.resource module<a class="headerlink" href="#module-contentful.resource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.resource.FieldsResource">
+<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">FieldsResource</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#FieldsResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.FieldsResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>Fields Resource Class</p>
+<p>Implements locale handling for Resource fields.</p>
+<dl class="method">
+<dt id="contentful.resource.FieldsResource.fields">
+<code class="descname">fields</code><span class="sig-paren">(</span><em>locale=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#FieldsResource.fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.FieldsResource.fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get fields for a specific locale</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> &#8211; (optional) Locale to fetch, defaults to default_locale.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="contentful.resource.FieldsResource.locale">
+<code class="descname">locale</code><a class="headerlink" href="#contentful.resource.FieldsResource.locale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.resource.Link">
+<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">Link</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#Link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.Link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>Link Class</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/links">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/links</a></p>
+<dl class="method">
+<dt id="contentful.resource.Link.resolve">
+<code class="descname">resolve</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#Link.resolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.Link.resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves Link to a specific Resource</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.resource.Resource">
+<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">Resource</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.Resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base Resource Class</p>
+<p>Implements common resource attributes.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/common-resource-attributes">https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/common-resource-attributes</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.resource_builder">
+<span id="contentful-resource-builder-module"></span><h2>contentful.resource_builder module<a class="headerlink" href="#module-contentful.resource_builder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.resource_builder.ResourceBuilder">
+<em class="property">class </em><code class="descclassname">contentful.resource_builder.</code><code class="descname">ResourceBuilder</code><span class="sig-paren">(</span><em>default_locale</em>, <em>localized</em>, <em>json</em>, <em>includes_for_single=None</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource_builder.html#ResourceBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource_builder.ResourceBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Creates objects of the proper Resource Type</p>
+<dl class="method">
+<dt id="contentful.resource_builder.ResourceBuilder.build">
+<code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource_builder.html#ResourceBuilder.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource_builder.ResourceBuilder.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the objects from the JSON response</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.space">
+<span id="contentful-space-module"></span><h2>contentful.space module<a class="headerlink" href="#module-contentful.space" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.space.Space">
+<em class="property">class </em><code class="descclassname">contentful.space.</code><code class="descname">Space</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/space.html#Space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.space.Space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.sync_page">
+<span id="contentful-sync-page-module"></span><h2>contentful.sync_page module<a class="headerlink" href="#module-contentful.sync_page" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.sync_page.SyncPage">
+<em class="property">class </em><code class="descclassname">contentful.sync_page.</code><code class="descname">SyncPage</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=True</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/sync_page.html#SyncPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.sync_page.SyncPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</a></p>
+<dl class="method">
+<dt id="contentful.sync_page.SyncPage.next">
+<code class="descname">next</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/sync_page.html#SyncPage.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.sync_page.SyncPage.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches next SyncPage</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>client</strong> &#8211; CDA Client.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#contentful.sync_page.SyncPage" title="contentful.sync_page.SyncPage"><code class="xref py py-class docutils literal"><span class="pre">SyncPage</span></code></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#contentful.sync_page.SyncPage" title="contentful.sync_page.SyncPage">contentful.sync_page.SyncPage</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.utils">
+<span id="contentful-utils-module"></span><h2>contentful.utils module<a class="headerlink" href="#module-contentful.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="contentful.utils.ConfigurationException">
+<em class="property">exception </em><code class="descclassname">contentful.utils.</code><code class="descname">ConfigurationException</code><a class="reference internal" href="_modules/contentful/utils.html#ConfigurationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.ConfigurationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Configuration Error Class</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="contentful.utils.is_link">
+<code class="descclassname">contentful.utils.</code><code class="descname">is_link</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#is_link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.is_link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if value is link or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; any object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_link</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_link</span><span class="p">({</span><span class="s1">&#39;sys&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Link&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;foobar&#39;</span><span class="p">}})</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="contentful.utils.is_link_array">
+<code class="descclassname">contentful.utils.</code><code class="descname">is_link_array</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#is_link_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.is_link_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if value is an array of links.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; any object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_link_array</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_link_array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_link</span><span class="p">([{</span><span class="s1">&#39;sys&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Link&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;foobar&#39;</span><span class="p">}}])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="contentful.utils.resource_for_link">
+<code class="descclassname">contentful.utils.</code><code class="descname">resource_for_link</code><span class="sig-paren">(</span><em>link</em>, <em>includes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#resource_for_link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.resource_for_link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the resource that matches the link</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.utils.retry_request">
+<em class="property">class </em><code class="descclassname">contentful.utils.</code><code class="descname">retry_request</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#retry_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.retry_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Decorator to retry function calls in case they raise rate limit exceptions</p>
+<dl class="attribute">
+<dt id="contentful.utils.retry_request.RATE_LIMIT_RESET_HEADER_KEY">
+<code class="descname">RATE_LIMIT_RESET_HEADER_KEY</code><em class="property"> = 'x-contentful-ratelimit-reset'</em><a class="headerlink" href="#contentful.utils.retry_request.RATE_LIMIT_RESET_HEADER_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="contentful.utils.snake_case">
+<code class="descclassname">contentful.utils.</code><code class="descname">snake_case</code><span class="sig-paren">(</span><em>a_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#snake_case"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.snake_case" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a snake cased version of a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a_string</strong> &#8211; any <code class="xref py py-class docutils literal"><span class="pre">str</span></code> object.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">snake_case</span><span class="p">(</span><span class="s1">&#39;FooBar&#39;</span><span class="p">)</span>
+<span class="go">&quot;foo_bar&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-contentful" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">contentful package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-contentful.asset">contentful.asset module</a></li>
+<li><a class="reference internal" href="#module-contentful.client">contentful.client module</a></li>
+<li><a class="reference internal" href="#module-contentful.content_type">contentful.content_type module</a></li>
+<li><a class="reference internal" href="#module-contentful.content_type_cache">contentful.content_type_cache module</a><ul>
+<li><a class="reference internal" href="#contentful-content-type-cache">contentful.content_type_cache</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-contentful.content_type_field">contentful.content_type_field module</a></li>
+<li><a class="reference internal" href="#module-contentful.content_type_field_types">contentful.content_type_field_types module</a></li>
+<li><a class="reference internal" href="#module-contentful.deleted_asset">contentful.deleted_asset module</a></li>
+<li><a class="reference internal" href="#module-contentful.deleted_entry">contentful.deleted_entry module</a></li>
+<li><a class="reference internal" href="#module-contentful.entry">contentful.entry module</a></li>
+<li><a class="reference internal" href="#module-contentful.errors">contentful.errors module</a><ul>
+<li><a class="reference internal" href="#contentful-errors">contentful.errors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-contentful.locale">contentful.locale module</a><ul>
+<li><a class="reference internal" href="#contentful-locale">contentful.locale</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-contentful.resource">contentful.resource module</a></li>
+<li><a class="reference internal" href="#module-contentful.resource_builder">contentful.resource_builder module</a></li>
+<li><a class="reference internal" href="#module-contentful.space">contentful.space module</a></li>
+<li><a class="reference internal" href="#module-contentful.sync_page">contentful.sync_page module</a></li>
+<li><a class="reference internal" href="#module-contentful.utils">contentful.utils module</a></li>
+<li><a class="reference internal" href="#module-contentful">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">contentful</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">contentful</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Contentful GmbH.
+      
+    </div>
+
+    
+    <a href="https://github.com/contentful/contentful.py" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

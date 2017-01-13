@@ -59,14 +59,15 @@ coverage:
 	open htmlcov/index.html
 
 docs:
-	rm -f docs/contentful.rst
-	rm -f docs/modules.rst
-	rm -rf docs/_build/*
-	sphinx-apidoc -o docs/ contentful
-	cd docs && make html
-	cp LICENSE docs/_build/html/
+	rm -f _docs/contentful.rst
+	rm -f _docs/modules.rst
+	rm -rf _docs/_build/*
+	sphinx-apidoc -o _docs/ contentful
+	cd _docs && make html
+	cp LICENSE _docs/_build/html/
+	cp -r _docs/_build/html docs
 
-	open docs/_build/html/index.html
+	open docs/index.html
 
 release: clean
 	python setup.py publish

@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>contentful.client &#8212; Contentful 1.0.2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="top" title="Contentful 1.0.2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for contentful.client</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">re</span> <span class="k">import</span> <span class="n">sub</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">ConfigurationException</span><span class="p">,</span> <span class="n">retry_request</span>
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">get_error</span><span class="p">,</span> <span class="n">RateLimitExceededError</span>
+<span class="kn">from</span> <span class="nn">.resource_builder</span> <span class="k">import</span> <span class="n">ResourceBuilder</span>
+<span class="kn">from</span> <span class="nn">.content_type_cache</span> <span class="k">import</span> <span class="n">ContentTypeCache</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">contentful.client</span>
+<span class="sd">~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">This module implements the Contentful Delivery API Client,</span>
+<span class="sd">allowing interaction with every method present in it.</span>
+
+<span class="sd">Complete API Documentation: https://www.contentful.com/developers/docs/references/content-delivery-api/</span>
+
+<span class="sd">:copyright: (c) 2016 by Contentful GmbH.</span>
+<span class="sd">:license: MIT, see LICENSE for more details.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Constructs the API Client.</span>
+
+<span class="sd">    :param space_id: Space ID of your target space.</span>
+<span class="sd">    :param access_token: API Access Token (Delivery by default,</span>
+<span class="sd">        Preview if overriding api_url).</span>
+<span class="sd">    :param api_url: (optional) URL of the Contentful Target API,</span>
+<span class="sd">        defaults to Delivery API (can be overriden for Preview API).</span>
+<span class="sd">    :param api_version: (optional) Target version of the Contentful API.</span>
+<span class="sd">    :param default_locale: (optional) Default Locale for your Space,</span>
+<span class="sd">        defaults to &#39;en-US&#39;.</span>
+<span class="sd">    :param https: (optional) Boolean determining wether to use https</span>
+<span class="sd">        or http, defaults to True.</span>
+<span class="sd">    :param authorization_as_header: (optional) Boolean determining wether</span>
+<span class="sd">        to send access_token through a header or via GET params,</span>
+<span class="sd">        defaults to True.</span>
+<span class="sd">    :param raw_mode: (optional) Boolean determining wether to process the</span>
+<span class="sd">        response or return it raw after each API call, defaults to True.</span>
+<span class="sd">    :param gzip_encoded: (optional) Boolean determining wether to accept</span>
+<span class="sd">        gzip encoded results, defaults to True.</span>
+<span class="sd">    :param raise_errors: (optional) Boolean determining wether to raise</span>
+<span class="sd">        an exception on requests that aren&#39;t successful, defaults to True.</span>
+<span class="sd">    :param content_type_cache: (optional) Boolean determining wether to</span>
+<span class="sd">        store a Cache of the Content Types in order to properly coerce</span>
+<span class="sd">        Entry fields, defaults to True.</span>
+<span class="sd">    :param proxy_host: (optional) URL for Proxy, defaults to None.</span>
+<span class="sd">    :param proxy_port: (optional) Port for Proxy, defaults to None.</span>
+<span class="sd">    :param proxy_username: (optional) Username for Proxy, defaults to None.</span>
+<span class="sd">    :param proxy_password: (optional) Password for Proxy, defaults to None.</span>
+<span class="sd">    :param max_rate_limit_retries: (optional) Maximum amount of retries</span>
+<span class="sd">        after RateLimitError, defaults to 1.</span>
+<span class="sd">    :param max_rate_limit_wait: (optional) Timeout (in seconds) for waiting</span>
+<span class="sd">        for retry after RateLimitError, defaults to 60.</span>
+<span class="sd">    :return: :class:`Client &lt;Client&gt;` object.</span>
+<span class="sd">    :rtype: contentful.Client</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">        &gt;&gt;&gt; import contentful</span>
+<span class="sd">        &gt;&gt;&gt; client = contentful.Client(&#39;cfexampleapi&#39;, &#39;b4c0n73n7fu1&#39;)</span>
+<span class="sd">        &lt;contentful.Client space_id=&quot;cfexampleapi&quot;</span>
+<span class="sd">          access_token=&quot;b4c0n73n7fu1&quot;</span>
+<span class="sd">          default_locale=&quot;en-US&quot;&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">space_id</span><span class="p">,</span>
+            <span class="n">access_token</span><span class="p">,</span>
+            <span class="n">api_url</span><span class="o">=</span><span class="s1">&#39;cdn.contentful.com&#39;</span><span class="p">,</span>
+            <span class="n">api_version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span>
+            <span class="n">https</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">authorization_as_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">raw_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">gzip_encoded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">raise_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">content_type_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">proxy_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">proxy_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">proxy_username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">proxy_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">max_rate_limit_retries</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">max_rate_limit_wait</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">space_id</span> <span class="o">=</span> <span class="n">space_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span> <span class="o">=</span> <span class="n">access_token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_url</span> <span class="o">=</span> <span class="n">api_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="n">api_version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_locale</span> <span class="o">=</span> <span class="n">default_locale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">https</span> <span class="o">=</span> <span class="n">https</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">authorization_as_header</span> <span class="o">=</span> <span class="n">authorization_as_header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_mode</span> <span class="o">=</span> <span class="n">raw_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gzip_encoded</span> <span class="o">=</span> <span class="n">gzip_encoded</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raise_errors</span> <span class="o">=</span> <span class="n">raise_errors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content_type_cache</span> <span class="o">=</span> <span class="n">content_type_cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxy_host</span> <span class="o">=</span> <span class="n">proxy_host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxy_port</span> <span class="o">=</span> <span class="n">proxy_port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxy_username</span> <span class="o">=</span> <span class="n">proxy_username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxy_password</span> <span class="o">=</span> <span class="n">proxy_password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_rate_limit_retries</span> <span class="o">=</span> <span class="n">max_rate_limit_retries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_rate_limit_wait</span> <span class="o">=</span> <span class="n">max_rate_limit_wait</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_configuration</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_type_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_content_types</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Client.space"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.space">[docs]</a>    <span class="k">def</span> <span class="nf">space</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches the current Space.</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces/get-a-space</span>
+
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: :class:`Space &lt;contentful.space.Space&gt;` object.</span>
+<span class="sd">        :rtype: contentful.space.Space</span>
+
+<span class="sd">        Usage:</span>
+
+<span class="sd">            &gt;&gt;&gt; space = client.space()</span>
+<span class="sd">            &lt;Space[Contentful Example API] id=&#39;cfexampleapi&#39;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.content_type"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.content_type">[docs]</a>    <span class="k">def</span> <span class="nf">content_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_type_id</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches a Content Type by ID.</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types/content-type/get-a-single-content-type</span>
+
+<span class="sd">        :param content_type_id: The ID of the target Content Type.</span>
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: :class:`ContentType &lt;contentful.content_type.ContentType&gt;` object.</span>
+<span class="sd">        :rtype: contentful.content_type.ContentType</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; cat_content_type = client.content_type(&#39;cat&#39;)</span>
+<span class="sd">            &lt;ContentType[Cat] id=&#39;cat&#39;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="s1">&#39;/content_types/</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">content_type_id</span><span class="p">),</span>
+            <span class="n">query</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.content_types"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.content_types">[docs]</a>    <span class="k">def</span> <span class="nf">content_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches all Content Types from the Space.</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types/content-model/get-the-content-model-of-a-space</span>
+
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: List of :class:`ContentType &lt;contentful.content_type.ContentType&gt;` objects.</span>
+<span class="sd">        :rtype: List of contentful.content_type.ContentType</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; content_types = client.content_types()</span>
+<span class="sd">            [&lt;ContentType[City] id=&#39;1t9IbcfdCk6m04uISSsaIK&#39;&gt;,</span>
+<span class="sd">             &lt;ContentType[Human] id=&#39;human&#39;&gt;,</span>
+<span class="sd">             &lt;ContentType[Dog] id=&#39;dog&#39;&gt;,</span>
+<span class="sd">             &lt;ContentType[Cat] id=&#39;cat&#39;&gt;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="s1">&#39;/content_types&#39;</span><span class="p">,</span>
+            <span class="n">query</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.entry"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.entry">[docs]</a>    <span class="k">def</span> <span class="nf">entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry_id</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches an Entry by ID.</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries/entry/get-a-single-entry</span>
+
+<span class="sd">        :param entry_id: The ID of the target Entry.</span>
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: :class:`Entry &lt;contentful.entry.Entry&gt;` object.</span>
+<span class="sd">        :rtype: contentful.entry.Entry</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; nyancat_entry = client.entry(&#39;nyancat&#39;)</span>
+<span class="sd">            &lt;Entry[cat] id=&#39;nyancat&#39;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_select</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">query</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;sys.id&#39;</span><span class="p">:</span> <span class="n">entry_id</span><span class="p">})</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="s1">&#39;/entries&#39;</span><span class="p">,</span>
+            <span class="n">query</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Client.entries"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.entries">[docs]</a>    <span class="k">def</span> <span class="nf">entries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches all Entries from the Space (up to the set limit, can be modified in `query`).</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries/entries-collection/get-all-entries-of-a-space</span>
+
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: List of :class:`Entry &lt;contentful.entry.Entry&gt;` objects.</span>
+<span class="sd">        :rtype: List of contentful.entry.Entry</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; entries = client.entries()</span>
+<span class="sd">            [&lt;Entry[cat] id=&#39;happycat&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;5ETMRzkl9KM4omyMwKAOki&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[dog] id=&#39;6KntaYXaHSyIw8M6eo26OK&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;7qVBlCjpWE86Oseo40gAEY&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[cat] id=&#39;garfield&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;4MU1s3potiUEM2G4okYOqw&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[cat] id=&#39;nyancat&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[1t9IbcfdCk6m04uISSsaIK] id=&#39;ge1xHyH3QOWucKWCCAgIG&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[human] id=&#39;finn&#39;&gt;,</span>
+<span class="sd">             &lt;Entry[dog] id=&#39;jake&#39;&gt;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_select</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="s1">&#39;/entries&#39;</span><span class="p">,</span>
+            <span class="n">query</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.asset"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.asset">[docs]</a>    <span class="k">def</span> <span class="nf">asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_id</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches an Asset by ID.</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/asset/get-a-single-asset</span>
+
+<span class="sd">        :param asset_id: The ID of the target Asset.</span>
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: :class:`Asset &lt;Asset&gt;` object.</span>
+<span class="sd">        :rtype: contentful.asset.Asset</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; nyancat_asset = client.asset(&#39;nyancat&#39;)</span>
+<span class="sd">            &lt;Asset id=&#39;nyancat&#39; url=&#39;//images.contentful.com/cfex...&#39;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="s1">&#39;/assets/</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">asset_id</span><span class="p">),</span>
+            <span class="n">query</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.assets"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.assets">[docs]</a>    <span class="k">def</span> <span class="nf">assets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches all Assets from the Space (up to the set limit, can be modified in `query`).</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/assets-collection/get-all-assets-of-a-space</span>
+
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: List of :class:`Asset &lt;contentful.asset.Asset&gt;` objects.</span>
+<span class="sd">        :rtype: List of contentful.asset.Asset</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; assets = client.assets()</span>
+<span class="sd">            [&lt;Asset id=&#39;1x0xpXu4pSGS4OukSyWGUK&#39; url=&#39;//images.content...&#39;&gt;,</span>
+<span class="sd">             &lt;Asset id=&#39;happycat&#39; url=&#39;//images.contentful.com/cfexam...&#39;&gt;,</span>
+<span class="sd">             &lt;Asset id=&#39;nyancat&#39; url=&#39;//images.contentful.com/cfexamp...&#39;&gt;,</span>
+<span class="sd">             &lt;Asset id=&#39;jake&#39; url=&#39;//images.contentful.com/cfexamplea...&#39;&gt;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_select</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="s1">&#39;/assets&#39;</span><span class="p">,</span>
+            <span class="n">query</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.sync"><a class="viewcode-back" href="../../contentful.html#contentful.client.Client.sync">[docs]</a>    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches content from the Sync API.</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization/initial-synchronization/query-entries</span>
+
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: :class:`SyncPage &lt;contentful.sync_page.SyncPage&gt;` object.</span>
+<span class="sd">        :rtype: contentful.sync_page.SyncPage</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; sync_page = client.sync({&#39;initial&#39;: True})</span>
+<span class="sd">            &lt;SyncPage next_sync_token=&#39;w5ZGw6JFwqZmVcKsE8Kow4grw45QdybC...&#39;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_sync</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="s1">&#39;/sync&#39;</span><span class="p">,</span>
+            <span class="n">query</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_normalize_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If the query contains the :select operator, we enforce :sys properties.</span>
+<span class="sd">        The SDK requires sys.type to function properly, but as other of our</span>
+<span class="sd">        SDKs require more parts of the :sys properties, we decided that every</span>
+<span class="sd">        SDK should include the complete :sys block to provide consistency</span>
+<span class="sd">        accross our SDKs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;select&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">query</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">global</span> <span class="n">basestring</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">basestring</span> <span class="o">=</span> <span class="nb">str</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">],</span>
+                <span class="n">basestring</span><span class="p">):</span>
+            <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
+
+        <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span>
+                           <span class="ow">in</span> <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span>
+                           <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;sys.&#39;</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="s1">&#39;sys&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]:</span>
+            <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;sys&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_normalize_sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Booleans are not properly serialized for GET params,</span>
+<span class="sd">        therefore we enforce it to a truthy value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;initial&#39;</span> <span class="ow">in</span> <span class="n">query</span><span class="p">:</span>
+            <span class="n">query</span><span class="p">[</span><span class="s1">&#39;initial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;true&#39;</span>
+
+    <span class="k">def</span> <span class="nf">_validate_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validates that required parameters are present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">space_id</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationException</span><span class="p">(</span>
+                <span class="s1">&#39;You will need to initialize a client with a Space ID&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationException</span><span class="p">(</span>
+                <span class="s1">&#39;You will need to initialize a client with an Access Token&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_url</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationException</span><span class="p">(</span>
+                <span class="s1">&#39;The client configuration needs to contain an API URL&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_locale</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationException</span><span class="p">(</span>
+                <span class="s1">&#39;The client configuration needs to contain a Default Locale&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationException</span><span class="p">(</span>
+                <span class="s1">&#39;The API Version must be a positive number&#39;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_cache_content_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the Content Type Cache.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ContentTypeCache</span><span class="o">.</span><span class="n">update_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_request_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the default Request Headers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">__version__</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;PythonContentfulClient/</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__version__</span><span class="p">),</span>
+            <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/vnd.contentful.delivery.v</span><span class="si">{0}</span><span class="s1">+json&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>  <span class="c1"># noqa: E501</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">authorization_as_header</span><span class="p">:</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Bearer </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gzip_encoded</span><span class="p">:</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Accept-Encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;gzip&#39;</span>
+
+        <span class="k">return</span> <span class="n">headers</span>
+
+    <span class="k">def</span> <span class="nf">_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the Request URL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">protocol</span> <span class="o">=</span> <span class="s1">&#39;https&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">https</span> <span class="k">else</span> <span class="s1">&#39;http&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">://</span><span class="si">{1}</span><span class="s1">/spaces/</span><span class="si">{2}{3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">protocol</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">api_url</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">space_id</span><span class="p">,</span>
+            <span class="n">url</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_normalize_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts Arrays in the query to comma</span>
+<span class="sd">        separaters lists for proper API handling.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">query</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">query</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_http_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs the HTTP GET Request.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">authorization_as_header</span><span class="p">:</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;access_token&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">})</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_headers</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_proxy</span><span class="p">():</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;proxies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy_parameters</span><span class="p">()</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="n">url</span><span class="p">),</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RateLimitExceededError</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">response</span>
+
+    <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wrapper for the HTTP Request,</span>
+<span class="sd">        Rate Limit Backoff is handled here,</span>
+<span class="sd">        Responses are Processed with ResourceBuilder.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">retry_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_http_get</span><span class="p">)(</span><span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_mode</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">get_error</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raise_errors</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">error</span>
+            <span class="k">return</span> <span class="n">error</span>
+
+        <span class="n">localized</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;locale&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;*&#39;</span>
+        <span class="k">return</span> <span class="n">ResourceBuilder</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">default_locale</span><span class="p">,</span>
+            <span class="n">localized</span><span class="p">,</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_has_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if a Proxy was set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_host</span>
+
+    <span class="k">def</span> <span class="nf">_proxy_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds Proxy parameters Dict from</span>
+<span class="sd">        client options.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">proxy_protocol</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_host</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">):</span>
+            <span class="n">proxy_protocol</span> <span class="o">=</span> <span class="s1">&#39;https&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">proxy_protocol</span> <span class="o">=</span> <span class="s1">&#39;http&#39;</span>
+
+        <span class="n">proxy</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">://&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">proxy_protocol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_username</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_password</span><span class="p">:</span>
+            <span class="n">proxy</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">@&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_password</span><span class="p">)</span>
+
+        <span class="n">proxy</span> <span class="o">+=</span> <span class="n">sub</span><span class="p">(</span><span class="s1">r&#39;https?(://)?&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_host</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_port</span><span class="p">:</span>
+            <span class="n">proxy</span> <span class="o">+=</span> <span class="s1">&#39;:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy_port</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="n">proxy</span><span class="p">,</span>
+            <span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="n">proxy</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;contentful.Client space_id=&quot;</span><span class="si">{0}</span><span class="s1">&quot; access_token=&quot;</span><span class="si">{1}</span><span class="s1">&quot; default_locale=&quot;</span><span class="si">{2}</span><span class="s1">&quot;&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>  <span class="c1"># noqa: E501</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">space_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">default_locale</span>
+        <span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Contentful GmbH.
+      
+    </div>
+
+    
+    <a href="https://github.com/contentful/contentful.py" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

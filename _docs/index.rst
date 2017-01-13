@@ -6,8 +6,7 @@
 Contentful Delivery API SDK
 ===========================
 
-.. image:: https://travis-ci.org/contentful/contentful.py.svg?branch=master
-    :target: https://travis-ci.org/contentful/contentful.py
+Release v\ |version|.
 
 `Contentful <https://www.contentful.com>`_ is a content management platform for web applications, mobile apps and connected devices.
 It allows you to create, edit & manage content in the cloud and publish it anywhere via powerful API.
@@ -204,6 +203,14 @@ To use the logger, use the standard library ``logging`` module::
     client.entries()
     # INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): cdn.contentful.com
     # DEBUG:requests.packages.urllib3.connectionpool:"GET /spaces/cfexampleapi/entries HTTP/1.1" 200 1994
+
+SDK Modules Reference
+---------------------
+
+.. toctree::
+    :maxdepth: 4
+
+    modules
 
 License
 -------
