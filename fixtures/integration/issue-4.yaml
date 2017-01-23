@@ -1,0 +1,97 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [gzip]
+      Authorization: [Bearer bbe871957bb60f988af6cbeeccbb178c36cae09e36e8098357e27b51dd38d88e]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [PythonContentfulClient/1.0.2]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/wltm0euukdog/content_types
+  response:
+    body: {string: !!python/unicode "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n
+        \ \"total\": 1,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n
+        \     \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\":
+        \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"wltm0euukdog\"\n
+        \         }\n        },\n        \"id\": \"test\",\n        \"type\": \"ContentType\",\n
+        \       \"createdAt\": \"2017-01-23T18:02:32.836Z\",\n        \"updatedAt\":
+        \"2017-01-23T18:02:32.836Z\",\n        \"revision\": 1\n      },\n      \"displayField\":
+        \"name\",\n      \"name\": \"Test\",\n      \"description\": \"\",\n      \"fields\":
+        [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n
+        \         \"type\": \"Symbol\",\n          \"localized\": false,\n          \"required\":
+        false,\n          \"disabled\": false,\n          \"omitted\": false\n        }\n
+        \     ]\n    }\n  ]\n}\n"}
+    headers:
+      accept-ranges: [bytes]
+      access-control-allow-headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent']
+      access-control-allow-methods: ['GET,HEAD,OPTIONS']
+      access-control-allow-origin: ['*']
+      access-control-expose-headers: [Etag]
+      access-control-max-age: ['86400']
+      age: ['0']
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['780']
+      content-type: [application/vnd.contentful.delivery.v1+json]
+      date: ['Mon, 23 Jan 2017 18:08:35 GMT']
+      etag: ['"8c46ae3358dd3a55d78d310e74d1f40b"']
+      server: [Contentful]
+      vary: [Accept-Encoding]
+      via: [1.1 varnish]
+      x-cache: [MISS]
+      x-cache-hits: ['0']
+      x-content-type-options: [nosniff, nosniff]
+      x-contentful-request-id: [f9ce1d38523599531099c63dd62fcdd1]
+      x-served-by: [cache-lax8648-LAX]
+      x-timer: ['S1485194914.871587,VS0,VE273']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [gzip]
+      Authorization: [Bearer bbe871957bb60f988af6cbeeccbb178c36cae09e36e8098357e27b51dd38d88e]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [PythonContentfulClient/1.0.2]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/wltm0euukdog/entries
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n
+        \       \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n
+        \           \"linkType\": \"Space\",\n            \"id\": \"wltm0euukdog\"\n
+        \         }\n        },\n        \"id\": \"6b1g8qQ3hCIcsOgKqEsqOi\",\n        \"type\":
+        \"Entry\",\n        \"createdAt\": \"2017-01-23T18:04:56.543Z\",\n        \"updatedAt\":
+        \"2017-01-23T18:04:56.543Z\",\n        \"revision\": 1,\n        \"contentType\":
+        {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\":
+        \"ContentType\",\n            \"id\": \"test\"\n          }\n        },\n
+        \       \"locale\": \"en-US\"\n      },\n      \"fields\": {\n        \"name\":
+        \"\U0001F605\"\n      }\n    }\n  ]\n}\n"}
+    headers:
+      accept-ranges: [bytes]
+      access-control-allow-headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent']
+      access-control-allow-methods: ['GET,HEAD,OPTIONS']
+      access-control-allow-origin: ['*']
+      access-control-expose-headers: [Etag]
+      access-control-max-age: ['86400']
+      age: ['0']
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['711']
+      content-type: [application/vnd.contentful.delivery.v1+json]
+      date: ['Mon, 23 Jan 2017 18:08:36 GMT']
+      etag: ['"4119fdeec6c1f389eafb3e449fc698b9"']
+      server: [Contentful]
+      vary: [Accept-Encoding]
+      via: [1.1 varnish]
+      x-cache: [MISS]
+      x-cache-hits: ['0']
+      x-content-type-options: [nosniff, nosniff]
+      x-contentful-request-id: [5b61e93c7e99078bc717a738a9d8de17]
+      x-served-by: [cache-lax8621-LAX]
+      x-timer: ['S1485194915.963426,VS0,VE216']
+    status: {code: 200, message: OK}
+version: 1

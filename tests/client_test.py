@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import vcr
 from unittest import TestCase
 from contentful.client import Client
@@ -84,3 +86,11 @@ class ClientTest(TestCase):
 
         self.assertEqual(str(sync), "<SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE'>")
         self.assertEqual(str(sync.items[0]), "<Entry[1t9IbcfdCk6m04uISSsaIK] id='5ETMRzkl9KM4omyMwKAOki'>")
+
+    # Integration Tests
+
+    @vcr.use_cassette('fixtures/integration/issue-4.yaml')
+    def test_entries_dont_fail_with_unicode_characters(self):
+        client = Client('wltm0euukdog', 'bbe871957bb60f988af6cbeeccbb178c36cae09e36e8098357e27b51dd38d88e', content_type_cache=True)
+        entries = client.entries()
+        self.assertEqual(entries[0].name, '😅')

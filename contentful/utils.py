@@ -1,5 +1,6 @@
-import time
 import re
+import sys
+import time
 from random import uniform
 from .errors import RateLimitExceededError
 
@@ -24,6 +25,16 @@ This module implements utilities.
 
 logging.getLogger(__name__).addHandler(NullHandler())
 log = logging.getLogger(__name__)
+
+
+def unicode_class():
+    """Returns the class that allows for unicode encoded strings
+    depends on the Python version."""
+
+    if sys.version_info[0] >= 3:
+        return str
+    return unicode
+
 
 
 def snake_case(a_string):
