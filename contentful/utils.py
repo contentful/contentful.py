@@ -33,8 +33,7 @@ def unicode_class():
 
     if sys.version_info[0] >= 3:
         return str
-    return unicode
-
+    return unicode  # noqa: F821
 
 
 def snake_case(a_string):

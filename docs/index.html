@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Contentful Delivery API SDK &#8212; Contentful 1.0.2 documentation</title>
+    <title>Contentful Delivery API SDK &#8212; Contentful 1.0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.2',
+        VERSION:     '1.0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Contentful 1.0.2 documentation" href="#" />
+    <link rel="top" title="Contentful 1.0.3 documentation" href="#" />
     <link rel="next" title="contentful" href="modules.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -44,7 +44,7 @@
             
   <div class="section" id="contentful-delivery-api-sdk">
 <h1>Contentful Delivery API SDK<a class="headerlink" href="#contentful-delivery-api-sdk" title="Permalink to this headline">¶</a></h1>
-<p>Release v1.0.2.</p>
+<p>Release v1.0.3.</p>
 <p><a class="reference external" href="https://www.contentful.com">Contentful</a> is a content management platform for web applications, mobile apps and connected devices.
 It allows you to create, edit &amp; manage content in the cloud and publish it anywhere via powerful API.
 Contentful offers tools for managing editorial teams and enabling cooperation between organizations.</p>
@@ -103,7 +103,7 @@ If you want to fetch a different locale you can do the following:</p>
 </div>
 <p>Then all the fields will be fetched for the requested locale.</p>
 <p>Contentful Delivery API also allows to fetch all locales, you can do so by doing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">entries</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">(</span><span class="n">content_type</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">entries</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">({</span><span class="s1">&#39;content_type&#39;</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;locale&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">})</span>
 
 <span class="c1"># assuming the entry has a field called name</span>
 <span class="n">my_spanish_name</span> <span class="o">=</span> <span class="n">entries</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="s1">&#39;es-AR&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>

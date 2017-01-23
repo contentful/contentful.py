@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>contentful.content_type_field_types &#8212; Contentful 1.0.2 documentation</title>
+    <title>contentful.content_type_field_types &#8212; Contentful 1.0.3 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0.2',
+        VERSION:     '1.0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="Contentful 1.0.2 documentation" href="../../index.html" />
+    <link rel="top" title="Contentful 1.0.3 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
@@ -45,6 +45,7 @@
   <h1>Source code for contentful.content_type_field_types</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">dateutil.parser</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">unicode_class</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">contentful.content_type_field_types</span>
@@ -80,7 +81,7 @@
 <div class="viewcode-block" id="SymbolField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.SymbolField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Coerces value to str&quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">unicode_class</span><span class="p">()(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="TextField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.TextField">[docs]</a><span class="k">class</span> <span class="nc">TextField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
@@ -89,7 +90,7 @@
 <div class="viewcode-block" id="TextField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.TextField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Coerces value to str&quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">unicode_class</span><span class="p">()(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="IntegerField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.IntegerField">[docs]</a><span class="k">class</span> <span class="nc">IntegerField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>

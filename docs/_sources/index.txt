@@ -71,7 +71,7 @@ Then all the fields will be fetched for the requested locale.
 
 Contentful Delivery API also allows to fetch all locales, you can do so by doing::
 
-    entries = client.entries(content_type: 'cat', locale: '*')
+    entries = client.entries({'content_type': 'cat', 'locale': '*'})
 
     # assuming the entry has a field called name
     my_spanish_name = entries.first.fields('es-AR')['name']

@@ -65,6 +65,7 @@ docs:
 	sphinx-apidoc -o _docs/ contentful
 	cd _docs && make html
 	cp LICENSE _docs/_build/html/
+	rm -rf docs
 	cp -r _docs/_build/html docs
 
 	open docs/index.html
