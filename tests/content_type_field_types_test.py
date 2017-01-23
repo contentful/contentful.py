@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from unittest import TestCase
 from datetime import datetime
 from contentful.content_type_field_types import (
@@ -19,17 +21,26 @@ class BasicFieldTest(TestCase):
         self.assertEqual(BasicField().coerce('foo'), 'foo')
         self.assertEqual(BasicField().coerce(123), 123)
 
+    def test_unicode_chars_dont_fail(self):
+        self.assertEqual(TextField().coerce('😅'), '😅')
+
 
 class SymbolFieldTest(TestCase):
     def test_symbol_field(self):
         self.assertEqual(SymbolField().coerce('foo'), 'foo')
         self.assertEqual(SymbolField().coerce(123), '123')
 
+    def test_unicode_chars_dont_fail(self):
+        self.assertEqual(TextField().coerce('😅'), '😅')
+
 
 class TextFieldTest(TestCase):
     def test_text_field(self):
         self.assertEqual(TextField().coerce('foo'), 'foo')
         self.assertEqual(TextField().coerce(123), '123')
+
+    def test_unicode_chars_dont_fail(self):
+        self.assertEqual(TextField().coerce('😅'), '😅')
 
 
 class IntegerFieldTest(TestCase):

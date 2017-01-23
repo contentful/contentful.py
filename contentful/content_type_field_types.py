@@ -1,5 +1,6 @@
 import dateutil.parser
 from collections import namedtuple
+from .utils import unicode_class
 
 """
 contentful.content_type_field_types
@@ -35,7 +36,7 @@ class SymbolField(BasicField):
     def coerce(self, value):
         """Coerces value to str"""
 
-        return str(value)
+        return unicode_class()(value)
 
 
 class TextField(BasicField):
@@ -44,7 +45,7 @@ class TextField(BasicField):
     def coerce(self, value):
         """Coerces value to str"""
 
-        return str(value)
+        return unicode_class()(value)
 
 
 class IntegerField(BasicField):

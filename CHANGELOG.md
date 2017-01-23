@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+* Fixed Unicode Decode for 2.x Python [#4](https://github.com/contentful/contentful.py/issues/4)
 
 ## v1.0.2
 ### Fixed
