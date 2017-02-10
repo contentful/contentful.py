@@ -55,8 +55,6 @@ test-all:
 coverage:
 	coverage run --source contentful setup.py test
 	coverage report -m
-	coverage html
-	open htmlcov/index.html
 
 docs:
 	rm -f _docs/contentful.rst
