@@ -2,7 +2,7 @@ import requests
 import sys
 from re import sub
 from .utils import ConfigurationException, retry_request
-from .errors import get_error, RateLimitExceededError
+from .errors import get_error, RateLimitExceededError, EntryNotFoundError
 from .resource_builder import ResourceBuilder
 from .content_type_cache import ContentTypeCache
 
@@ -185,11 +185,16 @@ class Client(object):
             query = {}
         self._normalize_select(query)
 
-        query.update({'sys.id': entry_id})
-        return self._get(
-            '/entries',
-            query
-        )[0]
+        try:
+            query.update({'sys.id': entry_id})
+            return self._get(
+                '/entries',
+                query
+            )[0]
+        except IndexError:
+            raise EntryNotFoundError(
+                "Entry not found for ID: '{0}'".format(entry_id)
+            )
 
     def entries(self, query=None):
         """Fetches all Entries from the Space (up to the set limit, can be modified in `query`).

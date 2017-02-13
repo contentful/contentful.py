@@ -4,6 +4,7 @@ import vcr
 from unittest import TestCase
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
+from contentful.errors import EntryNotFoundError
 
 
 class ClientTest(TestCase):
@@ -49,6 +50,11 @@ class ClientTest(TestCase):
 
         self.assertEqual(str(entry), "<Entry[cat] id='nyancat'>")
         self.assertEqual(str(entry.best_friend), "<Entry[cat] id='happycat'>")
+
+    @vcr.use_cassette('fixtures/client/entry_not_found.yaml')
+    def test_client_entry_not_found(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        self.assertRaises(EntryNotFoundError, client.entry, 'foobar')
 
     @vcr.use_cassette('fixtures/client/entries.yaml')
     def test_client_entries(self):
