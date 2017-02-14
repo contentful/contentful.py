@@ -71,6 +71,13 @@ class ServiceUnavailableError(HTTPError):
     pass
 
 
+class EntryNotFoundError(Exception):
+    """
+    Error for entry not found.
+    """
+    pass
+
+
 def get_error(response):
     """Gets Error by HTTP Status Code"""
 

@@ -4,6 +4,7 @@ import vcr
 from unittest import TestCase
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
+from contentful.errors import EntryNotFoundError
 
 
 class ClientTest(TestCase):
@@ -50,6 +51,11 @@ class ClientTest(TestCase):
         self.assertEqual(str(entry), "<Entry[cat] id='nyancat'>")
         self.assertEqual(str(entry.best_friend), "<Entry[cat] id='happycat'>")
 
+    @vcr.use_cassette('fixtures/client/entry_not_found.yaml')
+    def test_client_entry_not_found(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        self.assertRaises(EntryNotFoundError, client.entry, 'foobar')
+
     @vcr.use_cassette('fixtures/client/entries.yaml')
     def test_client_entries(self):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
@@ -86,6 +92,13 @@ class ClientTest(TestCase):
 
         self.assertEqual(str(sync), "<SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE'>")
         self.assertEqual(str(sync.items[0]), "<Entry[1t9IbcfdCk6m04uISSsaIK] id='5ETMRzkl9KM4omyMwKAOki'>")
+
+    @vcr.use_cassette('fixtures/client/array_endpoints.yaml')
+    def test_client_creates_wrapped_arrays(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        self.assertEquals(str(client.content_types()), "<Array size='4' total='4' limit='100' skip='0'>")
+        self.assertEquals(str(client.entries()), "<Array size='10' total='10' limit='100' skip='0'>")
+        self.assertEquals(str(client.assets()), "<Array size='4' total='4' limit='100' skip='0'>")
 
     # Integration Tests
 

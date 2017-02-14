@@ -1,6 +1,11 @@
 # CHANGELOG
 
 ## Unreleased
+### Added
+* Add wrapper object around array-like endpoints [#9](https://github.com/contentful/contentful.py/issues/9)
+
+### Fixed
+* Fix exception thrown on Entry not found [#8](https://github.com/contentful/contentful.py/issues/8)
 
 ## v1.0.3
 ### Fixed

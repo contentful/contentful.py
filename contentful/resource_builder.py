@@ -1,4 +1,5 @@
 # Classes imported here are meant to be used via globals() on build
+from .array import Array  # noqa: F401
 from .entry import Entry  # noqa: F401
 from .asset import Asset  # noqa: F401
 from .space import Space  # noqa: F401
@@ -60,7 +61,7 @@ class ResourceBuilder(object):
             item,
             includes=includes
         ) for item in self.json['items']]
-        return items
+        return Array(self.json, items)
 
     def _build_item(self, item, includes=None):
         if includes is None:
