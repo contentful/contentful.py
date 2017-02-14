@@ -4,6 +4,14 @@ contentful package
 Submodules
 ----------
 
+contentful.array module
+-----------------------
+
+.. automodule:: contentful.array
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 contentful.asset module
 -----------------------
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>contentful package &#8212; Contentful 1.0.3 documentation</title>
+    <title>contentful package &#8212; Contentful 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.3',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Contentful 1.0.3 documentation" href="index.html" />
+    <link rel="top" title="Contentful 1.1.0 documentation" href="index.html" />
     <link rel="up" title="contentful" href="modules.html" />
     <link rel="prev" title="contentful" href="modules.html" />
    
@@ -47,6 +47,35 @@
 <h1>contentful package<a class="headerlink" href="#contentful-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-contentful.array">
+<span id="contentful-array-module"></span><h2>contentful.array module<a class="headerlink" href="#module-contentful.array" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contentful-array">
+<h3>contentful.array<a class="headerlink" href="#contentful-array" title="Permalink to this headline">¶</a></h3>
+<p>This module implements the Array class.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/collection-resources-and-pagination">https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/collection-resources-and-pagination</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
+<li>2017 by Contentful GmbH.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">MIT, see LICENSE for more details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="contentful.array.Array">
+<em class="property">class </em><code class="descclassname">contentful.array.</code><code class="descname">Array</code><span class="sig-paren">(</span><em>json</em>, <em>items</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/array.html#Array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.array.Array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/collection-resources-and-pagination">https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/collection-resources-and-pagination</a></p>
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="module-contentful.asset">
 <span id="contentful-asset-module"></span><h2>contentful.asset module<a class="headerlink" href="#module-contentful.asset" title="Permalink to this headline">¶</a></h2>
@@ -678,6 +707,13 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 </dd></dl>
 
 <dl class="exception">
+<dt id="contentful.errors.EntryNotFoundError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">EntryNotFoundError</code><a class="reference internal" href="_modules/contentful/errors.html#EntryNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.EntryNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Error for entry not found.</p>
+</dd></dl>
+
+<dl class="exception">
 <dt id="contentful.errors.HTTPError">
 <em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">HTTPError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#HTTPError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.HTTPError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
@@ -993,6 +1029,10 @@ depends on the Python version.</p>
   <ul>
 <li><a class="reference internal" href="#">contentful package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-contentful.array">contentful.array module</a><ul>
+<li><a class="reference internal" href="#contentful-array">contentful.array</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-contentful.asset">contentful.asset module</a></li>
 <li><a class="reference internal" href="#module-contentful.client">contentful.client module</a></li>
 <li><a class="reference internal" href="#module-contentful.content_type">contentful.content_type module</a></li>

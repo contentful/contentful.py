@@ -83,7 +83,7 @@ setup(
     zip_safe=False,
     keywords='contentful',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Topic :: Software Development :: Libraries',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
