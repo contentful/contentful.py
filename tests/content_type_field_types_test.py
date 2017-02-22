@@ -121,7 +121,7 @@ class ObjectFieldTest(TestCase):
         object_field = ObjectField()
 
         self.assertEqual(object_field.coerce({'foo': 'bar'}), {'foo': 'bar'})
-
-        self.assertRaises(Exception, object_field.coerce, 123)
-        self.assertRaises(Exception, object_field.coerce, 'foo')
-        self.assertRaises(Exception, object_field.coerce, [1, 2, 3])
+        self.assertEqual(object_field.coerce(123), 123)
+        self.assertEqual(object_field.coerce('foo'), 'foo')
+        self.assertEqual(object_field.coerce([1, 2, 3]), [1, 2, 3])
+        self.assertEqual(object_field.coerce([{'foo': 'bar'}, {'baz': 'qux'}]), [{'foo': 'bar'}, {'baz': 'qux'}])

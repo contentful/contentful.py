@@ -1,3 +1,8 @@
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
 import dateutil.parser
 from collections import namedtuple
 from .utils import unicode_class
@@ -128,9 +133,11 @@ class ArrayField(BasicField):
 
 
 class ObjectField(BasicField):
-    """Object Coercion Class"""
+    """
+    Object Coercion Class
+    """
 
     def coerce(self, value):
-        """Coerces value to dict"""
+        """Coerces JSON values properly."""
 
-        return dict(value)
+        return json.loads(json.dumps(value))

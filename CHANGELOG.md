@@ -6,6 +6,7 @@
 
 ### Fixed
 * Fix exception thrown on Entry not found [#8](https://github.com/contentful/contentful.py/issues/8)
+* Fix JSON Deserialization when Arrays are included in the JSON Object fields
 
 ## v1.0.3
 ### Fixed
