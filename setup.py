@@ -62,6 +62,7 @@ if sys.argv[-1] == 'publish':
     print("Pushing tags to GitHub:")
     os.system("git tag -a %(version)s -m 'version %(version)s'" % args)
     os.system("git push --tags")
+    os.system("git push")
     sys.exit()
 
 
