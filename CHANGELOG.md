@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.1.1
 ### Fixed
 * Fix JSON Deserialization when Arrays are included in the JSON Object fields
 * Fix return values when value is `None` [#11](https://github.com/contentful/contentful.py/issues/11)
