@@ -1,12 +1,16 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+* Fix JSON Deserialization when Arrays are included in the JSON Object fields
+* Fix return values when value is `None` [#11](https://github.com/contentful/contentful.py/issues/11)
+
+## v1.1.0
 ### Added
 * Add wrapper object around array-like endpoints [#9](https://github.com/contentful/contentful.py/issues/9)
 
 ### Fixed
 * Fix exception thrown on Entry not found [#8](https://github.com/contentful/contentful.py/issues/8)
-* Fix JSON Deserialization when Arrays are included in the JSON Object fields
 
 ## v1.0.3
 ### Fixed

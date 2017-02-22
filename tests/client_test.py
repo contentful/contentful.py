@@ -113,3 +113,18 @@ class ClientTest(TestCase):
         client = Client('4int1zgmkwcf', 'd2ac2076019bd4a8357811cbdd5563bb7186d90d77e53c265a1bafd9f83439e8', content_type_cache=True)
         entries = client.entries()
         self.assertEqual(entries[0].json, [{'foo': 'bar'}, {'baz': 'qux'}])
+
+    @vcr.use_cassette('fixtures/integration/issue-11.yaml')
+    def test_entries_with_none_values_on_all_fields(self):
+        client = Client('rtx5c7z0zbas', 'a6c8dc438d470c51d1094dad146a1f20fcdba41e21f4e263af6c3f70d8583634', content_type_cache=True)
+        entry = client.entries()[0]
+        self.assertEqual(entry.symbol, None)
+        self.assertEqual(entry.text, None)
+        self.assertEqual(entry.integer, None)
+        self.assertEqual(entry.number, None)
+        self.assertEqual(entry.date, None)
+        self.assertEqual(entry.location, None)
+        self.assertEqual(entry.asset, None)
+        self.assertEqual(entry.bool, None)
+        self.assertEqual(entry.json, None)
+        self.assertEqual(entry.link, None)

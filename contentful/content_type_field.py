@@ -34,6 +34,8 @@ class ContentTypeField(object):
     def coerce(self, value):
         """Coerces the value to the proper type."""
 
+        if value is None:
+            return None
         return self._coercion.coerce(value)
 
     def _get_coercion(self):
