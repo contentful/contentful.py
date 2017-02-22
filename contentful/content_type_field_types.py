@@ -59,7 +59,7 @@ class IntegerField(BasicField):
     def coerce(self, value):
         """Coerces value to int"""
 
-        return int(value) if value is not None else None
+        return int(value)
 
 
 class NumberField(BasicField):
@@ -68,7 +68,7 @@ class NumberField(BasicField):
     def coerce(self, value):
         """Coerces value to float"""
 
-        return float(value) if value is not None else None
+        return float(value)
 
 
 class DateField(BasicField):
