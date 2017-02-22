@@ -107,3 +107,9 @@ class ClientTest(TestCase):
         client = Client('wltm0euukdog', 'bbe871957bb60f988af6cbeeccbb178c36cae09e36e8098357e27b51dd38d88e', content_type_cache=True)
         entries = client.entries()
         self.assertEqual(entries[0].name, '😅')
+
+    @vcr.use_cassette('fixtures/integration/json-arrays.yaml')
+    def test_entries_dont_fail_with_arrays_as_json_root(self):
+        client = Client('4int1zgmkwcf', 'd2ac2076019bd4a8357811cbdd5563bb7186d90d77e53c265a1bafd9f83439e8', content_type_cache=True)
+        entries = client.entries()
+        self.assertEqual(entries[0].json, [{'foo': 'bar'}, {'baz': 'qux'}])
