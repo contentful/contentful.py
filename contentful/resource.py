@@ -31,10 +31,12 @@ class Resource(object):
             default_locale='en-US',
             includes=None,
             localized=False,
-            depth=0):
+            depth=0,
+            max_depth=20):
         self.raw = item
         self.default_locale = default_locale
         self._depth = depth
+        self._max_depth = max_depth
         self.sys = self._hydrate_sys(item)
 
     def _hydrate_sys(self, item):
@@ -69,16 +71,14 @@ class FieldsResource(Resource):
     def __init__(
             self,
             item,
-            default_locale='en-US',
             includes=None,
             localized=False,
-            depth=0):
+            **kwargs):
         super(FieldsResource, self).__init__(
             item,
-            default_locale,
-            includes,
-            localized,
-            depth
+            includes=includes,
+            localized=localized,
+            **kwargs
         )
 
         self._fields = self._hydrate_fields(item, localized, includes)

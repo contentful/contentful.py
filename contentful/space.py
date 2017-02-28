@@ -20,20 +20,8 @@ class Space(Resource):
     API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces
     """
 
-    def __init__(
-            self,
-            item,
-            default_locale='en-US',
-            includes=None,
-            localized=False,
-            depth=0):
-        super(Space, self).__init__(
-            item,
-            default_locale,
-            includes,
-            localized,
-            depth
-        )
+    def __init__(self, item, **kwargs):
+        super(Space, self).__init__(item, **kwargs)
         self.name = item.get('name', '')
         self.locales = [Locale(locale) for locale in item.get('locales', [])]
 

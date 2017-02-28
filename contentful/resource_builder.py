@@ -29,12 +29,14 @@ class ResourceBuilder(object):
             localized,
             json,
             includes_for_single=None,
-            depth=0):
+            depth=0,
+            max_depth=20):
         self.default_locale = default_locale
         self.localized = localized
         self.json = json
         self.includes_for_single = includes_for_single
         self.depth = depth
+        self.max_depth = max_depth
 
     def build(self):
         """Creates the objects from the JSON response"""
@@ -81,7 +83,8 @@ class ResourceBuilder(object):
                 default_locale=self.default_locale,
                 localized=self.localized,
                 includes=includes,
-                depth=self.depth
+                depth=self.depth,
+                max_depth=self.max_depth
             )
 
     def _includes(self):

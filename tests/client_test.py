@@ -128,3 +128,26 @@ class ClientTest(TestCase):
         self.assertEqual(entry.bool, None)
         self.assertEqual(entry.json, None)
         self.assertEqual(entry.link, None)
+
+    @vcr.use_cassette('fixtures/integration/circular-references.yaml')
+    def test_circular_references_default_depth(self):
+        client = Client('rk19fq93y3vw', '821aa502a7ce820e46adb30fa6942889619aac4342a7021cfe15197c52a593cc', content_type_cache=True)
+        a = client.entry('6kdfS7uMs8owuEIoSaOcQk')
+        self.assertEqual(str(a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
+        self.assertEqual(str(a.b), "<Entry[b] id='7oADpDPuneEAsWUiO2CmEo'>")
+        self.assertEqual(str(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
+        self.assertEqual(str(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b), "<Link[Entry] id='7oADpDPuneEAsWUiO2CmEo'>")
+
+
+    @vcr.use_cassette('fixtures/integration/circular-references.yaml')
+    def test_circular_references_set_depth(self):
+        client = Client(
+            'rk19fq93y3vw',
+            '821aa502a7ce820e46adb30fa6942889619aac4342a7021cfe15197c52a593cc',
+            content_type_cache=True,
+            max_include_resolution_depth=1
+        )
+        a = client.entry('6kdfS7uMs8owuEIoSaOcQk')
+        self.assertEqual(str(a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
+        self.assertEqual(str(a.b), "<Entry[b] id='7oADpDPuneEAsWUiO2CmEo'>")
+        self.assertEqual(str(a.b.a), "<Link[Entry] id='6kdfS7uMs8owuEIoSaOcQk'>")

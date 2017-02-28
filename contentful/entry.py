@@ -57,11 +57,11 @@ class Entry(FieldsResource):
         )
 
     def _build_nested_resource(self, value, localized, includes):
-        # Maximum include Depth is 10 in the API, but we raise it to 20,
+        # Maximum include Depth is 10 in the API, but we raise it to 20 (default),
         # in case one of the included items has a reference in an upper level,
         # so we can keep the include chain for that object as well
         # Any included object after the 20th level of depth will be just a Link
-        if self._depth <= 20:
+        if self._depth < self._max_depth:
             resource = resource_for_link(value, includes)
 
             if resource is not None:
@@ -80,7 +80,8 @@ class Entry(FieldsResource):
             localized,
             resource,
             includes,
-            depth=self._depth + 1
+            depth=self._depth + 1,
+            max_depth=self._max_depth
         ).build()
 
     def __repr__(self):
