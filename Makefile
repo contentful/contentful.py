@@ -68,7 +68,7 @@ docs:
 
 	open docs/index.html
 
-release: clean
+release: clean docs
 	python setup.py publish
 
 dist: clean
