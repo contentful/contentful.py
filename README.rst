@@ -151,6 +151,8 @@ Client Configuration Options
 
 ``max_rate_limit_wait``: (optional) Timeout (in seconds) for waiting for retry after RateLimitError, defaults to 60.
 
+``max_include_resolution_depth``: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2).
+
 Synchronization
 ---------------
 

@@ -20,20 +20,8 @@ class ContentType(Resource):
     API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types
     """
 
-    def __init__(
-            self,
-            item,
-            default_locale='en-US',
-            includes=None,
-            localized=False,
-            depth=0):
-        super(ContentType, self).__init__(
-            item,
-            default_locale,
-            includes,
-            localized,
-            depth
-        )
+    def __init__(self, item, **kwargs):
+        super(ContentType, self).__init__(item, **kwargs)
         self.name = item.get('name', '')
         self.description = item.get('description', '')
         self.display_field = item.get('displayField', '')

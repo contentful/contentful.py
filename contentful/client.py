@@ -54,6 +54,8 @@ class Client(object):
         after RateLimitError, defaults to 1.
     :param max_rate_limit_wait: (optional) Timeout (in seconds) for waiting
         for retry after RateLimitError, defaults to 60.
+    :param max_include_resolution_depth: (optional) Maximum include resolution
+        level for Resources, defaults to 20 (max include level * 2).
     :return: :class:`Client <Client>` object.
     :rtype: contentful.Client
 
@@ -84,7 +86,8 @@ class Client(object):
             proxy_username=None,
             proxy_password=None,
             max_rate_limit_retries=1,
-            max_rate_limit_wait=60):
+            max_rate_limit_wait=60,
+            max_include_resolution_depth=20):
         self.space_id = space_id
         self.access_token = access_token
         self.api_url = api_url
@@ -102,6 +105,7 @@ class Client(object):
         self.proxy_password = proxy_password
         self.max_rate_limit_retries = max_rate_limit_retries
         self.max_rate_limit_wait = max_rate_limit_wait
+        self.max_include_resolution_depth = max_include_resolution_depth
 
         self._validate_configuration()
         if self.content_type_cache:
@@ -464,7 +468,8 @@ class Client(object):
         return ResourceBuilder(
             self.default_locale,
             localized,
-            response.json()
+            response.json(),
+            max_depth=self.max_include_resolution_depth
         ).build()
 
     def _has_proxy(self):

@@ -20,20 +20,8 @@ class SyncPage(Resource):
     API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization
     """
 
-    def __init__(
-            self,
-            item,
-            default_locale='en-US',
-            includes=None,
-            localized=True,
-            depth=0):
-        super(SyncPage, self).__init__(
-            item,
-            default_locale,
-            includes,
-            localized,
-            depth
-        )
+    def __init__(self, item, **kwargs):
+        super(SyncPage, self).__init__(item, **kwargs)
 
         self.next_sync_url = item.get('nextSyncUrl', '')
         self.next_sync_token = self._get_sync_token()
