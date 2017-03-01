@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>contentful.entry &#8212; Contentful 1.1.1 documentation</title>
+    <title>contentful.entry &#8212; Contentful 1.2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.1.1',
+        VERSION:     '1.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="Contentful 1.1.1 documentation" href="../../index.html" />
+    <link rel="top" title="Contentful 1.2.0 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
@@ -102,11 +102,11 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_build_nested_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">):</span>
-        <span class="c1"># Maximum include Depth is 10 in the API, but we raise it to 20,</span>
+        <span class="c1"># Maximum include Depth is 10 in the API, but we raise it to 20 (default),</span>
         <span class="c1"># in case one of the included items has a reference in an upper level,</span>
         <span class="c1"># so we can keep the include chain for that object as well</span>
         <span class="c1"># Any included object after the 20th level of depth will be just a Link</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_depth</span><span class="p">:</span>
             <span class="n">resource</span> <span class="o">=</span> <span class="n">resource_for_link</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">resource</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -125,7 +125,8 @@
             <span class="n">localized</span><span class="p">,</span>
             <span class="n">resource</span><span class="p">,</span>
             <span class="n">includes</span><span class="p">,</span>
-            <span class="n">depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">max_depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_depth</span>
         <span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

@@ -65,10 +65,13 @@ docs:
 	cp LICENSE _docs/_build/html/
 	rm -rf docs
 	cp -r _docs/_build/html docs
-
 	open docs/index.html
 
-release: clean
+git-docs: docs
+	git add docs
+	git commit --amend -C HEAD
+
+release: clean git-docs
 	python setup.py publish
 
 dist: clean

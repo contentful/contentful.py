@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.2.0
 ### Added
 * Added configuration option `max_include_resolution_depth` for controlling depth of reference resolution.
 

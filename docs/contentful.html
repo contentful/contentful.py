@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>contentful package &#8212; Contentful 1.1.1 documentation</title>
+    <title>contentful package &#8212; Contentful 1.2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.1.1',
+        VERSION:     '1.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Contentful 1.1.1 documentation" href="index.html" />
+    <link rel="top" title="Contentful 1.2.0 documentation" href="index.html" />
     <link rel="up" title="contentful" href="modules.html" />
     <link rel="prev" title="contentful" href="modules.html" />
    
@@ -81,7 +81,7 @@
 <span id="contentful-asset-module"></span><h2>contentful.asset module<a class="headerlink" href="#module-contentful.asset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.asset.Asset">
-<em class="property">class </em><code class="descclassname">contentful.asset.</code><code class="descname">Asset</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.asset.</code><code class="descname">Asset</code><span class="sig-paren">(</span><em>item</em>, <em>includes=None</em>, <em>localized=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.FieldsResource" title="contentful.resource.FieldsResource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.FieldsResource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets</a></p>
 <dl class="method">
@@ -108,7 +108,7 @@ with serialized parameters.</p>
 <span id="contentful-client-module"></span><h2>contentful.client module<a class="headerlink" href="#module-contentful.client" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.client.Client">
-<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em>, <em>max_include_resolution_depth=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Constructs the API Client.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -146,6 +146,8 @@ Entry fields, defaults to True.</li>
 after RateLimitError, defaults to 1.</li>
 <li><strong>max_rate_limit_wait</strong> &#8211; (optional) Timeout (in seconds) for waiting
 for retry after RateLimitError, defaults to 60.</li>
+<li><strong>max_include_resolution_depth</strong> &#8211; (optional) Maximum include resolution
+level for Resources, defaults to 20 (max include level * 2).</li>
 </ul>
 </td>
 </tr>
@@ -418,7 +420,7 @@ for retry after RateLimitError, defaults to 60.</li>
 <span id="contentful-content-type-module"></span><h2>contentful.content_type module<a class="headerlink" href="#module-contentful.content_type" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.content_type.ContentType">
-<em class="property">class </em><code class="descclassname">contentful.content_type.</code><code class="descname">ContentType</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type.html#ContentType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type.ContentType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.content_type.</code><code class="descname">ContentType</code><span class="sig-paren">(</span><em>item</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type.html#ContentType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type.ContentType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types</a></p>
 <dl class="method">
@@ -646,7 +648,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <span id="contentful-deleted-asset-module"></span><h2>contentful.deleted_asset module<a class="headerlink" href="#module-contentful.deleted_asset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.deleted_asset.DeletedAsset">
-<em class="property">class </em><code class="descclassname">contentful.deleted_asset.</code><code class="descname">DeletedAsset</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/deleted_asset.html#DeletedAsset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.deleted_asset.DeletedAsset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.deleted_asset.</code><code class="descname">DeletedAsset</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em>, <em>max_depth=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/deleted_asset.html#DeletedAsset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.deleted_asset.DeletedAsset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</a></p>
 </dd></dl>
@@ -656,7 +658,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <span id="contentful-deleted-entry-module"></span><h2>contentful.deleted_entry module<a class="headerlink" href="#module-contentful.deleted_entry" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.deleted_entry.DeletedEntry">
-<em class="property">class </em><code class="descclassname">contentful.deleted_entry.</code><code class="descname">DeletedEntry</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/deleted_entry.html#DeletedEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.deleted_entry.DeletedEntry" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.deleted_entry.</code><code class="descname">DeletedEntry</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em>, <em>max_depth=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/deleted_entry.html#DeletedEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.deleted_entry.DeletedEntry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</a></p>
 </dd></dl>
@@ -666,7 +668,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <span id="contentful-entry-module"></span><h2>contentful.entry module<a class="headerlink" href="#module-contentful.entry" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.entry.Entry">
-<em class="property">class </em><code class="descclassname">contentful.entry.</code><code class="descname">Entry</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/entry.html#Entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.entry.Entry" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.entry.</code><code class="descname">Entry</code><span class="sig-paren">(</span><em>item</em>, <em>includes=None</em>, <em>localized=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/entry.html#Entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.entry.Entry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.FieldsResource" title="contentful.resource.FieldsResource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.FieldsResource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries</a></p>
 </dd></dl>
@@ -796,7 +798,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <span id="contentful-resource-module"></span><h2>contentful.resource module<a class="headerlink" href="#module-contentful.resource" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.resource.FieldsResource">
-<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">FieldsResource</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#FieldsResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.FieldsResource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">FieldsResource</code><span class="sig-paren">(</span><em>item</em>, <em>includes=None</em>, <em>localized=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#FieldsResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.FieldsResource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>Fields Resource Class</p>
 <p>Implements locale handling for Resource fields.</p>
@@ -823,7 +825,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 
 <dl class="class">
 <dt id="contentful.resource.Link">
-<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">Link</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#Link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.Link" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">Link</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em>, <em>max_depth=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#Link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.Link" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>Link Class</p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/links">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/links</a></p>
@@ -837,7 +839,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 
 <dl class="class">
 <dt id="contentful.resource.Resource">
-<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">Resource</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.Resource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">Resource</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em>, <em>max_depth=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.Resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Base Resource Class</p>
 <p>Implements common resource attributes.</p>
@@ -849,7 +851,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <span id="contentful-resource-builder-module"></span><h2>contentful.resource_builder module<a class="headerlink" href="#module-contentful.resource_builder" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.resource_builder.ResourceBuilder">
-<em class="property">class </em><code class="descclassname">contentful.resource_builder.</code><code class="descname">ResourceBuilder</code><span class="sig-paren">(</span><em>default_locale</em>, <em>localized</em>, <em>json</em>, <em>includes_for_single=None</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource_builder.html#ResourceBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource_builder.ResourceBuilder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.resource_builder.</code><code class="descname">ResourceBuilder</code><span class="sig-paren">(</span><em>default_locale</em>, <em>localized</em>, <em>json</em>, <em>includes_for_single=None</em>, <em>depth=0</em>, <em>max_depth=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource_builder.html#ResourceBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource_builder.ResourceBuilder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Creates objects of the proper Resource Type</p>
 <dl class="method">
@@ -865,7 +867,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <span id="contentful-space-module"></span><h2>contentful.space module<a class="headerlink" href="#module-contentful.space" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.space.Space">
-<em class="property">class </em><code class="descclassname">contentful.space.</code><code class="descname">Space</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=False</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/space.html#Space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.space.Space" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.space.</code><code class="descname">Space</code><span class="sig-paren">(</span><em>item</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/space.html#Space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.space.Space" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/spaces</a></p>
 </dd></dl>
@@ -875,7 +877,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <span id="contentful-sync-page-module"></span><h2>contentful.sync_page module<a class="headerlink" href="#module-contentful.sync_page" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.sync_page.SyncPage">
-<em class="property">class </em><code class="descclassname">contentful.sync_page.</code><code class="descname">SyncPage</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>localized=True</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/sync_page.html#SyncPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.sync_page.SyncPage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.sync_page.</code><code class="descname">SyncPage</code><span class="sig-paren">(</span><em>item</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/sync_page.html#SyncPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.sync_page.SyncPage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</a></p>
 <dl class="method">
