@@ -153,6 +153,14 @@ Client Configuration Options
 
 ``max_include_resolution_depth``: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2).
 
+``application_name``: (optional) User application name, defaults to None.
+
+``application_version``: (optional) User application version, defaults to None.
+
+``integration_name``: (optional) Integration name, defaults to None.
+
+``integration_version``: (optional) Integration version, defaults to None.
+
 Synchronization
 ---------------
 

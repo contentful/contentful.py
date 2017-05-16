@@ -5,11 +5,30 @@ from unittest import TestCase
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
+from contentful.utils import ConfigurationException
 
 
 class ClientTest(TestCase):
     def setUp(self):
         ContentTypeCache.__CACHE__ = []
+
+    def test_client_repr(self):
+        self.assertEqual(
+            '<contentful.Client space_id="cfexampleapi" access_token="b4c0n73n7fu1" default_locale="en-US">',
+            str(Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False))
+        )
+
+    def test_client_validations(self):
+        with self.assertRaises(ConfigurationException):
+            Client(None, 'foo')
+        with self.assertRaises(ConfigurationException):
+            Client('foo', None)
+        with self.assertRaises(ConfigurationException):
+            Client('foo', 'bar', api_url=None)
+        with self.assertRaises(ConfigurationException):
+            Client('foo', 'bar', default_locale=None)
+        with self.assertRaises(ConfigurationException):
+            Client('foo', 'bar', api_version=None)
 
     @vcr.use_cassette('fixtures/client/content_type_cache.yaml')
     def test_client_creates_a_content_type_cache(self):
@@ -100,6 +119,135 @@ class ClientTest(TestCase):
         self.assertEquals(str(client.entries()), "<Array size='10' total='10' limit='100' skip='0'>")
         self.assertEquals(str(client.assets()), "<Array size='4' total='4' limit='100' skip='0'>")
 
+    # X-Contentful-User-Agent Headers
+
+    def test_client_default_contentful_user_agent_headers(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+
+        from contentful import __version__
+        import platform
+        expected = [
+            'sdk contentful.py/{0};'.format(__version__),
+            'os {0}/{1};'.format(platform.system(), platform.release()),
+            'platform python/{0};'.format(platform.python_version())
+        ]
+        header = client._contentful_user_agent()
+        for e in expected:
+            self.assertTrue(e in header)
+
+        self.assertTrue('integration' not in header)
+        self.assertTrue('app' not in header)
+
+    def test_client_with_integration_name_only_headers(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            integration_name='foobar')
+
+        header = client._contentful_user_agent()
+        self.assertTrue('integration foobar;' in header)
+        self.assertFalse('integration foobar/;' in header)
+
+    def test_client_with_integration_headers(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            integration_name='foobar',
+            integration_version='0.1.0')
+
+        header = client._contentful_user_agent()
+        self.assertTrue('integration foobar/0.1.0;' in header)
+
+    def test_client_with_application_name_only_headers(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            application_name='foobar')
+
+        header = client._contentful_user_agent()
+        self.assertTrue('app foobar;' in header)
+        self.assertFalse('app foobar/;' in header)
+
+    def test_client_with_application_headers(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            application_name='foobar',
+            application_version='0.1.0')
+
+        header = client._contentful_user_agent()
+        self.assertTrue('app foobar/0.1.0;' in header)
+
+    def test_client_with_integration_version_only_does_not_include_integration_in_header(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            integration_version='0.1.0')
+
+        header = client._contentful_user_agent()
+        self.assertFalse('integration /0.1.0' in header)
+
+    def test_client_with_application_version_only_does_not_include_integration_in_header(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            application_version='0.1.0')
+
+        header = client._contentful_user_agent()
+        self.assertFalse('app /0.1.0;' in header)
+
+    def test_client_with_all_headers(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            application_name='foobar_app',
+            application_version='1.1.0',
+            integration_name='foobar integ',
+            integration_version='0.1.0')
+
+        from contentful import __version__
+        import platform
+        expected = [
+            'sdk contentful.py/{0};'.format(__version__),
+            'os {0}/{1};'.format(platform.system(), platform.release()),
+            'platform python/{0};'.format(platform.python_version()),
+            'app foobar_app/1.1.0;',
+            'integration foobar integ/0.1.0;'
+        ]
+        header = client._contentful_user_agent()
+        for e in expected:
+            self.assertTrue(e in header)
+
+    def test_client_headers(self):
+        client = Client(
+            'cfexampleapi',
+            'b4c0n73n7fu1',
+            content_type_cache=False,
+            application_name='foobar_app',
+            application_version='1.1.0',
+            integration_name='foobar integ',
+            integration_version='0.1.0')
+
+        from contentful import __version__
+        import platform
+        expected = [
+            'sdk contentful.py/{0};'.format(__version__),
+            'os {0}/{1};'.format(platform.system(), platform.release()),
+            'platform python/{0};'.format(platform.python_version()),
+            'app foobar_app/1.1.0;',
+            'integration foobar integ/0.1.0;'
+        ]
+        header = client._request_headers()['X-Contentful-User-Agent']
+        for e in expected:
+            self.assertTrue(e in header)
+
     # Integration Tests
 
     @vcr.use_cassette('fixtures/integration/issue-4.yaml')
@@ -137,7 +285,6 @@ class ClientTest(TestCase):
         self.assertEqual(str(a.b), "<Entry[b] id='7oADpDPuneEAsWUiO2CmEo'>")
         self.assertEqual(str(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
         self.assertEqual(str(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b), "<Link[Entry] id='7oADpDPuneEAsWUiO2CmEo'>")
-
 
     @vcr.use_cassette('fixtures/integration/circular-references.yaml')
     def test_circular_references_set_depth(self):
