@@ -405,8 +405,16 @@ class Client(object):
             'name': 'python',
             'version': platform.python_version()
         }
+
+        os_name = platform.system()
+        if os_name == 'Darwin':
+            os_name = 'macOS'
+        elif not os_name or os_name == 'Java':
+            os_name = 'Unknown'
+        elif os_name not in ['macOS', 'Windows', 'Unknown']:
+            os_name = 'Linux'
         header['os'] = {
-            'name': platform.system(),
+            'name': os_name,
             'version': platform.release()
         }
 
