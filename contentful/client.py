@@ -410,8 +410,8 @@ class Client(object):
         if os_name == 'Darwin':
             os_name = 'macOS'
         elif not os_name or os_name == 'Java':
-            os_name = 'Unknown'
-        elif os_name not in ['macOS', 'Windows', 'Unknown']:
+            os_name = None
+        elif os_name and os_name not in ['macOS', 'Windows']:
             os_name = 'Linux'
         header['os'] = {
             'name': os_name,
