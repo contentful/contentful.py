@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.3.0
 ### Added
 * Added `X-Contentful-User-Agent` header for more information.
 
