@@ -42,7 +42,7 @@ class ResourceBuilder(object):
         """Creates the objects from the JSON response"""
 
         if self.json['sys']['type'] == 'Array':
-            if 'nextSyncUrl' in self.json:
+            if any(k in self.json for k in ['nextSyncUrl', 'nextPageUrl']):
                 return SyncPage(
                     self.json,
                     default_locale=self.default_locale,

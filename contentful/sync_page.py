@@ -1,4 +1,6 @@
-from re import sub
+#from urllib.parse import urlsplit, parse_qs
+from six.moves.urllib.parse import urlsplit, parse_qs
+
 from .resource import Resource
 
 
@@ -24,6 +26,7 @@ class SyncPage(Resource):
         super(SyncPage, self).__init__(item, **kwargs)
 
         self.next_sync_url = item.get('nextSyncUrl', '')
+        self.next_page_url = item.get('nextPageUrl', '')
         self.next_sync_token = self._get_sync_token()
         self.items = self._hydrate_items()
 
@@ -38,7 +41,9 @@ class SyncPage(Resource):
         return client.sync({'sync_token': self.next_sync_token})
 
     def _get_sync_token(self):
-        return sub(r'.*sync_token=', '', self.next_sync_url)
+        url_parts = urlsplit(self.next_sync_url or self.next_page_url)
+        querystring = parse_qs(url_parts.query)
+        return querystring['sync_token'][0]
 
     def _hydrate_items(self):
         from .resource_builder import ResourceBuilder

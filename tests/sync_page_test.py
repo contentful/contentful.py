@@ -734,3 +734,62 @@ class SyncPageTest(TestCase):
         self.assertEqual(len(sync_page.items), 14)
         self.assertEqual(str(sync_page.items[-1]), "<Entry[cat] id='garfield'>")
         self.assertEqual(str(sync_page.items[-2]), "<Asset id='nyancat' url='//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png'>")
+
+    def test__when_sync_has_multiple_pages__extracts_sync_token_from_next_page_url(self):
+        sync_page = SyncPage({
+            "sys": {
+                "type": "Array"
+            },
+            "items": [
+                {
+                    "sys": {
+                        "space": {
+                            "sys": {
+                                "type": "Link",
+                                "linkType": "Space",
+                                "id": "cfexampleapi"
+                            }
+                        },
+                        "id": "4rPdazIwWkuuKEAQgemSmO",
+                        "type": "DeletedEntry",
+                        "createdAt": "2014-08-11T08:30:42.546Z",
+                        "updatedAt": "2014-08-11T08:30:42.546Z",
+                        "deletedAt": "2014-08-11T08:30:42.546Z",
+                        "revision": 1
+                    }
+                }
+            ],
+            "nextPageUrl": "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1w5zCrA3CnU7CgEvDtsK6w7B2wrRZwrwPIgDCjVo8PMOoUcK2wqTCl8O1wpY8wpjCkGM"
+        })
+
+        self.assertEqual(sync_page.next_page_url,  "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1w5zCrA3CnU7CgEvDtsK6w7B2wrRZwrwPIgDCjVo8PMOoUcK2wqTCl8O1wpY8wpjCkGM")
+
+
+    def test__when_SyncPage_has_property_next_page_url__get_sync_token_extracts_token_from_it(self):
+        sync_page = SyncPage({
+            "sys": {
+                "type": "Array"
+            },
+            "items": [
+                {
+                    "sys": {
+                        "space": {
+                            "sys": {
+                                "type": "Link",
+                                "linkType": "Space",
+                                "id": "cfexampleapi"
+                            }
+                        },
+                        "id": "4rPdazIwWkuuKEAQgemSmO",
+                        "type": "DeletedEntry",
+                        "createdAt": "2014-08-11T08:30:42.546Z",
+                        "updatedAt": "2014-08-11T08:30:42.546Z",
+                        "deletedAt": "2014-08-11T08:30:42.546Z",
+                        "revision": 1
+                    }
+                }
+            ],
+            "nextPageUrl": "https://cdn.contentful.com/spaces/cfexampleapi/sync?sync_token=w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1w5zCrA3CnU7CgEvDtsK6w7B2wrRZwrwPIgDCjVo8PMOoUcK2wqTCl8O1wpY8wpjCkGM"
+        })
+
+        self.assertEqual(sync_page._get_sync_token(),  "w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1w5zCrA3CnU7CgEvDtsK6w7B2wrRZwrwPIgDCjVo8PMOoUcK2wqTCl8O1wpY8wpjCkGM")
