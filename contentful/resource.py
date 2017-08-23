@@ -62,6 +62,12 @@ class Resource(object):
             )
         )
 
+    def __getstate__(self):
+        return self.__dict__
+
+    def __setstate__(self, d):
+        self.__dict__ = d
+
 
 class FieldsResource(Resource):
     """Fields Resource Class
