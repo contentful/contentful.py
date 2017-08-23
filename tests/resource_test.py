@@ -1,4 +1,5 @@
 import vcr
+import pickle
 from datetime import datetime
 from unittest import TestCase
 from contentful.resource import Resource, FieldsResource, Link
@@ -85,6 +86,49 @@ class FieldsResourceTest(TestCase):
 
         self.assertRaises(AttributeError, resource.__getattr__, 'foobar')
 
+    def test_pickleable_resource(self):
+        resource = FieldsResource({
+            'sys': {
+                'space': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'Space',
+                        'id': 'foo'
+                    }
+                },
+                'contentType': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'ContentType',
+                        'id': 'bar'
+                    }
+                },
+                'type': 'Entry',
+                'createdAt': '2016-06-06',
+                'updatedAt': '2016-06-06',
+                'deletedAt': '2016-06-06',
+                'id': 'foobar',
+                'version': 1,
+                'locale': 'foo-locale'
+            },
+            'fields': {
+                'foo': 'bar',
+                'baz': 123,
+                'qux': True
+            }
+        })
+
+        serialized_resource = pickle.dumps(resource)
+        deserialized_resource = pickle.loads(serialized_resource)
+
+        self.assertEqual(resource.foo, deserialized_resource.foo)
+        self.assertEqual(resource.baz, deserialized_resource.baz)
+        self.assertEqual(resource.qux, deserialized_resource.qux)
+        self.assertEqual(resource.fields(), deserialized_resource.fields())
+        self.assertEqual(resource.fields('foo-locale'), deserialized_resource.fields('foo-locale'))
+        self.assertEqual(resource.fields('bar-locale'), deserialized_resource.fields('bar-locale'))
+
+        self.assertRaises(AttributeError, resource.__getattr__, 'foobar')
 
     def test_fields_resource_localized(self):
         resource = FieldsResource({
