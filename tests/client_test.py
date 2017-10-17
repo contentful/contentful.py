@@ -116,9 +116,9 @@ class ClientTest(TestCase):
     @vcr.use_cassette('fixtures/client/array_endpoints.yaml')
     def test_client_creates_wrapped_arrays(self):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
-        self.assertEquals(str(client.content_types()), "<Array size='4' total='4' limit='100' skip='0'>")
-        self.assertEquals(str(client.entries()), "<Array size='10' total='10' limit='100' skip='0'>")
-        self.assertEquals(str(client.assets()), "<Array size='4' total='4' limit='100' skip='0'>")
+        self.assertEqual(str(client.content_types()), "<Array size='4' total='4' limit='100' skip='0'>")
+        self.assertEqual(str(client.entries()), "<Array size='10' total='10' limit='100' skip='0'>")
+        self.assertEqual(str(client.assets()), "<Array size='4' total='4' limit='100' skip='0'>")
 
     # X-Contentful-User-Agent Headers
 
