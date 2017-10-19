@@ -48,7 +48,7 @@ def string_class():
 def json_error_class():
     """Returns the class for JSON decode errors
     depends on the Python version."""
-    if sys.version_info[0] >= 3:
+    if sys.version_info[0] >= 3 and sys.version_info[1] >= 5:
         return json.JSONDecodeError
     return ValueError
 
