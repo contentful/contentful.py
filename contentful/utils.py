@@ -36,6 +36,14 @@ def unicode_class():
     return unicode  # noqa: F821
 
 
+def string_class():
+    """Returns the parent class for strings
+    depends on the Python version."""
+    if sys.version_info[0] >= 3:
+        return str
+    return basestring
+
+
 def snake_case(a_string):
     """Returns a snake cased version of a string.
 

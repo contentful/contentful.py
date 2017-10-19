@@ -1,3 +1,6 @@
+import json
+
+
 """
 contentful.errors
 ~~~~~~~~~~~~~~~~~
@@ -17,58 +20,141 @@ class HTTPError(Exception):
     """
 
     def __init__(self, response):
-        super(HTTPError, self).__init__(response.json()['message'])
         self.response = response
         self.status_code = response.status_code
 
+        message = self._best_available_message(response)
+        super(HTTPError, self).__init__(message)
 
-class NotFoundError(HTTPError):
-    """
-    404
-    """
-    pass
+    def _default_error_message(self):
+        return "The following error was received: {0}".format(self.response.text)
+
+    def _handle_details(self, details):
+        return "{0}".format(details)
+
+
+    def _best_available_message(self, response):
+        response_json = None
+        error_message = [
+          "HTTP status code: {0}".format(self.status_code),
+        ]
+        try:
+            response_json = response.json()
+
+            message = response_json.get('message', None)
+            details = response_json.get('details', None)
+            request_id = response_json.get('requestId', None)
+
+            if message is not None:
+                error_message.append("Message: {0}".format(message))
+            else:
+                error_message.append("Message: {0}".format(self._default_error_message()))
+            if details is not None:
+                error_message.append("Details: {0}".format(self._handle_details(details)))
+            if request_id is not None:
+                error_message.append("Request ID: {0}".format(request_id))
+        except json.JSONDecodeError:
+            error_message.append("Message: {0}".format(self._default_error_message()))
+        finally:
+            return "\n".join(error_message)
 
 
 class BadRequestError(HTTPError):
     """
     400
     """
-    pass
 
+    def _default_error_message(self):
+        return "The request was malformed or missing a required parameter."
 
-class AccessDeniedError(HTTPError):
-    """
-    403
-    """
-    pass
+    def _handle_details(self, details):
+        from .utils import string_class
+        if isinstance(details, string_class()):
+            return details
+
+        def _handle_detail(detail):
+            if isinstance(detail, string_class()):
+                return detail
+            return detail.get('details', None)
+
+        inner_details = [_handle_detail(detail) for detail in details['errors']]
+        inner_details = [detail for detail in inner_details if detail is not None] # This works in both Py2 and Py3
+        return "\n\t".join(inner_details)
 
 
 class UnauthorizedError(HTTPError):
     """
     401
     """
-    pass
+
+    def _default_error_message(self):
+        return "The authorization token was invalid."
+
+
+class AccessDeniedError(HTTPError):
+    """
+    403
+    """
+
+    def _default_error_message(self):
+        return "The specified token does not have access to the requested resource."
+
+
+    def _handle_details(self, details):
+        return "\n\tReasons:\n\t\t{0}".format("\n\t\t".join(details['reasons']))
+
+
+class NotFoundError(HTTPError):
+    """
+    404
+    """
+
+    def _default_error_message(self):
+        return "The requested resource or endpoint could not be found."
+
+    def _handle_details(self, details):
+        message = "The requested {0} could not be found.".format(details['type'])
+        resource_id = details.get('id', None)
+        if resource_id is not None:
+            message += " ID: {0}.".format(resource_id)
+
+        return message
 
 
 class RateLimitExceededError(HTTPError):
     """
     429
     """
-    pass
+
+    def _default_error_message(self):
+        return "Rate limit exceeded. Too many requests."
 
 
 class ServerError(HTTPError):
     """
     500
     """
-    pass
+
+    def _default_error_message(self):
+        return "Internal server error."
+
+
+class BadGatewayError(HTTPError):
+    """
+    502
+    """
+
+    def _default_error_message(self):
+        return "The requested space is hibernated."
 
 
 class ServiceUnavailableError(HTTPError):
     """
     503
     """
-    pass
+
+    def _default_error_message(self):
+        return "The request was malformed or missing a required parameter."
 
 
 class EntryNotFoundError(Exception):
@@ -88,6 +174,7 @@ def get_error(response):
         404: NotFoundError,
         429: RateLimitExceededError,
         500: ServerError,
+        502: BadGatewayError,
         503: ServiceUnavailableError
     }
 
