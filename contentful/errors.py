@@ -32,6 +32,11 @@ class HTTPError(Exception):
     def _handle_details(self, details):
         return "{0}".format(details)
 
+    def _has_additional_error_info(self):
+        return False
+
+    def _additional_error_info(self):
+        return []
 
     def _best_available_message(self, response):
         from .utils import json_error_class
@@ -57,6 +62,9 @@ class HTTPError(Exception):
                 error_message.append("Request ID: {0}".format(request_id))
         except json_error_class():
             error_message.append("Message: {0}".format(self._default_error_message()))
+
+        if self._has_additional_error_info():
+            error_message += self._additional_error_info()
 
         return "\n".join(error_message)
 
@@ -127,6 +135,24 @@ class RateLimitExceededError(HTTPError):
     """
     429
     """
+
+    RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
+
+    def _has_reset_time(self):
+        return self.RATE_LIMIT_RESET_HEADER_KEY in self.response.headers
+
+    def reset_time(self):
+        """Returns the reset time in seconds until next available request."""
+
+        return int(self.response.headers[
+            self.RATE_LIMIT_RESET_HEADER_KEY
+        ])
+
+    def _has_additional_error_info(self):
+        return self._has_reset_time()
+
+    def _additional_error_info(self):
+        return ["Time until reset (seconds): {0}".format(self.reset_time())]
 
     def _default_error_message(self):
         return "Rate limit exceeded. Too many requests."

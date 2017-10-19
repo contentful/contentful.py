@@ -44,6 +44,12 @@ def mock_http_call(url, query):
 
 
 class ErrorsTest(TestCase):
+    def test_default_additional_info_is_empty(self):
+        response = MockResponse(512, "not json", invalid_json=True)
+        error = get_error(response)
+
+        self.assertEqual(error._additional_error_info(), [])
+
     def test_default_error_message(self):
         response = MockResponse(512, "not json", invalid_json=True)
         error = get_error(response)
@@ -209,6 +215,22 @@ class ErrorsTest(TestCase):
         expected_error = "\n".join([
             "HTTP status code: 429",
             "Message: Rate Limit Exceeded"
+        ])
+        self.assertEqual(str(error), expected_error)
+        self.assertTrue(isinstance(error, RateLimitExceededError))
+
+    def test_rate_limit_exceeded_error_with_time(self):
+        response = MockResponse(429, {}, headers={
+            'x-contentful-ratelimit-reset': 60
+        })
+
+        error = get_error(response)
+
+        self.assertEqual(error.status_code, 429)
+        expected_error = "\n".join([
+            "HTTP status code: 429",
+            "Message: Rate limit exceeded. Too many requests.",
+            "Time until reset (seconds): 60"
         ])
         self.assertEqual(str(error), expected_error)
         self.assertTrue(isinstance(error, RateLimitExceededError))

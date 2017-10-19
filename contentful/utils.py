@@ -128,8 +128,6 @@ class retry_request(object):
     Decorator to retry function calls in case they raise rate limit exceptions
     """
 
-    RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
-
     def __init__(self, client):
         self.client = client
 
@@ -141,9 +139,7 @@ class retry_request(object):
                     return http_call(url, query)
                 except RateLimitExceededError as error:
                     exception = error
-                    reset_time = int(error.response.headers[
-                        self.RATE_LIMIT_RESET_HEADER_KEY
-                    ])
+                    reset_time = error.reset_time()
 
                     if reset_time > self.client.max_rate_limit_wait:
                         raise error
