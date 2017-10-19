@@ -1,6 +1,7 @@
 import re
 import sys
 import time
+import json
 from random import uniform
 from .errors import RateLimitExceededError
 
@@ -42,6 +43,14 @@ def string_class():
     if sys.version_info[0] >= 3:
         return str
     return basestring
+
+
+def json_error_class():
+    """Returns the class for JSON decode errors
+    depends on the Python version."""
+    if sys.version_info[0] >= 3:
+        return json.JSONDecodeError
+    return ValueError
 
 
 def snake_case(a_string):

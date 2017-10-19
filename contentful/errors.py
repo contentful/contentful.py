@@ -34,6 +34,8 @@ class HTTPError(Exception):
 
 
     def _best_available_message(self, response):
+        from .utils import json_error_class
+
         response_json = None
         error_message = [
           "HTTP status code: {0}".format(self.status_code),
@@ -53,10 +55,10 @@ class HTTPError(Exception):
                 error_message.append("Details: {0}".format(self._handle_details(details)))
             if request_id is not None:
                 error_message.append("Request ID: {0}".format(request_id))
-        except json.JSONDecodeError:
+        except json_error_class():
             error_message.append("Message: {0}".format(self._default_error_message()))
-        finally:
-            return "\n".join(error_message)
+
+        return "\n".join(error_message)
 
 
 class BadRequestError(HTTPError):

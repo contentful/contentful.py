@@ -11,7 +11,7 @@ from contentful.errors import (
     ServiceUnavailableError,
     get_error
 )
-from contentful.utils import retry_request
+from contentful.utils import retry_request, json_error_class
 from contentful.client import Client
 
 
@@ -24,7 +24,7 @@ class MockResponse(object):
 
     def json(self):
         if self._invalid_json:
-            raise json.JSONDecodeError('foo', 'foo', 0)
+            raise json_error_class()('foo', 'foo', 0)
         return json.loads(json.dumps(self._json))
 
     @property
