@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## v1.4.0
+## v1.4.1
 ### Fixed
 * Fixed `sync_token` fetching [#17](https://github.com/contentful/contentful.py/pull/17)
 * Fixed `unpickle` recursion error [#19](https://github.com/contentful/contentful.py/pull/19)
