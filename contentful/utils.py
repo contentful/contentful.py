@@ -1,6 +1,7 @@
 import re
 import sys
 import time
+import json
 from random import uniform
 from .errors import RateLimitExceededError
 
@@ -34,6 +35,22 @@ def unicode_class():
     if sys.version_info[0] >= 3:
         return str
     return unicode  # noqa: F821
+
+
+def string_class():
+    """Returns the parent class for strings
+    depends on the Python version."""
+    if sys.version_info[0] >= 3:
+        return str
+    return basestring
+
+
+def json_error_class():
+    """Returns the class for JSON decode errors
+    depends on the Python version."""
+    if sys.version_info[0] >= 3 and sys.version_info[1] >= 5:
+        return json.JSONDecodeError
+    return ValueError
 
 
 def snake_case(a_string):
@@ -111,8 +128,6 @@ class retry_request(object):
     Decorator to retry function calls in case they raise rate limit exceptions
     """
 
-    RATE_LIMIT_RESET_HEADER_KEY = 'x-contentful-ratelimit-reset'
-
     def __init__(self, client):
         self.client = client
 
@@ -124,9 +139,7 @@ class retry_request(object):
                     return http_call(url, query)
                 except RateLimitExceededError as error:
                     exception = error
-                    reset_time = int(error.response.headers[
-                        self.RATE_LIMIT_RESET_HEADER_KEY
-                    ])
+                    reset_time = error.reset_time()
 
                     if reset_time > self.client.max_rate_limit_wait:
                         raise error

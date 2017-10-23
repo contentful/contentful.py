@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Fixed
+* Fixed `sync_token` fetching [#17](https://github.com/contentful/contentful.py/pull/17)
+* Fixed `unpickle` recursion error [#19](https://github.com/contentful/contentful.py/pull/19)
+
+### Changed
+* Improved error messages and handling for all API errors.
+
 ## v1.3.0
 ### Added
 * Added `X-Contentful-User-Agent` header for more information.

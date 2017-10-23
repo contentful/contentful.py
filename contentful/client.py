@@ -1,8 +1,7 @@
 import requests
-import sys
 import platform
 from re import sub
-from .utils import ConfigurationException, retry_request
+from .utils import ConfigurationException, retry_request, string_class
 from .errors import get_error, RateLimitExceededError, EntryNotFoundError
 from .resource_builder import ResourceBuilder
 from .content_type_cache import ContentTypeCache
@@ -326,12 +325,9 @@ class Client(object):
         if 'select' not in query:
             return
 
-        global basestring
-        if sys.version_info[0] >= 3:
-            basestring = str
         if isinstance(
                 query['select'],
-                basestring):
+                string_class()):
             query['select'] = [s.strip() for s in query['select'].split(',')]
 
         query['select'] = [s for s
