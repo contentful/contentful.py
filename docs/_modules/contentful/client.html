@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>contentful.client &#8212; Contentful 1.3.0 documentation</title>
-    
+    <title>contentful.client &#8212; Contentful 1.4.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.3.0',
+        VERSION:     '1.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
@@ -25,8 +23,6 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="Contentful 1.3.0 documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
@@ -34,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -44,10 +40,9 @@
             
   <h1>Source code for contentful.client</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">from</span> <span class="nn">re</span> <span class="k">import</span> <span class="n">sub</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">ConfigurationException</span><span class="p">,</span> <span class="n">retry_request</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">ConfigurationException</span><span class="p">,</span> <span class="n">retry_request</span><span class="p">,</span> <span class="n">string_class</span>
 <span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">get_error</span><span class="p">,</span> <span class="n">RateLimitExceededError</span><span class="p">,</span> <span class="n">EntryNotFoundError</span>
 <span class="kn">from</span> <span class="nn">.resource_builder</span> <span class="k">import</span> <span class="n">ResourceBuilder</span>
 <span class="kn">from</span> <span class="nn">.content_type_cache</span> <span class="k">import</span> <span class="n">ContentTypeCache</span>
@@ -371,12 +366,9 @@
         <span class="k">if</span> <span class="s1">&#39;select&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">query</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="k">global</span> <span class="n">basestring</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">basestring</span> <span class="o">=</span> <span class="nb">str</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
                 <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">],</span>
-                <span class="n">basestring</span><span class="p">):</span>
+                <span class="n">string_class</span><span class="p">()):</span>
             <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
 
         <span class="n">query</span><span class="p">[</span><span class="s1">&#39;select&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span>
@@ -601,7 +593,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_username</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_password</span><span class="p">:</span>
             <span class="n">proxy</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">:</span><span class="si">{1}</span><span class="s1">@&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy_username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_password</span><span class="p">)</span>
 
-        <span class="n">proxy</span> <span class="o">+=</span> <span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;https?(://)?&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_host</span><span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">+=</span> <span class="n">sub</span><span class="p">(</span><span class="s1">r&#39;https?(://)?&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_host</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_port</span><span class="p">:</span>
             <span class="n">proxy</span> <span class="o">+=</span> <span class="s1">&#39;:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy_port</span><span class="p">)</span>

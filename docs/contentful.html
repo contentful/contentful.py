@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>contentful package &#8212; Contentful 1.3.0 documentation</title>
-    
+    <title>contentful package &#8212; Contentful 1.4.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.3.0',
+        VERSION:     '1.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -25,8 +23,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Contentful 1.3.0 documentation" href="index.html" />
-    <link rel="up" title="contentful" href="modules.html" />
     <link rel="prev" title="contentful" href="modules.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -35,7 +31,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -87,7 +83,7 @@
 <dl class="method">
 <dt id="contentful.asset.Asset.url">
 <code class="descname">url</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset.url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset.url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a formatted URL for the Asset&#8217;s File
+<dd><p>Returns a formatted URL for the Asset’s File
 with serialized parameters.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -116,42 +112,42 @@ with serialized parameters.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>space_id</strong> &#8211; Space ID of your target space.</li>
-<li><strong>access_token</strong> &#8211; API Access Token (Delivery by default,
+<li><strong>space_id</strong> – Space ID of your target space.</li>
+<li><strong>access_token</strong> – API Access Token (Delivery by default,
 Preview if overriding api_url).</li>
-<li><strong>api_url</strong> &#8211; (optional) URL of the Contentful Target API,
+<li><strong>api_url</strong> – (optional) URL of the Contentful Target API,
 defaults to Delivery API (can be overriden for Preview API).</li>
-<li><strong>api_version</strong> &#8211; (optional) Target version of the Contentful API.</li>
-<li><strong>default_locale</strong> &#8211; (optional) Default Locale for your Space,
-defaults to &#8216;en-US&#8217;.</li>
-<li><strong>https</strong> &#8211; (optional) Boolean determining wether to use https
+<li><strong>api_version</strong> – (optional) Target version of the Contentful API.</li>
+<li><strong>default_locale</strong> – (optional) Default Locale for your Space,
+defaults to ‘en-US’.</li>
+<li><strong>https</strong> – (optional) Boolean determining wether to use https
 or http, defaults to True.</li>
-<li><strong>authorization_as_header</strong> &#8211; (optional) Boolean determining wether
+<li><strong>authorization_as_header</strong> – (optional) Boolean determining wether
 to send access_token through a header or via GET params,
 defaults to True.</li>
-<li><strong>raw_mode</strong> &#8211; (optional) Boolean determining wether to process the
+<li><strong>raw_mode</strong> – (optional) Boolean determining wether to process the
 response or return it raw after each API call, defaults to True.</li>
-<li><strong>gzip_encoded</strong> &#8211; (optional) Boolean determining wether to accept
+<li><strong>gzip_encoded</strong> – (optional) Boolean determining wether to accept
 gzip encoded results, defaults to True.</li>
-<li><strong>raise_errors</strong> &#8211; (optional) Boolean determining wether to raise
-an exception on requests that aren&#8217;t successful, defaults to True.</li>
-<li><strong>content_type_cache</strong> &#8211; (optional) Boolean determining wether to
+<li><strong>raise_errors</strong> – (optional) Boolean determining wether to raise
+an exception on requests that aren’t successful, defaults to True.</li>
+<li><strong>content_type_cache</strong> – (optional) Boolean determining wether to
 store a Cache of the Content Types in order to properly coerce
 Entry fields, defaults to True.</li>
-<li><strong>proxy_host</strong> &#8211; (optional) URL for Proxy, defaults to None.</li>
-<li><strong>proxy_port</strong> &#8211; (optional) Port for Proxy, defaults to None.</li>
-<li><strong>proxy_username</strong> &#8211; (optional) Username for Proxy, defaults to None.</li>
-<li><strong>proxy_password</strong> &#8211; (optional) Password for Proxy, defaults to None.</li>
-<li><strong>max_rate_limit_retries</strong> &#8211; (optional) Maximum amount of retries
+<li><strong>proxy_host</strong> – (optional) URL for Proxy, defaults to None.</li>
+<li><strong>proxy_port</strong> – (optional) Port for Proxy, defaults to None.</li>
+<li><strong>proxy_username</strong> – (optional) Username for Proxy, defaults to None.</li>
+<li><strong>proxy_password</strong> – (optional) Password for Proxy, defaults to None.</li>
+<li><strong>max_rate_limit_retries</strong> – (optional) Maximum amount of retries
 after RateLimitError, defaults to 1.</li>
-<li><strong>max_rate_limit_wait</strong> &#8211; (optional) Timeout (in seconds) for waiting
+<li><strong>max_rate_limit_wait</strong> – (optional) Timeout (in seconds) for waiting
 for retry after RateLimitError, defaults to 60.</li>
-<li><strong>max_include_resolution_depth</strong> &#8211; (optional) Maximum include resolution
+<li><strong>max_include_resolution_depth</strong> – (optional) Maximum include resolution
 level for Resources, defaults to 20 (max include level * 2).</li>
-<li><strong>application_name</strong> &#8211; (optional) User application name, defaults to None.</li>
-<li><strong>application_version</strong> &#8211; (optional) User application version, defaults to None.</li>
-<li><strong>integration_name</strong> &#8211; (optional) Integration name, defaults to None.</li>
-<li><strong>integration_version</strong> &#8211; (optional) Integration version, defaults to None.</li>
+<li><strong>application_name</strong> – (optional) User application name, defaults to None.</li>
+<li><strong>application_version</strong> – (optional) User application version, defaults to None.</li>
+<li><strong>integration_name</strong> – (optional) Integration name, defaults to None.</li>
+<li><strong>integration_version</strong> – (optional) Integration version, defaults to None.</li>
 </ul>
 </td>
 </tr>
@@ -181,8 +177,8 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>asset_id</strong> &#8211; The ID of the target Asset.</li>
-<li><strong>query</strong> &#8211; (optional) Dict with API options.</li>
+<li><strong>asset_id</strong> – The ID of the target Asset.</li>
+<li><strong>query</strong> – (optional) Dict with API options.</li>
 </ul>
 </td>
 </tr>
@@ -213,7 +209,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> – (optional) Dict with API options.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <a class="reference internal" href="#contentful.asset.Asset" title="contentful.asset.Asset"><code class="xref py py-class docutils literal"><span class="pre">Asset</span></code></a> objects.</td>
 </tr>
@@ -244,8 +240,8 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>content_type_id</strong> &#8211; The ID of the target Content Type.</li>
-<li><strong>query</strong> &#8211; (optional) Dict with API options.</li>
+<li><strong>content_type_id</strong> – The ID of the target Content Type.</li>
+<li><strong>query</strong> – (optional) Dict with API options.</li>
 </ul>
 </td>
 </tr>
@@ -276,7 +272,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> – (optional) Dict with API options.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <a class="reference internal" href="#contentful.content_type.ContentType" title="contentful.content_type.ContentType"><code class="xref py py-class docutils literal"><span class="pre">ContentType</span></code></a> objects.</td>
 </tr>
@@ -306,7 +302,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> – (optional) Dict with API options.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <a class="reference internal" href="#contentful.entry.Entry" title="contentful.entry.Entry"><code class="xref py py-class docutils literal"><span class="pre">Entry</span></code></a> objects.</td>
 </tr>
@@ -343,8 +339,8 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>entry_id</strong> &#8211; The ID of the target Entry.</li>
-<li><strong>query</strong> &#8211; (optional) Dict with API options.</li>
+<li><strong>entry_id</strong> – The ID of the target Entry.</li>
+<li><strong>query</strong> – (optional) Dict with API options.</li>
 </ul>
 </td>
 </tr>
@@ -375,7 +371,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> – (optional) Dict with API options.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#contentful.space.Space" title="contentful.space.Space"><code class="xref py py-class docutils literal"><span class="pre">Space</span></code></a> object.</td>
 </tr>
@@ -399,7 +395,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; (optional) Dict with API options.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> – (optional) Dict with API options.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#contentful.sync_page.SyncPage" title="contentful.sync_page.SyncPage"><code class="xref py py-class docutils literal"><span class="pre">SyncPage</span></code></a> object.</td>
 </tr>
@@ -435,7 +431,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>field_id</strong> &#8211; ID for Field to fetch.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>field_id</strong> – ID for Field to fetch.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">ContentTypeField</span></code> object.</td>
 </tr>
@@ -512,7 +508,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">ArrayField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ArrayField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ArrayField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
 <p>Array Coercion Class</p>
-<p>Coerces items in collection with it&#8217;s proper Coercion Class.</p>
+<p>Coerces items in collection with it’s proper Coercion Class.</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.ArrayField.coerce">
 <code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ArrayField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ArrayField.coerce" title="Permalink to this definition">¶</a></dt>
@@ -680,29 +676,18 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 </div>
 <div class="section" id="module-contentful.errors">
 <span id="contentful-errors-module"></span><h2>contentful.errors module<a class="headerlink" href="#module-contentful.errors" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="contentful-errors">
-<h3>contentful.errors<a class="headerlink" href="#contentful-errors" title="Permalink to this headline">¶</a></h3>
-<p>This module implements the Error classes.</p>
-<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/errors">https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/errors</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
-<li>2016 by Contentful GmbH.</li>
-</ol>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">MIT, see LICENSE for more details.</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="exception">
 <dt id="contentful.errors.AccessDeniedError">
 <em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">AccessDeniedError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#AccessDeniedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.AccessDeniedError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
 <p>403</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.errors.BadGatewayError">
+<em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">BadGatewayError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#BadGatewayError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.BadGatewayError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
+<p>502</p>
 </dd></dl>
 
 <dl class="exception">
@@ -738,6 +723,17 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">RateLimitExceededError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#RateLimitExceededError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.RateLimitExceededError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.errors.HTTPError" title="contentful.errors.HTTPError"><code class="xref py py-class docutils literal"><span class="pre">contentful.errors.HTTPError</span></code></a></p>
 <p>429</p>
+<dl class="attribute">
+<dt id="contentful.errors.RateLimitExceededError.RATE_LIMIT_RESET_HEADER_KEY">
+<code class="descname">RATE_LIMIT_RESET_HEADER_KEY</code><em class="property"> = 'x-contentful-ratelimit-reset'</em><a class="headerlink" href="#contentful.errors.RateLimitExceededError.RATE_LIMIT_RESET_HEADER_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="contentful.errors.RateLimitExceededError.reset_time">
+<code class="descname">reset_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#RateLimitExceededError.reset_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.RateLimitExceededError.reset_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the reset time in seconds until next available request.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
@@ -767,7 +763,6 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <dd><p>Gets Error by HTTP Status Code</p>
 </dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-contentful.locale">
 <span id="contentful-locale-module"></span><h2>contentful.locale module<a class="headerlink" href="#module-contentful.locale" title="Permalink to this headline">¶</a></h2>
@@ -814,7 +809,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> &#8211; (optional) Locale to fetch, defaults to default_locale.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> – (optional) Locale to fetch, defaults to default_locale.</td>
 </tr>
 </tbody>
 </table>
@@ -892,7 +887,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>client</strong> &#8211; CDA Client.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>client</strong> – CDA Client.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#contentful.sync_page.SyncPage" title="contentful.sync_page.SyncPage"><code class="xref py py-class docutils literal"><span class="pre">SyncPage</span></code></a></td>
 </tr>
@@ -922,7 +917,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; any object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> – any object.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Boolean</td>
 </tr>
@@ -950,7 +945,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; any object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> – any object.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Boolean</td>
 </tr>
@@ -973,6 +968,13 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="contentful.utils.json_error_class">
+<code class="descclassname">contentful.utils.</code><code class="descname">json_error_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#json_error_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.json_error_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the class for JSON decode errors
+depends on the Python version.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="contentful.utils.resource_for_link">
 <code class="descclassname">contentful.utils.</code><code class="descname">resource_for_link</code><span class="sig-paren">(</span><em>link</em>, <em>includes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#resource_for_link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.resource_for_link" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the resource that matches the link</p>
@@ -983,11 +985,6 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <em class="property">class </em><code class="descclassname">contentful.utils.</code><code class="descname">retry_request</code><span class="sig-paren">(</span><em>client</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#retry_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.retry_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Decorator to retry function calls in case they raise rate limit exceptions</p>
-<dl class="attribute">
-<dt id="contentful.utils.retry_request.RATE_LIMIT_RESET_HEADER_KEY">
-<code class="descname">RATE_LIMIT_RESET_HEADER_KEY</code><em class="property"> = 'x-contentful-ratelimit-reset'</em><a class="headerlink" href="#contentful.utils.retry_request.RATE_LIMIT_RESET_HEADER_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="function">
@@ -998,7 +995,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a_string</strong> &#8211; any <code class="xref py py-class docutils literal"><span class="pre">str</span></code> object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a_string</strong> – any <code class="xref py py-class docutils literal"><span class="pre">str</span></code> object.</td>
 </tr>
 </tbody>
 </table>
@@ -1010,6 +1007,13 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 </div>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="contentful.utils.string_class">
+<code class="descclassname">contentful.utils.</code><code class="descname">string_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#string_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.string_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the parent class for strings
+depends on the Python version.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1051,10 +1055,7 @@ depends on the Python version.</p>
 <li><a class="reference internal" href="#module-contentful.deleted_asset">contentful.deleted_asset module</a></li>
 <li><a class="reference internal" href="#module-contentful.deleted_entry">contentful.deleted_entry module</a></li>
 <li><a class="reference internal" href="#module-contentful.entry">contentful.entry module</a></li>
-<li><a class="reference internal" href="#module-contentful.errors">contentful.errors module</a><ul>
-<li><a class="reference internal" href="#contentful-errors">contentful.errors</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#module-contentful.errors">contentful.errors module</a></li>
 <li><a class="reference internal" href="#module-contentful.locale">contentful.locale module</a><ul>
 <li><a class="reference internal" href="#contentful-locale">contentful.locale</a></li>
 </ul>

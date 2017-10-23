@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Contentful Delivery API SDK &#8212; Contentful 1.3.0 documentation</title>
-    
+    <title>Contentful Delivery API SDK &#8212; Contentful 1.4.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.3.0',
+        VERSION:     '1.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -25,7 +23,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Contentful 1.3.0 documentation" href="#" />
     <link rel="next" title="contentful" href="modules.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -34,7 +31,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -44,7 +41,7 @@
             
   <div class="section" id="contentful-delivery-api-sdk">
 <h1>Contentful Delivery API SDK<a class="headerlink" href="#contentful-delivery-api-sdk" title="Permalink to this headline">¶</a></h1>
-<p>Release v1.3.0.</p>
+<p>Release v1.4.0.</p>
 <p><a class="reference external" href="https://www.contentful.com">Contentful</a> is a content management platform for web applications, mobile apps and connected devices.
 It allows you to create, edit &amp; manage content in the cloud and publish it anywhere via powerful API.
 Contentful offers tools for managing editorial teams and enabling cooperation between organizations.</p>
@@ -70,7 +67,7 @@ Contentful offers tools for managing editorial teams and enabling cooperation be
 </pre></div>
 </div>
 <p>You can query for entries, assets, etc. very similar as described in the <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/">Delivery API Documentation</a>.
-Please note, that all methods of the Python client library are <code class="docutils literal"><span class="pre">snake_cased</span></code>, instead of JavaScript&#8217;s <code class="docutils literal"><span class="pre">camelCase</span></code>:</p>
+Please note, that all methods of the Python client library are <code class="docutils literal"><span class="pre">snake_cased</span></code>, instead of JavaScript’s <code class="docutils literal"><span class="pre">camelCase</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">content_types</span><span class="p">()</span>
 <span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
 </pre></div>
@@ -138,7 +135,7 @@ If you want to fetch a different locale you can do the following:</p>
 </div>
 <div class="section" id="entries">
 <h2>Entries<a class="headerlink" href="#entries" title="Permalink to this headline">¶</a></h2>
-<p>Entries can have fields in it&#8217;s default locale accessible with accessor methods:</p>
+<p>Entries can have fields in it’s default locale accessible with accessor methods:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nyancat</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
 <span class="n">nyancat</span><span class="o">.</span><span class="n">name</span>
 <span class="c1"># &#39;Nyan Cat&#39;</span>
@@ -151,12 +148,12 @@ If you want to fetch a different locale you can do the following:</p>
 <p><code class="docutils literal"><span class="pre">access_token</span></code>: API Access Token (Delivery by default, Preview if overriding api_url).</p>
 <p><code class="docutils literal"><span class="pre">api_url</span></code>: (optional) URL of the Contentful Target API, defaults to Delivery API (can be overriden for Preview API).</p>
 <p><code class="docutils literal"><span class="pre">api_version</span></code>: (optional) Target version of the Contentful API.</p>
-<p><code class="docutils literal"><span class="pre">default_locale</span></code>: (optional) Default Locale for your Space, defaults to &#8216;en-US&#8217;.</p>
+<p><code class="docutils literal"><span class="pre">default_locale</span></code>: (optional) Default Locale for your Space, defaults to ‘en-US’.</p>
 <p><code class="docutils literal"><span class="pre">https</span></code>: (optional) Boolean determining wether to use https or http, defaults to True.</p>
 <p><code class="docutils literal"><span class="pre">authorization_as_header</span></code>: (optional) Boolean determining wether to send access_token through a header or via GET params, defaults to True.</p>
 <p><code class="docutils literal"><span class="pre">raw_mode</span></code>: (optional) Boolean determining wether to process the response or return it raw after each API call, defaults to True.</p>
 <p><code class="docutils literal"><span class="pre">gzip_encoded</span></code>: (optional) Boolean determining wether to accept gzip encoded results, defaults to True.</p>
-<p><code class="docutils literal"><span class="pre">raise_errors</span></code>: (optional) Boolean determining wether to raise an exception on requests that aren&#8217;t successful, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">raise_errors</span></code>: (optional) Boolean determining wether to raise an exception on requests that aren’t successful, defaults to True.</p>
 <p><code class="docutils literal"><span class="pre">content_type_cache</span></code>: (optional) Boolean determining wether to store a Cache of the Content Types in order to properly coerce Entry fields, defaults to True.</p>
 <p><code class="docutils literal"><span class="pre">proxy_host</span></code>: (optional) URL for Proxy, defaults to None.</p>
 <p><code class="docutils literal"><span class="pre">proxy_port</span></code>: (optional) Port for Proxy, defaults to None.</p>
@@ -243,10 +240,7 @@ additional options are described in the <a class="reference external" href="http
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.deleted_asset">contentful.deleted_asset module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.deleted_entry">contentful.deleted_entry module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.entry">contentful.entry module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.errors">contentful.errors module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="contentful.html#contentful-errors">contentful.errors</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.errors">contentful.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.locale">contentful.locale module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="contentful.html#contentful-locale">contentful.locale</a></li>
 </ul>
