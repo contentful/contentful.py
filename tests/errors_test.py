@@ -95,6 +95,25 @@ class ErrorsTest(TestCase):
         self.assertEqual(str(error), expected_error)
         self.assertTrue(isinstance(error, NotFoundError))
 
+    def test_not_found_error_details_is_a_string(self):
+        response = MockResponse(404, {
+            'message': 'The resource could not be found.',
+            'details': 'The resource could not be found',
+            'requestId': '$foobar123'
+        })
+
+        error = get_error(response)
+
+        self.assertEqual(error.status_code, 404)
+        expected_error = "\n".join([
+            "HTTP status code: 404",
+            "Message: The resource could not be found.",
+            "Details: The resource could not be found",
+            "Request ID: $foobar123"
+        ])
+        self.assertEqual(str(error), expected_error)
+        self.assertTrue(isinstance(error, NotFoundError))
+
     def test_bad_request_error(self):
         response = MockResponse(400, {
             'message': 'The query you sent was invalid. Probably a filter or ordering specification is not applicable to the type of a field.',

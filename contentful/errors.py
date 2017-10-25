@@ -123,6 +123,10 @@ class NotFoundError(HTTPError):
         return "The requested resource or endpoint could not be found."
 
     def _handle_details(self, details):
+        from .utils import string_class
+        if isinstance(details, string_class()):
+            return details
+
         message = "The requested {0} could not be found.".format(details['type'])
         resource_id = details.get('id', None)
         if resource_id is not None:
