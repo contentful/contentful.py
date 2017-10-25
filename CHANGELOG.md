@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v1.4.2
+### Fixed
+* Fixed edge case for 404 error returning a string as details.
+
 ## v1.4.1
 ### Fixed
 * Fixed `sync_token` fetching [#17](https://github.com/contentful/contentful.py/pull/17)
