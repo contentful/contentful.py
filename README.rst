@@ -9,9 +9,7 @@ Contentful Delivery API SDK
 .. image:: https://travis-ci.org/contentful/contentful.py.svg?branch=master
     :target: https://travis-ci.org/contentful/contentful.py
 
-`Contentful <https://www.contentful.com>`_ is a content management platform for web applications, mobile apps and connected devices.
-It allows you to create, edit & manage content in the cloud and publish it anywhere via powerful API.
-Contentful offers tools for managing editorial teams and enabling cooperation between organizations.
+`Contentful <https://www.contentful.com>`_ provides a content infrastructure for digital teams to power content in websites, apps, and devices. Unlike a CMS, Contentful was built to integrate with the modern software stack. It offers a central hub for structured content, powerful management and delivery APIs, and a customizable web app that enable developers and content creators to ship digital products faster.
 
     This SDK is intended to replace the former unofficial Python CDA SDK. The old SDK can still be found at: https://github.com/contentful-labs/contentful.py
 
