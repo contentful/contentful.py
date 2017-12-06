@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+* Fixed an edge case for 404 error returning a `sys` object wrapping details.
 
 ## v1.4.2
 ### Fixed

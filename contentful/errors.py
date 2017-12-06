@@ -127,8 +127,16 @@ class NotFoundError(HTTPError):
         if isinstance(details, string_class()):
             return details
 
-        message = "The requested {0} could not be found.".format(details['type'])
-        resource_id = details.get('id', None)
+        resource_type = None
+        resource_id = None
+        if 'sys' in details:
+            resource_type = details['sys'].get('type', None)
+            resource_id = details['sys'].get('id', None)
+        else:
+            resource_type = details['type']
+            resource_id = details.get('id', None)
+
+        message = "The requested {0} could not be found.".format(resource_type)
         if resource_id is not None:
             message += " ID: {0}.".format(resource_id)
 

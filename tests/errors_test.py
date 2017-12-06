@@ -95,6 +95,30 @@ class ErrorsTest(TestCase):
         self.assertEqual(str(error), expected_error)
         self.assertTrue(isinstance(error, NotFoundError))
 
+    def test_not_found_error_with_sys_on_details(self):
+        response = MockResponse(404, {
+            'message': 'The resource could not be found.',
+            'details': {
+              'sys': {
+                'type': 'Space',
+                'id': 'foobar'
+              }
+            },
+            'requestId': '$foobar123'
+        })
+
+        error = get_error(response)
+
+        self.assertEqual(error.status_code, 404)
+        expected_error = "\n".join([
+            "HTTP status code: 404",
+            "Message: The resource could not be found.",
+            "Details: The requested Space could not be found. ID: foobar.",
+            "Request ID: $foobar123"
+        ])
+        self.assertEqual(str(error), expected_error)
+        self.assertTrue(isinstance(error, NotFoundError))
+
     def test_not_found_error_details_is_a_string(self):
         response = MockResponse(404, {
             'message': 'The resource could not be found.',
