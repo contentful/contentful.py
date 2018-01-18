@@ -38,6 +38,27 @@ class Asset(FieldsResource):
 
         return url
 
+    def incoming_references(self, client=None, query={}):
+        """Fetches all entries referencing the asset
+
+        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset
+        :param client Client instance
+        :param query: (optional) Dict with API options.
+        :return: List of :class:`Entry <contentful.entry.Entry>` objects.
+        :rtype: List of contentful.entry.Entry
+
+        Usage:
+            >>> entries = asset.incoming_references(client)
+            [<Entry[cat] id='happycat'>]
+        """
+
+        if client is None:
+            return False
+
+        query.update({ 'links_to_asset': self.id })
+        return client.entries(query)
+
+
     def __repr__(self):
         return "<Asset id='{0}' url='{1}'>".format(
             self.sys.get('id', ''),
