@@ -91,6 +91,45 @@ class ClientTest(TestCase):
         self.assertEqual(str(entries[0]), "<Entry[cat] id='nyancat'>")
         self.assertEqual(entries[0].fields(), {'name': 'Nyan Cat'})
 
+    @vcr.use_cassette('fixtures/client/entries_links_to_entry.yaml')
+    def test_client_entries_links_to_entry(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        entries = client.entries({'links_to_entry': 'nyancat'})
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(str(entries[0]), "<Entry[cat] id='happycat'>")
+
+    @vcr.use_cassette('fixtures/client/entry_incoming_references.yaml')
+    def test_entry_incoming_references(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        entry = client.entry('nyancat')
+        entries = entry.incoming_references(client)
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(str(entries[0]), "<Entry[cat] id='happycat'>")
+
+    @vcr.use_cassette('fixtures/client/entry_incoming_references_with_query.yaml')
+    def test_entry_incoming_references_with_query(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        entry = client.entry('nyancat')
+        entries = entry.incoming_references(client, { 'content_type': 'cat', 'select': ['fields.name'] })
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(str(entries[0]), "<Entry[cat] id='happycat'>")
+        self.assertEqual(entries[0].fields(), {'name': 'Happy Cat'})
+
+    @vcr.use_cassette('fixtures/client/entries_links_to_asset.yaml')
+    def test_client_entries_links_to_asset(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        entries = client.entries({'links_to_asset': 'nyancat'})
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(str(entries[0]), "<Entry[cat] id='nyancat'>")
+
+    @vcr.use_cassette('fixtures/client/asset_incoming_references.yaml')
+    def test_asset_incoming_references(self):
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
+        asset = client.asset('nyancat')
+        entries = asset.incoming_references(client)
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(str(entries[0]), "<Entry[cat] id='nyancat'>")
+
     @vcr.use_cassette('fixtures/client/asset.yaml')
     def test_client_asset(self):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)

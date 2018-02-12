@@ -1,0 +1,111 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [gzip]
+      Authorization: [Bearer b4c0n73n7fu1]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [python-requests/2.18.4]
+      X-Contentful-User-Agent: [sdk contentful.py/1.4.3; platform python/3.6.4; os
+          macOS/17.3.0;]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?sys.id=nyancat
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA+VX227jNhB9z1cEet1a4kX3NyNo0QDtokC8KJCiCGiJthlLsirRm/Uu8u8lqYtJ
+        XZxF1m8rBI5EcsiZwzmHw283t7dWfaqt+PabeBUf/FRS8WUtq4qcLNH2+oscww+cZKIdqq96z0rx
+        AdRHxnLGZRdovhmnuZzwHzVhM+1gFbVSXZJELtWNaBo1X2SDaux8+oMVe0uueX7E6sV+1fr8oGYc
+        DGCpDCfZ0C8kLzNKSiaj6p7X/l3F2TxWY1OcSJEQrk3Ye/JrwauT3pFUlHCaLiUQFgIQL4C/QMEK
+        odj1YxjZHsSPusGxTIcG0QK4KxCJ0TGObIACw6Cin1nNDoVYwNNcTQ4FpwVvIbgelnfavNOICmTe
+        BDI7JCRT+USLxaeHzqDH2towmqXn9JP4WwXJlclHgf/tnbkBGdvTc3K121URVqwPL7Wx9WLqenf2
+        8F8Ds+xQyRVaQ31f1rTmv1WMFjJtrgfnMGFUoE2a7UhZnmSevYnmmlV8lwpaNjkGRb7IlBE5BoD4
+        +6B+9WAy9lmhBTEO9PTOyfa6zFvWNdWJooXXsWg6ura1oaH8VftksSLJjqnyvdWlBsBOVc66MqEs
+        M9oyOVI5ekFfRO9bCtNv5JzGCA3Vg9fZNEwBo69za5w71mW5QcCGAdTVQ/g4FhwIFzBcQS/2whgg
+        G8BwYKJJTmh4Ni861wB5XnrOUJt0uYTwjAS1B1urIBMyJNbqhOh3ydCBEqnEGGuRaE52lH5dH6st
+        rXRKawIkBx1aCdrKY9YAd1aBroHtOJcuU/USsqYcAbyAYIHCFcIzcqQgawXJJMGEHl0j2ClV6lNo
+        SnYH0fas7fjb/G930mqm/yklaYzslCSJggatoBt7foxdG/lGQSM2YixJoDHxYghj5NrYH6qYJknI
+        yKEfoDlnvKlRZni+YapbLwak85Wshy3HYTJ7a7vVxM0xE6+5ox8GDv7z8a/i+XF1X++X9/f74/FQ
+        39W1g0NE3DDdEJSsoZ+4ARFvAdoEa4TXGxA5XY6+2M/l1lAJ4UBKOWGZWTu1clazr9JjL4pwpKPU
+        cH2SbarrhaV8JwxRgIdmondH2XYnC1wcBdqBJi31A85QVjWtBPBjW9RdDMk8VyyFrPNc0u1MbdRV
+        D52z5y0yLjUdKhMXjmvIzNS1o5eZ9xcF4+uHmLS/no0Kru8goAverAlaAvacHZloBFR3we6xrkHA
+        iYq/TZ8f45+7LX1Oli9/u3f5w/aY/4fo/lPuRCkBSQoj7IcBXIdpgLCLaRh5BIDUh9CR/jyJ0vwJ
+        eaD88rSpRBLbZfEOKkI0wakmwUehKc70VPTUrdp8zlQUjr2bit8b3SQrJQp6VTt3Vor215vXm/8B
+        I5JeymkQAAA=
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['1309']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Length: ['1034']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Date: ['Thu, 18 Jan 2018 14:31:19 GMT']
+      ETag: [W/"9707115047cc402819250f844939b2aa"]
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [HIT]
+      X-Cache-Hits: ['1']
+      X-Content-Type-Options: [nosniff]
+      X-Contentful-Request-Id: [d46d0115415ddd995b76914818d53e2b]
+      X-Served-By: [cache-hhn1545-HHN]
+      X-Timer: ['S1516285880.533530,VS0,VE0']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [gzip]
+      Authorization: [Bearer b4c0n73n7fu1]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [python-requests/2.18.4]
+      X-Contentful-User-Agent: [sdk contentful.py/1.4.3; platform python/3.6.4; os
+          macOS/17.3.0;]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?content_type=cat&select=fields.name%2Csys&links_to_entry=nyancat
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"fields\":
+        {\n        \"name\": \"Happy Cat\"\n      },\n      \"sys\": {\n        \"space\":
+        {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\":
+        \"Space\",\n            \"id\": \"cfexampleapi\"\n          }\n        },\n
+        \       \"id\": \"happycat\",\n        \"type\": \"Entry\",\n        \"createdAt\":
+        \"2013-06-27T22:46:20.171Z\",\n        \"updatedAt\": \"2013-11-18T15:58:02.018Z\",\n
+        \       \"revision\": 8,\n        \"contentType\": {\n          \"sys\": {\n
+        \           \"type\": \"Link\",\n            \"linkType\": \"ContentType\",\n
+        \           \"id\": \"cat\"\n          }\n        },\n        \"locale\":
+        \"en-US\"\n      }\n    }\n  ]\n}\n"}
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['490']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Length: ['701']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Date: ['Thu, 18 Jan 2018 14:31:19 GMT']
+      ETag: ['"73fc3e975a87e59301a93f54d56a2139"']
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [HIT]
+      X-Cache-Hits: ['1']
+      X-Content-Type-Options: [nosniff]
+      X-Contentful-Request-Id: [5e905364e78762fdc6c2f8f048c22c19]
+      X-Served-By: [cache-hhn1520-HHN]
+      X-Timer: ['S1516285880.735430,VS0,VE1']
+    status: {code: 200, message: OK}
+version: 1
