@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful package &#8212; Contentful 1.4.3 documentation</title>
+    <title>contentful package &#8212; Contentful 1.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.4.3',
+        VERSION:     '1.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -80,6 +80,25 @@
 <em class="property">class </em><code class="descclassname">contentful.asset.</code><code class="descname">Asset</code><span class="sig-paren">(</span><em>item</em>, <em>includes=None</em>, <em>localized=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.FieldsResource" title="contentful.resource.FieldsResource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.FieldsResource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets</a></p>
+<dl class="method">
+<dt id="contentful.asset.Asset.incoming_references">
+<code class="descname">incoming_references</code><span class="sig-paren">(</span><em>client=None</em>, <em>query={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset.incoming_references"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset.incoming_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches all entries referencing the asset</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset</a>
+:param client Client instance
+:param query: (optional) Dict with API options.
+:return: List of <a class="reference internal" href="#contentful.entry.Entry" title="contentful.entry.Entry"><code class="xref py py-class docutils literal"><span class="pre">Entry</span></code></a> objects.
+:rtype: List of contentful.entry.Entry</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entries</span> <span class="o">=</span> <span class="n">asset</span><span class="o">.</span><span class="n">incoming_references</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<span class="go">[&lt;Entry[cat] id=&#39;happycat&#39;&gt;]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="method">
 <dt id="contentful.asset.Asset.url">
 <code class="descname">url</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset.html#Asset.url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset.Asset.url" title="Permalink to this definition">¶</a></dt>
@@ -671,6 +690,25 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <em class="property">class </em><code class="descclassname">contentful.entry.</code><code class="descname">Entry</code><span class="sig-paren">(</span><em>item</em>, <em>includes=None</em>, <em>localized=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/entry.html#Entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.entry.Entry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.resource.FieldsResource" title="contentful.resource.FieldsResource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.FieldsResource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries</a></p>
+<dl class="method">
+<dt id="contentful.entry.Entry.incoming_references">
+<code class="descname">incoming_references</code><span class="sig-paren">(</span><em>client=None</em>, <em>query={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/entry.html#Entry.incoming_references"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.entry.Entry.incoming_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches all entries referencing the entry</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset</a></p>
+<p>:param client Client instance
+:param query: (optional) Dict with API options.
+:return: List of <a class="reference internal" href="#contentful.entry.Entry" title="contentful.entry.Entry"><code class="xref py py-class docutils literal"><span class="pre">Entry</span></code></a> objects.
+:rtype: List of contentful.entry.Entry</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entries</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">incoming_references</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<span class="go">[&lt;Entry[cat] id=&#39;happycat&#39;&gt;]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.asset &#8212; Contentful 1.4.3 documentation</title>
+    <title>contentful.asset &#8212; Contentful 1.5.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.4.3',
+        VERSION:     '1.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -78,6 +78,27 @@
             <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;?</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">url</span></div>
+
+<div class="viewcode-block" id="Asset.incoming_references"><a class="viewcode-back" href="../../contentful.html#contentful.asset.Asset.incoming_references">[docs]</a>    <span class="k">def</span> <span class="nf">incoming_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches all entries referencing the asset</span>
+
+<span class="sd">        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset</span>
+<span class="sd">        :param client Client instance</span>
+<span class="sd">        :param query: (optional) Dict with API options.</span>
+<span class="sd">        :return: List of :class:`Entry &lt;contentful.entry.Entry&gt;` objects.</span>
+<span class="sd">        :rtype: List of contentful.entry.Entry</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; entries = asset.incoming_references(client)</span>
+<span class="sd">            [&lt;Entry[cat] id=&#39;happycat&#39;&gt;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">query</span><span class="o">.</span><span class="n">update</span><span class="p">({</span> <span class="s1">&#39;links_to_asset&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="p">})</span>
+        <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">entries</span><span class="p">(</span><span class="n">query</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;Asset id=&#39;</span><span class="si">{0}</span><span class="s2">&#39; url=&#39;</span><span class="si">{1}</span><span class="s2">&#39;&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>

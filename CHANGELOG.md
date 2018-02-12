@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v1.5.0
+### Added
+* Added incoming links functionality.
+
 ## v1.4.3
 ### Fixed
 * Fixed an edge case for 404 error returning a `sys` object wrapping details.
