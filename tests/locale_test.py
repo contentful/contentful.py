@@ -15,5 +15,5 @@ class LocaleTest(TestCase):
         self.assertEqual(locale.name, 'English U.S.')
         self.assertEqual(locale.fallback_code, None)
         self.assertEqual(locale.default, True)
-        self.assertEqual(str(locale), "<Locale[English U.S.] code='en-US' default=True>")
+        self.assertEqual(str(locale), "<Locale[English U.S.] code='en-US' default=True fallback_code=None optional=False>")
 

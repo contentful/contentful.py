@@ -9,7 +9,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.0.3]
     method: GET
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?sys.id=foobar
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?sys.id=foobar
   response:
     body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 0,\n
         \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": []\n}\n"}

@@ -1,6 +1,3 @@
-import json
-
-
 """
 contentful.errors
 ~~~~~~~~~~~~~~~~~
@@ -88,7 +85,7 @@ class BadRequestError(HTTPError):
             return detail.get('details', None)
 
         inner_details = [_handle_detail(detail) for detail in details['errors']]
-        inner_details = [detail for detail in inner_details if detail is not None] # This works in both Py2 and Py3
+        inner_details = [detail for detail in inner_details if detail is not None]  # This works in both Py2 and Py3
         return "\n\t".join(inner_details)
 
 
@@ -108,7 +105,6 @@ class AccessDeniedError(HTTPError):
 
     def _default_error_message(self):
         return "The specified token does not have access to the requested resource."
-
 
     def _handle_details(self, details):
         return "\n\tReasons:\n\t\t{0}".format("\n\t\t".join(details['reasons']))

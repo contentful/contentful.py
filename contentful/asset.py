@@ -55,9 +55,8 @@ class Asset(FieldsResource):
         if client is None:
             return False
 
-        query.update({ 'links_to_asset': self.id })
+        query.update({'links_to_asset': self.id})
         return client.entries(query)
-
 
     def __repr__(self):
         return "<Asset id='{0}' url='{1}'>".format(

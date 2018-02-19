@@ -137,6 +137,14 @@ class ClientTest(TestCase):
 
         self.assertEqual(str(asset), "<Asset id='nyancat' url='//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png'>")
 
+    @vcr.use_cassette('fixtures/client/locales_on_environment.yaml')
+    def test_client_locales_on_environment(self):
+        client = Client('facgnwwgj5fe', '<ACCESS_TOKEN>', environment='testing', content_type_cache=False)
+        locales = client.locales()
+
+        self.assertEqual(str(locales), "<Array size='3' total='3' limit='1000' skip='0'>")
+        self.assertEqual(str(locales[0]), "<Locale[U.S. English] code='en-US' default=True fallback_code=None optional=False>")
+
     @vcr.use_cassette('fixtures/client/assets.yaml')
     def test_client_assets(self):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)

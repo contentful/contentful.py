@@ -11,7 +11,7 @@ interactions:
       X-Contentful-User-Agent: [sdk contentful.py/1.5.0; platform python/3.6.3; os
           macOS/16.7.0;]
     method: GET
-    uri: https://cdn.contentful.com/spaces/011npgaszg5o/content_types
+    uri: https://cdn.contentful.com/spaces/011npgaszg5o/environments/master/content_types
   response:
     body:
       string: !!binary |
@@ -77,7 +77,7 @@ interactions:
       X-Contentful-User-Agent: [sdk contentful.py/1.5.0; platform python/3.6.3; os
           macOS/16.7.0;]
     method: GET
-    uri: https://cdn.contentful.com/spaces/011npgaszg5o/entries?sys.id=1HR1QvURo4MoSqO0eqmUeO
+    uri: https://cdn.contentful.com/spaces/011npgaszg5o/environments/master/entries?sys.id=1HR1QvURo4MoSqO0eqmUeO
   response:
     body:
       string: !!binary |

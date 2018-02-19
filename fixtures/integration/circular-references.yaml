@@ -9,7 +9,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.1.1]
     method: GET
-    uri: https://cdn.contentful.com/spaces/rk19fq93y3vw/content_types
+    uri: https://cdn.contentful.com/spaces/rk19fq93y3vw/environments/master/content_types
   response:
     body:
       string: !!binary |
@@ -56,7 +56,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.1.1]
     method: GET
-    uri: https://cdn.contentful.com/spaces/rk19fq93y3vw/entries?sys.id=6kdfS7uMs8owuEIoSaOcQk
+    uri: https://cdn.contentful.com/spaces/rk19fq93y3vw/environments/master/entries?sys.id=6kdfS7uMs8owuEIoSaOcQk
   response:
     body:
       string: !!binary |

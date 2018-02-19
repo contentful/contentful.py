@@ -9,7 +9,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.0.2]
     method: GET
-    uri: https://cdn.contentful.com/spaces/wltm0euukdog/content_types
+    uri: https://cdn.contentful.com/spaces/wltm0euukdog/environments/master/content_types
   response:
     body: {string: !!python/unicode "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n
         \ \"total\": 1,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n
@@ -57,7 +57,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.0.2]
     method: GET
-    uri: https://cdn.contentful.com/spaces/wltm0euukdog/entries
+    uri: https://cdn.contentful.com/spaces/wltm0euukdog/environments/master/entries
   response:
     body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n
         \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n

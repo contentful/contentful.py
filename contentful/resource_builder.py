@@ -6,6 +6,7 @@ from .space import Space  # noqa: F401
 from .content_type import ContentType  # noqa: F401
 from .deleted_asset import DeletedAsset  # noqa: F401
 from .deleted_entry import DeletedEntry  # noqa: F401
+from .locale import Locale  # noqa: F401
 from .sync_page import SyncPage
 from .utils import unresolvable
 
@@ -83,7 +84,8 @@ class ResourceBuilder(object):
             'ContentType',
             'Space',
             'DeletedEntry',
-            'DeletedAsset'
+            'DeletedAsset',
+            'Locale'
         ]
         if item['sys']['type'] in buildables:
             return globals()[item['sys']['type']](
