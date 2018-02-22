@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Added
+* Add filtering of invalid entries from API responses.
 
 ## v1.5.0
 ### Added

@@ -30,6 +30,7 @@ class Resource(object):
             item,
             default_locale='en-US',
             includes=None,
+            errors=None,
             localized=False,
             depth=0,
             max_depth=20):
@@ -78,48 +79,61 @@ class FieldsResource(Resource):
             self,
             item,
             includes=None,
+            errors=None,
             localized=False,
             **kwargs):
         super(FieldsResource, self).__init__(
             item,
             includes=includes,
+            errors=errors,
             localized=localized,
             **kwargs
         )
 
-        self._fields = self._hydrate_fields(item, localized, includes)
+        self._fields = self._hydrate_fields(item, localized, includes, errors)
 
-    def _hydrate_fields(self, item, localized, includes):
+    def _hydrate_fields(self, item, localized, includes, errors):
         if 'fields' not in item:
             return {}
 
         if includes is None:
             includes = []
 
+        if errors is None:
+            errors = []
+
         locale = self._locale()
         fields = {locale: {}}
         if localized:
-            for k, locales in item['fields'].items():
-                for locale, v in locales.items():
-                    if locale not in fields:
-                        fields[locale] = {}
-                    fields[locale][snake_case(k)] = self._coerce(
-                        snake_case(k),
-                        v,
-                        localized,
-                        includes
-                    )
+            self._hydrate_localized_entry(fields, item, includes, errors)
         else:
-            for k, v in item['fields'].items():
+            self._hydrate_non_localized_entry(fields, item, includes, errors)
+        return fields
+
+    def _hydrate_localized_entry(self, fields, item, includes, errors):
+        for k, locales in item['fields'].items():
+            for locale, v in locales.items():
+                if locale not in fields:
+                    fields[locale] = {}
                 fields[locale][snake_case(k)] = self._coerce(
                     snake_case(k),
                     v,
-                    localized,
-                    includes
+                    True,
+                    includes,
+                    errors
                 )
-        return fields
 
-    def _coerce(self, field_id, value, localized, includes):
+    def _hydrate_non_localized_entry(self, fields, item, includes, errors):
+        for k, v in item['fields'].items():
+            fields[self._locale()][snake_case(k)] = self._coerce(
+                snake_case(k),
+                v,
+                False,
+                includes,
+                errors
+            )
+
+    def _coerce(self, field_id, value, localized, includes, errors):
         return value
 
     def fields(self, locale=None):
