@@ -341,3 +341,13 @@ class ClientTest(TestCase):
         self.assertEqual(str(a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
         self.assertEqual(str(a.b), "<Entry[b] id='7oADpDPuneEAsWUiO2CmEo'>")
         self.assertEqual(str(a.b.a), "<Link[Entry] id='6kdfS7uMs8owuEIoSaOcQk'>")
+
+    @vcr.use_cassette('fixtures/integration/errors-filtered.yaml')
+    def test_unresolvable_entries_dont_get_included(self):
+        client = Client(
+            '011npgaszg5o',
+            '42c9d93410a7319e9a735671fc1e415348f65e94a99fc768b70a7c649859d4fd'
+        )
+
+        entry = client.entry('1HR1QvURo4MoSqO0eqmUeO')
+        self.assertEqual(len(entry.modules), 2)

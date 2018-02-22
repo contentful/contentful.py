@@ -108,6 +108,13 @@ def is_link_array(value):
     return False
 
 
+def unresolvable(item, errors):
+    for error in errors:
+        if error.get('details', {}).get('id', None) == item['sys']['id']:
+            return True
+    return False
+
+
 def resource_for_link(link, includes):
     """Returns the resource that matches the link"""
 

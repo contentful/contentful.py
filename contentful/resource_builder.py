@@ -7,6 +7,7 @@ from .content_type import ContentType  # noqa: F401
 from .deleted_asset import DeletedAsset  # noqa: F401
 from .deleted_entry import DeletedEntry  # noqa: F401
 from .sync_page import SyncPage
+from .utils import unresolvable
 
 
 """
@@ -59,15 +60,22 @@ class ResourceBuilder(object):
 
     def _build_array(self):
         includes = self._includes()
+        errors = self._errors()
+
         items = [self._build_item(
             item,
-            includes=includes
-        ) for item in self.json['items']]
+            includes=includes,
+            errors=errors
+        ) for item in self.json['items']
+        if not unresolvable(item, self._errors())]
+
         return Array(self.json, items)
 
-    def _build_item(self, item, includes=None):
+    def _build_item(self, item, includes=None, errors=None):
         if includes is None:
             includes = []
+        if errors is None:
+            errors = []
 
         buildables = [
             'Entry',
@@ -83,6 +91,7 @@ class ResourceBuilder(object):
                 default_locale=self.default_locale,
                 localized=self.localized,
                 includes=includes,
+                errors=errors,
                 depth=self.depth,
                 max_depth=self.max_depth
             )
@@ -91,5 +100,9 @@ class ResourceBuilder(object):
         includes = list(self.json['items'])
         for e in ['Entry', 'Asset']:
             if e in self.json.get('includes', {}):
-                includes += self.json['includes'].get(e, [])
+                includes += [item for item in self.json['includes'].get(e, [])
+                            if not unresolvable(item, self._errors())]
         return includes
+
+    def _errors(self):
+        return self.json.get('errors', [])

@@ -1,5 +1,5 @@
 from .resource import FieldsResource
-from .utils import is_link, is_link_array, resource_for_link
+from .utils import is_link, is_link_array, resource_for_link, unresolvable
 from .content_type_cache import ContentTypeCache
 
 
@@ -21,8 +21,8 @@ class Entry(FieldsResource):
     API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries
     """
 
-    def _coerce(self, field_id, value, localized, includes):
-        if is_link(value):
+    def _coerce(self, field_id, value, localized, includes, errors):
+        if is_link(value) and not unresolvable(value, errors):
             return self._build_nested_resource(
                 value,
                 localized,
@@ -31,6 +31,8 @@ class Entry(FieldsResource):
         elif is_link_array(value):
             items = []
             for link in value:
+                if unresolvable(link, errors):
+                    continue
                 items.append(
                     self._build_nested_resource(
                         link,
@@ -53,7 +55,8 @@ class Entry(FieldsResource):
             field_id,
             value,
             localized,
-            includes
+            includes,
+            errors
         )
 
     def _build_nested_resource(self, value, localized, includes):
