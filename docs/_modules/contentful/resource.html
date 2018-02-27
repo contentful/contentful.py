@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.resource &#8212; Contentful 1.5.0 documentation</title>
+    <title>contentful.resource &#8212; Contentful 1.6.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.5.0',
+        VERSION:     '1.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -71,6 +71,7 @@
             <span class="n">item</span><span class="p">,</span>
             <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span>
             <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">localized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
@@ -119,48 +120,61 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">item</span><span class="p">,</span>
             <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">localized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">FieldsResource</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">item</span><span class="p">,</span>
             <span class="n">includes</span><span class="o">=</span><span class="n">includes</span><span class="p">,</span>
+            <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
             <span class="n">localized</span><span class="o">=</span><span class="n">localized</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hydrate_fields</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hydrate_fields</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_hydrate_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_hydrate_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
         <span class="k">if</span> <span class="s1">&#39;fields&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="n">includes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">includes</span> <span class="o">=</span> <span class="p">[]</span>
 
+        <span class="k">if</span> <span class="n">errors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="n">locale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locale</span><span class="p">()</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">{</span><span class="n">locale</span><span class="p">:</span> <span class="p">{}}</span>
         <span class="k">if</span> <span class="n">localized</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">locales</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">for</span> <span class="n">locale</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">locales</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="k">if</span> <span class="n">locale</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
-                        <span class="n">fields</span><span class="p">[</span><span class="n">locale</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-                    <span class="n">fields</span><span class="p">[</span><span class="n">locale</span><span class="p">][</span><span class="n">snake_case</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce</span><span class="p">(</span>
-                        <span class="n">snake_case</span><span class="p">(</span><span class="n">k</span><span class="p">),</span>
-                        <span class="n">v</span><span class="p">,</span>
-                        <span class="n">localized</span><span class="p">,</span>
-                        <span class="n">includes</span>
-                    <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_hydrate_localized_entry</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_hydrate_non_localized_entry</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fields</span>
+
+    <span class="k">def</span> <span class="nf">_hydrate_localized_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">locales</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">locale</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">locales</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">locale</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+                    <span class="n">fields</span><span class="p">[</span><span class="n">locale</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="n">fields</span><span class="p">[</span><span class="n">locale</span><span class="p">][</span><span class="n">snake_case</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce</span><span class="p">(</span>
                     <span class="n">snake_case</span><span class="p">(</span><span class="n">k</span><span class="p">),</span>
                     <span class="n">v</span><span class="p">,</span>
-                    <span class="n">localized</span><span class="p">,</span>
-                    <span class="n">includes</span>
+                    <span class="kc">True</span><span class="p">,</span>
+                    <span class="n">includes</span><span class="p">,</span>
+                    <span class="n">errors</span>
                 <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fields</span>
 
-    <span class="k">def</span> <span class="nf">_coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_id</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_hydrate_non_localized_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">fields</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_locale</span><span class="p">()][</span><span class="n">snake_case</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce</span><span class="p">(</span>
+                <span class="n">snake_case</span><span class="p">(</span><span class="n">k</span><span class="p">),</span>
+                <span class="n">v</span><span class="p">,</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="n">includes</span><span class="p">,</span>
+                <span class="n">errors</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_id</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">value</span>
 
 <div class="viewcode-block" id="FieldsResource.fields"><a class="viewcode-back" href="../../contentful.html#contentful.resource.FieldsResource.fields">[docs]</a>    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
