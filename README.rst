@@ -112,6 +112,39 @@ Entries can have fields in it's default locale accessible with accessor methods:
     nyancat.name
     # 'Nyan Cat'
 
+Property Accessors
+------------------
+
+This SDK provides a simple API to interact with resources that come from the API,
+by abstracting the underlying JSON structure of the objects, and exposing all the relevant fields as
+object properties.
+
+For all resources, ``sys`` properties will be available as top level properties, for example::
+
+    space = client.space()
+    space.id
+    # will return the value of space.sys['id']
+
+In the case of ``Entries`` and ``Assets``, as well as having ``sys`` available as properties,
+also all the fields on present on ``fields`` will be available as properties, for example::
+
+    entry = client.entry('nyancat')
+    entry.name
+    # 'Nyan Cat'
+    # this is equivalent to entry.fields()['name']
+
+    asset = client.assets()[0]
+    asset.file['details']['size']
+    # will return the size of the image
+    # this is equivalent to asset.fields()['file']['details']['size']
+
+Other resources, which contain top level properties other than ``sys`` or ``fields``,
+have those available as object properties, for example::
+
+    locale = client.locales()[0]
+    locale.default
+    # True
+
 Client Configuration Options
 ----------------------------
 
