@@ -8,9 +8,7 @@ Contentful Delivery API SDK
 
 Release v\ |version|.
 
-`Contentful <https://www.contentful.com>`_ is a content management platform for web applications, mobile apps and connected devices.
-It allows you to create, edit & manage content in the cloud and publish it anywhere via powerful API.
-Contentful offers tools for managing editorial teams and enabling cooperation between organizations.
+`Contentful <https://www.contentful.com>`_ provides a content infrastructure for digital teams to power content in websites, apps, and devices. Unlike a CMS, Contentful was built to integrate with the modern software stack. It offers a central hub for structured content, powerful management and delivery APIs, and a customizable web app that enable developers and content creators to ship digital products faster.
 
     This SDK is intended to replace the former unofficial Python CDA SDK. The old SDK can still be found at: https://github.com/contentful-labs/contentful.py
 
@@ -113,6 +111,39 @@ Entries can have fields in it's default locale accessible with accessor methods:
     nyancat.name
     # 'Nyan Cat'
 
+Property Accessors
+------------------
+
+This SDK provides a simple API to interact with resources that come from the API,
+by abstracting the underlying JSON structure of the objects, and exposing all the relevant fields as
+object properties.
+
+For all resources, ``sys`` properties will be available as top level properties, for example::
+
+    space = client.space()
+    space.id
+    # will return the value of space.sys['id']
+
+In the case of ``Entries`` and ``Assets``, as well as having ``sys`` available as properties,
+also all the fields on present on ``fields`` will be available as properties, for example::
+
+    entry = client.entry('nyancat')
+    entry.name
+    # 'Nyan Cat'
+    # this is equivalent to entry.fields()['name']
+
+    asset = client.assets()[0]
+    asset.file['details']['size']
+    # will return the size of the image
+    # this is equivalent to asset.fields()['file']['details']['size']
+
+Other resources, which contain top level properties other than ``sys`` or ``fields``,
+have those available as object properties, for example::
+
+    locale = client.locales()[0]
+    locale.default
+    # True
+
 Client Configuration Options
 ----------------------------
 
@@ -151,6 +182,14 @@ Client Configuration Options
 ``max_rate_limit_wait``: (optional) Timeout (in seconds) for waiting for retry after RateLimitError, defaults to 60.
 
 ``max_include_resolution_depth``: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2).
+
+``application_name``: (optional) User application name, defaults to None.
+
+``application_version``: (optional) User application version, defaults to None.
+
+``integration_name``: (optional) Integration name, defaults to None.
+
+``integration_version``: (optional) Integration version, defaults to None.
 
 Synchronization
 ---------------
