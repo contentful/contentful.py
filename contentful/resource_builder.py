@@ -64,11 +64,11 @@ class ResourceBuilder(object):
         errors = self._errors()
 
         items = [self._build_item(
-            item,
-            includes=includes,
-            errors=errors
-        ) for item in self.json['items']
-        if not unresolvable(item, self._errors())]
+                    item,
+                    includes=includes,
+                    errors=errors
+                 ) for item in self.json['items']
+                 if not unresolvable(item, self._errors())]
 
         return Array(self.json, items)
 
@@ -103,7 +103,7 @@ class ResourceBuilder(object):
         for e in ['Entry', 'Asset']:
             if e in self.json.get('includes', {}):
                 includes += [item for item in self.json['includes'].get(e, [])
-                            if not unresolvable(item, self._errors())]
+                             if not unresolvable(item, self._errors())]
         return includes
 
     def _errors(self):

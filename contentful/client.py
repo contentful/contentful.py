@@ -1,7 +1,8 @@
 import requests
 import platform
 from re import sub
-from .utils import ConfigurationException, retry_request, string_class
+from .utils import ConfigurationException, NotSupportedException
+from .utils import retry_request, string_class
 from .errors import get_error, RateLimitExceededError, EntryNotFoundError
 from .resource_builder import ResourceBuilder
 from .content_type_cache import ContentTypeCache
@@ -335,6 +336,9 @@ class Client(object):
             <SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybC...'>
         """
 
+        if self.environment != 'master':
+            raise NotSupportedException('The sync endpoint is only available for the master environment.')
+
         if query is None:
             query = {}
         self._normalize_sync(query)
@@ -351,7 +355,6 @@ class Client(object):
             self.environment,
             url
         )
-
 
     def _normalize_select(self, query):
         """

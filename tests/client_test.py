@@ -6,7 +6,7 @@ from unittest import TestCase
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
-from contentful.utils import ConfigurationException
+from contentful.utils import ConfigurationException, NotSupportedException
 
 
 class ClientTest(TestCase):
@@ -159,6 +159,13 @@ class ClientTest(TestCase):
 
         self.assertEqual(str(sync), "<SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE'>")
         self.assertEqual(str(sync.items[0]), "<Entry[1t9IbcfdCk6m04uISSsaIK] id='5ETMRzkl9KM4omyMwKAOki'>")
+
+    def test_client_sync_should_fail_on_non_master_environment(self):
+        # We'll create the client without Content Type Cache, to avoid having to do a fake request.
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False, environment='foo')
+
+        with self.assertRaises(NotSupportedException):
+            client.sync({'initial': True})
 
     @vcr.use_cassette('fixtures/client/array_endpoints.yaml')
     def test_client_creates_wrapped_arrays(self):
