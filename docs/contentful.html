@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful package &#8212; Contentful 1.6.0 documentation</title>
+    <title>contentful package &#8212; Contentful 1.7.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.6.0',
+        VERSION:     '1.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -123,7 +123,7 @@ with serialized parameters.</p>
 <span id="contentful-client-module"></span><h2>contentful.client module<a class="headerlink" href="#module-contentful.client" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.client.Client">
-<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em>, <em>max_include_resolution_depth=20</em>, <em>application_name=None</em>, <em>application_version=None</em>, <em>integration_name=None</em>, <em>integration_version=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>environment='master'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em>, <em>max_include_resolution_depth=20</em>, <em>application_name=None</em>, <em>application_version=None</em>, <em>integration_name=None</em>, <em>integration_version=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Constructs the API Client.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -139,6 +139,8 @@ defaults to Delivery API (can be overriden for Preview API).</li>
 <li><strong>api_version</strong> – (optional) Target version of the Contentful API.</li>
 <li><strong>default_locale</strong> – (optional) Default Locale for your Space,
 defaults to ‘en-US’.</li>
+<li><strong>environment</strong> – (optional) Default Environment for client, defaults
+to ‘master’.</li>
 <li><strong>https</strong> – (optional) Boolean determining wether to use https
 or http, defaults to True.</li>
 <li><strong>authorization_as_header</strong> – (optional) Boolean determining wether
@@ -375,6 +377,40 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <dt>Usage:</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nyancat_entry</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
 <span class="go">&lt;Entry[cat] id=&#39;nyancat&#39;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.environment_url">
+<code class="descname">environment_url</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.environment_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.environment_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the URL with the environment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.locales">
+<code class="descname">locales</code><span class="sig-paren">(</span><em>query=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.locales"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.locales" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches all Locales from the Environment (up to the set limit, can be modified in <cite>query</cite>).</p>
+<p># TODO: fix url
+API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/assets-collection/get-all-assets-of-a-space">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/assets-collection/get-all-assets-of-a-space</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> – (optional) Dict with API options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <a class="reference internal" href="#contentful.locale.Locale" title="contentful.locale.Locale"><code class="xref py py-class docutils literal"><span class="pre">Locale</span></code></a> objects.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List of contentful.locale.Locale</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">locales</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">locales</span><span class="p">()</span>
+<span class="go">[&lt;Locale[English (United States)] code=&#39;en-US&#39; default=True fallback_code=None optional=False&gt;]</span>
 </pre></div>
 </div>
 </dd>
@@ -714,6 +750,24 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 </div>
 <div class="section" id="module-contentful.errors">
 <span id="contentful-errors-module"></span><h2>contentful.errors module<a class="headerlink" href="#module-contentful.errors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contentful-errors">
+<h3>contentful.errors<a class="headerlink" href="#contentful-errors" title="Permalink to this headline">¶</a></h3>
+<p>This module implements the Error classes.</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/errors">https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/errors</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
+<li>2016 by Contentful GmbH.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">MIT, see LICENSE for more details.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="exception">
 <dt id="contentful.errors.AccessDeniedError">
 <em class="property">exception </em><code class="descclassname">contentful.errors.</code><code class="descname">AccessDeniedError</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/errors.html#AccessDeniedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.errors.AccessDeniedError" title="Permalink to this definition">¶</a></dt>
@@ -802,34 +856,16 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-contentful.locale">
 <span id="contentful-locale-module"></span><h2>contentful.locale module<a class="headerlink" href="#module-contentful.locale" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="contentful-locale">
-<h3>contentful.locale<a class="headerlink" href="#contentful-locale" title="Permalink to this headline">¶</a></h3>
-<p>This module implements the Locale class.</p>
-<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
-<li>2016 by Contentful GmbH.</li>
-</ol>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">MIT, see LICENSE for more details.</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="class">
 <dt id="contentful.locale.Locale">
-<em class="property">class </em><code class="descclassname">contentful.locale.</code><code class="descname">Locale</code><span class="sig-paren">(</span><em>locale_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/locale.html#Locale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.locale.Locale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<em class="property">class </em><code class="descclassname">contentful.locale.</code><code class="descname">Locale</code><span class="sig-paren">(</span><em>item</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/locale.html#Locale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.locale.Locale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization</a></p>
 </dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-contentful.resource">
 <span id="contentful-resource-module"></span><h2>contentful.resource module<a class="headerlink" href="#module-contentful.resource" title="Permalink to this headline">¶</a></h2>
@@ -945,6 +981,13 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <em class="property">exception </em><code class="descclassname">contentful.utils.</code><code class="descname">ConfigurationException</code><a class="reference internal" href="_modules/contentful/utils.html#ConfigurationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.ConfigurationException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
 <p>Configuration Error Class</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="contentful.utils.NotSupportedException">
+<em class="property">exception </em><code class="descclassname">contentful.utils.</code><code class="descname">NotSupportedException</code><a class="reference internal" href="_modules/contentful/utils.html#NotSupportedException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.NotSupportedException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>This exception is thrown when something is not supported by the API.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1098,11 +1141,11 @@ depends on the Python version.</p>
 <li><a class="reference internal" href="#module-contentful.deleted_asset">contentful.deleted_asset module</a></li>
 <li><a class="reference internal" href="#module-contentful.deleted_entry">contentful.deleted_entry module</a></li>
 <li><a class="reference internal" href="#module-contentful.entry">contentful.entry module</a></li>
-<li><a class="reference internal" href="#module-contentful.errors">contentful.errors module</a></li>
-<li><a class="reference internal" href="#module-contentful.locale">contentful.locale module</a><ul>
-<li><a class="reference internal" href="#contentful-locale">contentful.locale</a></li>
+<li><a class="reference internal" href="#module-contentful.errors">contentful.errors module</a><ul>
+<li><a class="reference internal" href="#contentful-errors">contentful.errors</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-contentful.locale">contentful.locale module</a></li>
 <li><a class="reference internal" href="#module-contentful.resource">contentful.resource module</a></li>
 <li><a class="reference internal" href="#module-contentful.resource_builder">contentful.resource_builder module</a></li>
 <li><a class="reference internal" href="#module-contentful.space">contentful.space module</a></li>

@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.resource_builder &#8212; Contentful 1.6.0 documentation</title>
+    <title>contentful.resource_builder &#8212; Contentful 1.7.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.6.0',
+        VERSION:     '1.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,6 +47,7 @@
 <span class="kn">from</span> <span class="nn">.content_type</span> <span class="k">import</span> <span class="n">ContentType</span>  <span class="c1"># noqa: F401</span>
 <span class="kn">from</span> <span class="nn">.deleted_asset</span> <span class="k">import</span> <span class="n">DeletedAsset</span>  <span class="c1"># noqa: F401</span>
 <span class="kn">from</span> <span class="nn">.deleted_entry</span> <span class="k">import</span> <span class="n">DeletedEntry</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">.locale</span> <span class="k">import</span> <span class="n">Locale</span>  <span class="c1"># noqa: F401</span>
 <span class="kn">from</span> <span class="nn">.sync_page</span> <span class="k">import</span> <span class="n">SyncPage</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">unresolvable</span>
 
@@ -104,11 +105,11 @@
         <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errors</span><span class="p">()</span>
 
         <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_item</span><span class="p">(</span>
-            <span class="n">item</span><span class="p">,</span>
-            <span class="n">includes</span><span class="o">=</span><span class="n">includes</span><span class="p">,</span>
-            <span class="n">errors</span><span class="o">=</span><span class="n">errors</span>
-        <span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">unresolvable</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errors</span><span class="p">())]</span>
+                    <span class="n">item</span><span class="p">,</span>
+                    <span class="n">includes</span><span class="o">=</span><span class="n">includes</span><span class="p">,</span>
+                    <span class="n">errors</span><span class="o">=</span><span class="n">errors</span>
+                 <span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span>
+                 <span class="k">if</span> <span class="ow">not</span> <span class="n">unresolvable</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errors</span><span class="p">())]</span>
 
         <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span>
 
@@ -124,7 +125,8 @@
             <span class="s1">&#39;ContentType&#39;</span><span class="p">,</span>
             <span class="s1">&#39;Space&#39;</span><span class="p">,</span>
             <span class="s1">&#39;DeletedEntry&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;DeletedAsset&#39;</span>
+            <span class="s1">&#39;DeletedAsset&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Locale&#39;</span>
         <span class="p">]</span>
         <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">buildables</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]](</span>
@@ -142,7 +144,7 @@
         <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Entry&#39;</span><span class="p">,</span> <span class="s1">&#39;Asset&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;includes&#39;</span><span class="p">,</span> <span class="p">{}):</span>
                 <span class="n">includes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;includes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="p">[])</span>
-                            <span class="k">if</span> <span class="ow">not</span> <span class="n">unresolvable</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errors</span><span class="p">())]</span>
+                             <span class="k">if</span> <span class="ow">not</span> <span class="n">unresolvable</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errors</span><span class="p">())]</span>
         <span class="k">return</span> <span class="n">includes</span>
 
     <span class="k">def</span> <span class="nf">_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

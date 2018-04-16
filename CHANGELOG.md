@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.7.0
 ### Added
 * Added support of `environments` functionality.
 

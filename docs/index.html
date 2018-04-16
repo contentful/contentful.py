@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Contentful Delivery API SDK &#8212; Contentful 1.6.0 documentation</title>
+    <title>Contentful Delivery API SDK &#8212; Contentful 1.7.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.6.0',
+        VERSION:     '1.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -41,10 +41,8 @@
             
   <div class="section" id="contentful-delivery-api-sdk">
 <h1>Contentful Delivery API SDK<a class="headerlink" href="#contentful-delivery-api-sdk" title="Permalink to this headline">¶</a></h1>
-<p>Release v1.6.0.</p>
-<p><a class="reference external" href="https://www.contentful.com">Contentful</a> is a content management platform for web applications, mobile apps and connected devices.
-It allows you to create, edit &amp; manage content in the cloud and publish it anywhere via powerful API.
-Contentful offers tools for managing editorial teams and enabling cooperation between organizations.</p>
+<p>Release v1.7.0.</p>
+<p><a class="reference external" href="https://www.contentful.com">Contentful</a> provides a content infrastructure for digital teams to power content in websites, apps, and devices. Unlike a CMS, Contentful was built to integrate with the modern software stack. It offers a central hub for structured content, powerful management and delivery APIs, and a customizable web app that enable developers and content creators to ship digital products faster.</p>
 <blockquote>
 <div>This SDK is intended to replace the former unofficial Python CDA SDK. The old SDK can still be found at: <a class="reference external" href="https://github.com/contentful-labs/contentful.py">https://github.com/contentful-labs/contentful.py</a></div></blockquote>
 <div class="section" id="installation">
@@ -142,6 +140,38 @@ If you want to fetch a different locale you can do the following:</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="property-accessors">
+<h2>Property Accessors<a class="headerlink" href="#property-accessors" title="Permalink to this headline">¶</a></h2>
+<p>This SDK provides a simple API to interact with resources that come from the API,
+by abstracting the underlying JSON structure of the objects, and exposing all the relevant fields as
+object properties.</p>
+<p>For all resources, <code class="docutils literal"><span class="pre">sys</span></code> properties will be available as top level properties, for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">space</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">space</span><span class="p">()</span>
+<span class="n">space</span><span class="o">.</span><span class="n">id</span>
+<span class="c1"># will return the value of space.sys[&#39;id&#39;]</span>
+</pre></div>
+</div>
+<p>In the case of <code class="docutils literal"><span class="pre">Entries</span></code> and <code class="docutils literal"><span class="pre">Assets</span></code>, as well as having <code class="docutils literal"><span class="pre">sys</span></code> available as properties,
+also all the fields on present on <code class="docutils literal"><span class="pre">fields</span></code> will be available as properties, for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">entry</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="s1">&#39;nyancat&#39;</span><span class="p">)</span>
+<span class="n">entry</span><span class="o">.</span><span class="n">name</span>
+<span class="c1"># &#39;Nyan Cat&#39;</span>
+<span class="c1"># this is equivalent to entry.fields()[&#39;name&#39;]</span>
+
+<span class="n">asset</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">assets</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">asset</span><span class="o">.</span><span class="n">file</span><span class="p">[</span><span class="s1">&#39;details&#39;</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span>
+<span class="c1"># will return the size of the image</span>
+<span class="c1"># this is equivalent to asset.fields()[&#39;file&#39;][&#39;details&#39;][&#39;size&#39;]</span>
+</pre></div>
+</div>
+<p>Other resources, which contain top level properties other than <code class="docutils literal"><span class="pre">sys</span></code> or <code class="docutils literal"><span class="pre">fields</span></code>,
+have those available as object properties, for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">locale</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">locales</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">locale</span><span class="o">.</span><span class="n">default</span>
+<span class="c1"># True</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="client-configuration-options">
 <h2>Client Configuration Options<a class="headerlink" href="#client-configuration-options" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">space_id</span></code>: Space ID of your target space.</p>
@@ -162,6 +192,10 @@ If you want to fetch a different locale you can do the following:</p>
 <p><code class="docutils literal"><span class="pre">max_rate_limit_retries</span></code>: (optional) Maximum amount of retries after RateLimitError, defaults to 1.</p>
 <p><code class="docutils literal"><span class="pre">max_rate_limit_wait</span></code>: (optional) Timeout (in seconds) for waiting for retry after RateLimitError, defaults to 60.</p>
 <p><code class="docutils literal"><span class="pre">max_include_resolution_depth</span></code>: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2).</p>
+<p><code class="docutils literal"><span class="pre">application_name</span></code>: (optional) User application name, defaults to None.</p>
+<p><code class="docutils literal"><span class="pre">application_version</span></code>: (optional) User application version, defaults to None.</p>
+<p><code class="docutils literal"><span class="pre">integration_name</span></code>: (optional) Integration name, defaults to None.</p>
+<p><code class="docutils literal"><span class="pre">integration_version</span></code>: (optional) Integration version, defaults to None.</p>
 </div>
 <div class="section" id="synchronization">
 <h2>Synchronization<a class="headerlink" href="#synchronization" title="Permalink to this headline">¶</a></h2>
@@ -240,11 +274,11 @@ additional options are described in the <a class="reference external" href="http
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.deleted_asset">contentful.deleted_asset module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.deleted_entry">contentful.deleted_entry module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.entry">contentful.entry module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.errors">contentful.errors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.locale">contentful.locale module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="contentful.html#contentful-locale">contentful.locale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.errors">contentful.errors module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contentful.html#contentful-errors">contentful.errors</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.locale">contentful.locale module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.resource">contentful.resource module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.resource_builder">contentful.resource_builder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contentful.html#module-contentful.space">contentful.space module</a></li>
@@ -283,6 +317,7 @@ additional options are described in the <a class="reference external" href="http
 <li><a class="reference internal" href="#links">Links</a></li>
 <li><a class="reference internal" href="#assets">Assets</a></li>
 <li><a class="reference internal" href="#entries">Entries</a></li>
+<li><a class="reference internal" href="#property-accessors">Property Accessors</a></li>
 <li><a class="reference internal" href="#client-configuration-options">Client Configuration Options</a></li>
 <li><a class="reference internal" href="#synchronization">Synchronization</a></li>
 <li><a class="reference internal" href="#logging">Logging</a></li>
