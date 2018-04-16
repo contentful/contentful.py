@@ -105,7 +105,7 @@ class Entry(FieldsResource):
         if client is None:
             return False
 
-        query.update({ 'links_to_entry': self.id })
+        query.update({'links_to_entry': self.id})
         return client.entries(query)
 
     def __repr__(self):

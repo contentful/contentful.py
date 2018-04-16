@@ -130,6 +130,11 @@ class ConfigurationException(Exception):
     pass
 
 
+class NotSupportedException(Exception):
+    """This exception is thrown when something is not supported by the API."""
+    pass
+
+
 class retry_request(object):
     """
     Decorator to retry function calls in case they raise rate limit exceptions

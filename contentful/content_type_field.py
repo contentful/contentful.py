@@ -1,5 +1,5 @@
 from .utils import snake_case
-from .content_type_field_types import *  # noqa: F401
+from .content_type_field_types import *  # noqa: F401, F403
 
 """
 contentful.content_type_field

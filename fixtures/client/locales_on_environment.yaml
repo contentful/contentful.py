@@ -1,0 +1,52 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [gzip]
+      Authorization: [Bearer <ACCESS_TOKEN>]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [python-requests/2.12.1]
+      X-Contentful-User-Agent: [sdk contentful.py/1.6.0; platform python/3.6.3; os
+          macOS/16.7.0;]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/facgnwwgj5fe/environments/testing/locales
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 3,\n
+        \ \"skip\": 0,\n  \"limit\": 1000,\n  \"items\": [\n    {\n      \"code\":
+        \"en-US\",\n      \"name\": \"U.S. English\",\n      \"default\": true,\n
+        \     \"fallbackCode\": null,\n      \"sys\": {\n        \"id\": \"1NkEdf220AtNFVgJO9fFQ2\",\n
+        \       \"type\": \"Locale\",\n        \"version\": 1\n      }\n    },\n    {\n
+        \     \"code\": \"foo\",\n      \"name\": \"foobar\",\n      \"default\":
+        false,\n      \"fallbackCode\": null,\n      \"sys\": {\n        \"id\": \"2QKRtwD3DKOkYKXJJsYdHk\",\n
+        \       \"type\": \"Locale\",\n        \"version\": 1\n      }\n    },\n    {\n
+        \     \"code\": \"foo-BB\",\n      \"name\": \"Foo (BarBaz)\",\n      \"default\":
+        false,\n      \"fallbackCode\": \"en-US\",\n      \"sys\": {\n        \"id\":
+        \"4YnLeSNLymCAZ6eYwJmhzu\",\n        \"type\": \"Locale\",\n        \"version\":
+        1\n      }\n    }\n  ]\n}\n"}
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['0']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Length: ['779']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Date: ['Tue, 27 Feb 2018 10:22:01 GMT']
+      ETag: ['"933cd424e0bbb10faa1c119a7c478a36"']
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [MISS]
+      X-Cache-Hits: ['0']
+      X-Content-Type-Options: [nosniff]
+      X-Contentful-Request-Id: [b203a8e779b889882f508d217513881c]
+      X-Served-By: [cache-hhn1531-HHN]
+      X-Timer: ['S1519726921.109859,VS0,VE328']
+    status: {code: 200, message: OK}
+version: 1

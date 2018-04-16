@@ -1,3 +1,4 @@
+from .resource import Resource
 """
 contentful.locale
 ~~~~~~~~~~~~~~~~~
@@ -11,20 +12,26 @@ API Reference: https://www.contentful.com/developers/docs/references/content-del
 """
 
 
-class Locale(object):
+class Locale(Resource):
     """
     API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/localization
     """
 
-    def __init__(self, locale_data):
-        self.code = locale_data.get('code', '')
-        self.name = locale_data.get('name', '')
-        self.fallback_code = locale_data.get('fallbackCode', '')
-        self.default = locale_data.get('default', False)
+    def __init__(self, item, **kwargs):
+        super(Locale, self).__init__(item, **kwargs)
+        self.code = item.get('code', '')
+        self.name = item.get('name', '')
+        self.fallback_code = item.get('fallbackCode', '')
+        self.default = item.get('default', False)
+        self.optional = item.get('optional', False)
 
     def __repr__(self):
-        return "<Locale[{0}] code='{1}' default={2}>".format(
+        return "<Locale[{0}] code='{1}' default={2} fallback_code={3} optional={4}>".format(
             self.name,
             self.code,
-            self.default
+            self.default,
+            "'{0}'".format(
+              self.fallback_code
+            ) if self.fallback_code is not None else 'None',
+            self.optional
         )

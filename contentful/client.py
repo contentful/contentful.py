@@ -1,7 +1,8 @@
 import requests
 import platform
 from re import sub
-from .utils import ConfigurationException, retry_request, string_class
+from .utils import ConfigurationException, NotSupportedException
+from .utils import retry_request, string_class
 from .errors import get_error, RateLimitExceededError, EntryNotFoundError
 from .resource_builder import ResourceBuilder
 from .content_type_cache import ContentTypeCache
@@ -32,6 +33,8 @@ class Client(object):
     :param api_version: (optional) Target version of the Contentful API.
     :param default_locale: (optional) Default Locale for your Space,
         defaults to 'en-US'.
+    :param environment: (optional) Default Environment for client, defaults
+        to 'master'.
     :param https: (optional) Boolean determining wether to use https
         or http, defaults to True.
     :param authorization_as_header: (optional) Boolean determining wether
@@ -79,6 +82,7 @@ class Client(object):
             api_url='cdn.contentful.com',
             api_version=1,
             default_locale='en-US',
+            environment='master',
             https=True,
             authorization_as_header=True,
             raw_mode=False,
@@ -101,6 +105,7 @@ class Client(object):
         self.api_url = api_url
         self.api_version = api_version
         self.default_locale = default_locale
+        self.environment = environment
         self.https = https
         self.authorization_as_header = authorization_as_header
         self.raw_mode = raw_mode
@@ -156,7 +161,9 @@ class Client(object):
         """
 
         return self._get(
-            '/content_types/{0}'.format(content_type_id),
+            self.environment_url(
+                '/content_types/{0}'.format(content_type_id)
+            ),
             query
         )
 
@@ -178,7 +185,7 @@ class Client(object):
         """
 
         return self._get(
-            '/content_types',
+            self.environment_url('/content_types'),
             query
         )
 
@@ -204,7 +211,7 @@ class Client(object):
         try:
             query.update({'sys.id': entry_id})
             return self._get(
-                '/entries',
+                self.environment_url('/entries'),
                 query
             )[0]
         except IndexError:
@@ -240,7 +247,7 @@ class Client(object):
         self._normalize_select(query)
 
         return self._get(
-            '/entries',
+            self.environment_url('/entries'),
             query
         )
 
@@ -260,7 +267,9 @@ class Client(object):
         """
 
         return self._get(
-            '/assets/{0}'.format(asset_id),
+            self.environment_url(
+                '/assets/{0}'.format(asset_id)
+            ),
             query
         )
 
@@ -286,7 +295,30 @@ class Client(object):
         self._normalize_select(query)
 
         return self._get(
-            '/assets',
+            self.environment_url('/assets'),
+            query
+        )
+
+    def locales(self, query=None):
+        """Fetches all Locales from the Environment (up to the set limit, can be modified in `query`).
+
+        # TODO: fix url
+        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/assets/assets-collection/get-all-assets-of-a-space
+
+        :param query: (optional) Dict with API options.
+        :return: List of :class:`Locale <contentful.locale.Locale>` objects.
+        :rtype: List of contentful.locale.Locale
+
+        Usage:
+            >>> locales = client.locales()
+            [<Locale[English (United States)] code='en-US' default=True fallback_code=None optional=False>]
+        """
+
+        if query is None:
+            query = {}
+
+        return self._get(
+            self.environment_url('/locales'),
             query
         )
 
@@ -304,6 +336,9 @@ class Client(object):
             <SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybC...'>
         """
 
+        if self.environment != 'master':
+            raise NotSupportedException('The sync endpoint is only available for the master environment.')
+
         if query is None:
             query = {}
         self._normalize_sync(query)
@@ -311,6 +346,14 @@ class Client(object):
         return self._get(
             '/sync',
             query
+        )
+
+    def environment_url(self, url):
+        """Formats the URL with the environment."""
+
+        return "/environments/{0}{1}".format(
+            self.environment,
+            url
         )
 
     def _normalize_select(self, query):

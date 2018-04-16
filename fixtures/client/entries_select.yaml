@@ -9,7 +9,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/0.1.0]
     method: GET
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?content_type=cat&sys.id=nyancat&select=fields.name%2Csys
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries?content_type=cat&sys.id=nyancat&select=fields.name%2Csys
   response:
     body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n
         \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"fields\":

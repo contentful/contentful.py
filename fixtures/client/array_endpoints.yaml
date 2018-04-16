@@ -9,7 +9,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.0.3]
     method: GET
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/content_types
   response:
     body:
       string: !!binary |
@@ -64,7 +64,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.0.3]
     method: GET
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries
   response:
     body:
       string: !!binary |
@@ -138,7 +138,7 @@ interactions:
       Content-Type: [application/vnd.contentful.delivery.v1+json]
       User-Agent: [PythonContentfulClient/1.0.3]
     method: GET
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/assets
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/assets
   response:
     body:
       string: !!binary |

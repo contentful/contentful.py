@@ -42,7 +42,7 @@ class Resource(object):
 
     def _hydrate_sys(self, item):
         sys = {}
-        for k, v in item['sys'].items():
+        for k, v in item.get('sys', {}).items():
             if k in ['space', 'contentType']:
                 v = self._build_link(v)
             if k in ['createdAt', 'updatedAt', 'deletedAt']:

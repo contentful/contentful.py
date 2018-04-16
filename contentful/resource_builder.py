@@ -6,6 +6,7 @@ from .space import Space  # noqa: F401
 from .content_type import ContentType  # noqa: F401
 from .deleted_asset import DeletedAsset  # noqa: F401
 from .deleted_entry import DeletedEntry  # noqa: F401
+from .locale import Locale  # noqa: F401
 from .sync_page import SyncPage
 from .utils import unresolvable
 
@@ -63,11 +64,11 @@ class ResourceBuilder(object):
         errors = self._errors()
 
         items = [self._build_item(
-            item,
-            includes=includes,
-            errors=errors
-        ) for item in self.json['items']
-        if not unresolvable(item, self._errors())]
+                    item,
+                    includes=includes,
+                    errors=errors
+                 ) for item in self.json['items']
+                 if not unresolvable(item, self._errors())]
 
         return Array(self.json, items)
 
@@ -83,7 +84,8 @@ class ResourceBuilder(object):
             'ContentType',
             'Space',
             'DeletedEntry',
-            'DeletedAsset'
+            'DeletedAsset',
+            'Locale'
         ]
         if item['sys']['type'] in buildables:
             return globals()[item['sys']['type']](
@@ -101,7 +103,7 @@ class ResourceBuilder(object):
         for e in ['Entry', 'Asset']:
             if e in self.json.get('includes', {}):
                 includes += [item for item in self.json['includes'].get(e, [])
-                            if not unresolvable(item, self._errors())]
+                             if not unresolvable(item, self._errors())]
         return includes
 
     def _errors(self):

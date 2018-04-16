@@ -6,7 +6,7 @@ from unittest import TestCase
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
-from contentful.utils import ConfigurationException
+from contentful.utils import ConfigurationException, NotSupportedException
 
 
 class ClientTest(TestCase):
@@ -137,6 +137,14 @@ class ClientTest(TestCase):
 
         self.assertEqual(str(asset), "<Asset id='nyancat' url='//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png'>")
 
+    @vcr.use_cassette('fixtures/client/locales_on_environment.yaml')
+    def test_client_locales_on_environment(self):
+        client = Client('facgnwwgj5fe', '<ACCESS_TOKEN>', environment='testing', content_type_cache=False)
+        locales = client.locales()
+
+        self.assertEqual(str(locales), "<Array size='3' total='3' limit='1000' skip='0'>")
+        self.assertEqual(str(locales[0]), "<Locale[U.S. English] code='en-US' default=True fallback_code=None optional=False>")
+
     @vcr.use_cassette('fixtures/client/assets.yaml')
     def test_client_assets(self):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
@@ -151,6 +159,13 @@ class ClientTest(TestCase):
 
         self.assertEqual(str(sync), "<SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE'>")
         self.assertEqual(str(sync.items[0]), "<Entry[1t9IbcfdCk6m04uISSsaIK] id='5ETMRzkl9KM4omyMwKAOki'>")
+
+    def test_client_sync_should_fail_on_non_master_environment(self):
+        # We'll create the client without Content Type Cache, to avoid having to do a fake request.
+        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False, environment='foo')
+
+        with self.assertRaises(NotSupportedException):
+            client.sync({'initial': True})
 
     @vcr.use_cassette('fixtures/client/array_endpoints.yaml')
     def test_client_creates_wrapped_arrays(self):

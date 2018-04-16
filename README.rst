@@ -158,6 +158,8 @@ Client Configuration Options
 
 ``default_locale``: (optional) Default Locale for your Space, defaults to 'en-US'.
 
+``environment``: (optional) Default Environment for client, defaults to 'master'.
+
 ``https``: (optional) Boolean determining wether to use https or http, defaults to True.
 
 ``authorization_as_header``: (optional) Boolean determining wether to send access_token through a header or via GET params, defaults to True.

@@ -1,4 +1,3 @@
-#from urllib.parse import urlsplit, parse_qs
 from six.moves.urllib.parse import urlsplit, parse_qs
 
 from .resource import Resource
