@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Added
+* Added support of environments to `sync`.
 
 ## v1.7.0
 ### Added

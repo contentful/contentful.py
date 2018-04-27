@@ -336,15 +336,12 @@ class Client(object):
             <SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybC...'>
         """
 
-        if self.environment != 'master':
-            raise NotSupportedException('The sync endpoint is only available for the master environment.')
-
         if query is None:
             query = {}
         self._normalize_sync(query)
 
         return self._get(
-            '/sync',
+            self.environment_url('/sync'),
             query
         )
 
