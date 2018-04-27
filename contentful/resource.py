@@ -43,7 +43,7 @@ class Resource(object):
     def _hydrate_sys(self, item):
         sys = {}
         for k, v in item.get('sys', {}).items():
-            if k in ['space', 'contentType']:
+            if k in ['space', 'contentType', 'environment']:
                 v = self._build_link(v)
             if k in ['createdAt', 'updatedAt', 'deletedAt']:
                 v = dateutil.parser.parse(v)

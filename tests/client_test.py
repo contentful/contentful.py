@@ -160,12 +160,12 @@ class ClientTest(TestCase):
         self.assertEqual(str(sync), "<SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE'>")
         self.assertEqual(str(sync.items[0]), "<Entry[1t9IbcfdCk6m04uISSsaIK] id='5ETMRzkl9KM4omyMwKAOki'>")
 
-    def test_client_sync_should_fail_on_non_master_environment(self):
-        # We'll create the client without Content Type Cache, to avoid having to do a fake request.
-        client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False, environment='foo')
+    @vcr.use_cassette('fixtures/client/sync_environments.yaml')
+    def test_client_sync_with_environments(self):
+        client = Client('a22o2qgm356c', 'bfbc63cf745a037125dbcc64f716a9a0e9d091df1a79e84920b890f87a6e7ab9', environment='staging', content_type_cache=False)
+        sync = client.sync({'initial': True})
 
-        with self.assertRaises(NotSupportedException):
-            client.sync({'initial': True})
+        self.assertEquals(sync.items[0].environment.id, 'staging')
 
     @vcr.use_cassette('fixtures/client/array_endpoints.yaml')
     def test_client_creates_wrapped_arrays(self):
