@@ -56,6 +56,7 @@ test-all:
 coverage:
 	coverage run --source contentful setup.py test
 	coverage report -m
+	flake8 contentful
 
 watch:
 	fswatch -d -e contentful/__pycache__ -e tests/__pycache__ contentful tests | xargs -n1 make coverage

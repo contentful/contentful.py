@@ -1,7 +1,7 @@
 import requests
 import platform
 from re import sub
-from .utils import ConfigurationException, NotSupportedException
+from .utils import ConfigurationException
 from .utils import retry_request, string_class
 from .errors import get_error, RateLimitExceededError, EntryNotFoundError
 from .resource_builder import ResourceBuilder
@@ -49,6 +49,9 @@ class Client(object):
     :param content_type_cache: (optional) Boolean determining wether to
         store a Cache of the Content Types in order to properly coerce
         Entry fields, defaults to True.
+    :param reuse_entries: (optional) Boolean determining wether to reuse
+        hydrated Entry and Asset objects within the same request when possible.
+        Defaults to False
     :param proxy_host: (optional) URL for Proxy, defaults to None.
     :param proxy_port: (optional) Port for Proxy, defaults to None.
     :param proxy_username: (optional) Username for Proxy, defaults to None.
@@ -89,6 +92,7 @@ class Client(object):
             gzip_encoded=True,
             raise_errors=True,
             content_type_cache=True,
+            reuse_entries=False,
             proxy_host=None,
             proxy_port=None,
             proxy_username=None,
@@ -112,6 +116,7 @@ class Client(object):
         self.gzip_encoded = gzip_encoded
         self.raise_errors = raise_errors
         self.content_type_cache = content_type_cache
+        self.reuse_entries = reuse_entries
         self.proxy_host = proxy_host
         self.proxy_port = proxy_port
         self.proxy_username = proxy_username
@@ -566,7 +571,8 @@ class Client(object):
             self.default_locale,
             localized,
             response.json(),
-            max_depth=self.max_include_resolution_depth
+            max_depth=self.max_include_resolution_depth,
+            reuse_entries=self.reuse_entries
         ).build()
 
     def _has_proxy(self):

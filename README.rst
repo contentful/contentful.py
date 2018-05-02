@@ -172,6 +172,8 @@ Client Configuration Options
 
 ``content_type_cache``: (optional) Boolean determining wether to store a Cache of the Content Types in order to properly coerce Entry fields, defaults to True.
 
+``reuse_entries``: (optional) Boolean, when True, reuse hydrated Entry and Asset objects within the same request when possible. Can result in a large speed increase and better handles cyclical object graphs. This can be a good alternative to max_include_resolution_depth if your content model contains (or can contain) circular references.
+
 ``proxy_host``: (optional) URL for Proxy, defaults to None.
 
 ``proxy_port``: (optional) Port for Proxy, defaults to None.
@@ -184,7 +186,7 @@ Client Configuration Options
 
 ``max_rate_limit_wait``: (optional) Timeout (in seconds) for waiting for retry after RateLimitError, defaults to 60.
 
-``max_include_resolution_depth``: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2).
+``max_include_resolution_depth``: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2). Note that when `reuse_entries` is enabled, the max include resolution depth only affects deep chains of unique objects (ie, not simple circular references).
 
 ``application_name``: (optional) User application name, defaults to None.
 

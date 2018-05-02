@@ -32,6 +32,7 @@ class Resource(object):
             includes=None,
             errors=None,
             localized=False,
+            resources=None,
             depth=0,
             max_depth=20):
         self.raw = item
@@ -39,6 +40,14 @@ class Resource(object):
         self._depth = depth
         self._max_depth = max_depth
         self.sys = self._hydrate_sys(item)
+
+        if resources is not None and 'sys' in item:
+            cache_key = "{0}:{1}:{2}".format(
+                item['sys']['type'],
+                item['sys']['id'],
+                item['sys'].get('locale', '*')
+            )
+            resources[cache_key] = self
 
     def _hydrate_sys(self, item):
         sys = {}
@@ -81,18 +90,20 @@ class FieldsResource(Resource):
             includes=None,
             errors=None,
             localized=False,
+            resources=None,
             **kwargs):
         super(FieldsResource, self).__init__(
             item,
             includes=includes,
             errors=errors,
             localized=localized,
+            resources=resources,
             **kwargs
         )
 
-        self._fields = self._hydrate_fields(item, localized, includes, errors)
+        self._fields = self._hydrate_fields(item, localized, includes, errors, resources=resources)
 
-    def _hydrate_fields(self, item, localized, includes, errors):
+    def _hydrate_fields(self, item, localized, includes, errors, resources=None):
         if 'fields' not in item:
             return {}
 
@@ -105,12 +116,12 @@ class FieldsResource(Resource):
         locale = self._locale()
         fields = {locale: {}}
         if localized:
-            self._hydrate_localized_entry(fields, item, includes, errors)
+            self._hydrate_localized_entry(fields, item, includes, errors, resources)
         else:
-            self._hydrate_non_localized_entry(fields, item, includes, errors)
+            self._hydrate_non_localized_entry(fields, item, includes, errors, resources)
         return fields
 
-    def _hydrate_localized_entry(self, fields, item, includes, errors):
+    def _hydrate_localized_entry(self, fields, item, includes, errors, resources=None):
         for k, locales in item['fields'].items():
             for locale, v in locales.items():
                 if locale not in fields:
@@ -120,20 +131,22 @@ class FieldsResource(Resource):
                     v,
                     True,
                     includes,
-                    errors
+                    errors,
+                    resources=resources
                 )
 
-    def _hydrate_non_localized_entry(self, fields, item, includes, errors):
+    def _hydrate_non_localized_entry(self, fields, item, includes, errors, resources=None):
         for k, v in item['fields'].items():
             fields[self._locale()][snake_case(k)] = self._coerce(
                 snake_case(k),
                 v,
                 False,
                 includes,
-                errors
+                errors,
+                resources=resources
             )
 
-    def _coerce(self, field_id, value, localized, includes, errors):
+    def _coerce(self, field_id, value, localized, includes, errors, resources=None):
         return value
 
     def fields(self, locale=None):

@@ -357,6 +357,18 @@ class ClientTest(TestCase):
         self.assertEqual(str(a.b), "<Entry[b] id='7oADpDPuneEAsWUiO2CmEo'>")
         self.assertEqual(str(a.b.a), "<Link[Entry] id='6kdfS7uMs8owuEIoSaOcQk'>")
 
+    @vcr.use_cassette('fixtures/integration/circular-references.yaml')
+    def test_circular_references_with_reusable_entries(self):
+        client = Client('rk19fq93y3vw', '821aa502a7ce820e46adb30fa6942889619aac4342a7021cfe15197c52a593cc', content_type_cache=True, reuse_entries=True)
+        a = client.entry('6kdfS7uMs8owuEIoSaOcQk')
+        self.assertEqual(str(a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
+        self.assertEqual(str(a.b), "<Entry[b] id='7oADpDPuneEAsWUiO2CmEo'>")
+        self.assertEqual(str(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
+        self.assertEqual(str(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b), "<Entry[b] id='7oADpDPuneEAsWUiO2CmEo'>")
+        self.assertEqual(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b._depth, 1)
+        self.assertEqual(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a._depth, 0)
+        self.assertEqual(str(a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a), "<Entry[a] id='6kdfS7uMs8owuEIoSaOcQk'>")
+
     @vcr.use_cassette('fixtures/integration/errors-filtered.yaml')
     def test_unresolvable_entries_dont_get_included(self):
         client = Client(
