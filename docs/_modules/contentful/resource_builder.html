@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.resource_builder &#8212; Contentful 1.8.0 documentation</title>
+    <title>contentful.resource_builder &#8212; Contentful 1.9.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.8.0',
+        VERSION:     '1.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -39,15 +39,14 @@
           <div class="body" role="main">
             
   <h1>Source code for contentful.resource_builder</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Classes imported here are meant to be used via globals() on build</span>
-<span class="kn">from</span> <span class="nn">.array</span> <span class="k">import</span> <span class="n">Array</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">.entry</span> <span class="k">import</span> <span class="n">Entry</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">.asset</span> <span class="k">import</span> <span class="n">Asset</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">.space</span> <span class="k">import</span> <span class="n">Space</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">.content_type</span> <span class="k">import</span> <span class="n">ContentType</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">.deleted_asset</span> <span class="k">import</span> <span class="n">DeletedAsset</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">.deleted_entry</span> <span class="k">import</span> <span class="n">DeletedEntry</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">.locale</span> <span class="k">import</span> <span class="n">Locale</span>  <span class="c1"># noqa: F401</span>
+<span></span><span class="kn">from</span> <span class="nn">.array</span> <span class="k">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">.entry</span> <span class="k">import</span> <span class="n">Entry</span>
+<span class="kn">from</span> <span class="nn">.asset</span> <span class="k">import</span> <span class="n">Asset</span>
+<span class="kn">from</span> <span class="nn">.space</span> <span class="k">import</span> <span class="n">Space</span>
+<span class="kn">from</span> <span class="nn">.content_type</span> <span class="k">import</span> <span class="n">ContentType</span>
+<span class="kn">from</span> <span class="nn">.deleted_asset</span> <span class="k">import</span> <span class="n">DeletedAsset</span>
+<span class="kn">from</span> <span class="nn">.deleted_entry</span> <span class="k">import</span> <span class="n">DeletedEntry</span>
+<span class="kn">from</span> <span class="nn">.locale</span> <span class="k">import</span> <span class="n">Locale</span>
 <span class="kn">from</span> <span class="nn">.sync_page</span> <span class="k">import</span> <span class="n">SyncPage</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">unresolvable</span>
 
@@ -72,14 +71,21 @@
             <span class="n">localized</span><span class="p">,</span>
             <span class="n">json</span><span class="p">,</span>
             <span class="n">includes_for_single</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">reuse_entries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_locale</span> <span class="o">=</span> <span class="n">default_locale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">localized</span> <span class="o">=</span> <span class="n">localized</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">json</span> <span class="o">=</span> <span class="n">json</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">includes_for_single</span> <span class="o">=</span> <span class="n">includes_for_single</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reuse_entries</span> <span class="o">=</span> <span class="n">reuse_entries</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_depth</span> <span class="o">=</span> <span class="n">max_depth</span>
+
+        <span class="k">if</span> <span class="n">resources</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">resources</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reuse_entries</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="o">=</span> <span class="n">resources</span>
 
 <div class="viewcode-block" id="ResourceBuilder.build"><a class="viewcode-back" href="../../contentful.html#contentful.resource_builder.ResourceBuilder.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates the objects from the JSON response&quot;&quot;&quot;</span>
@@ -119,25 +125,40 @@
         <span class="k">if</span> <span class="n">errors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">buildables</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;Entry&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Asset&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;ContentType&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Space&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;DeletedEntry&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;DeletedAsset&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;Locale&#39;</span>
-        <span class="p">]</span>
+        <span class="n">buildables</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Entry&#39;</span><span class="p">:</span> <span class="n">Entry</span><span class="p">,</span>
+            <span class="s1">&#39;Asset&#39;</span><span class="p">:</span> <span class="n">Asset</span><span class="p">,</span>
+            <span class="s1">&#39;ContentType&#39;</span><span class="p">:</span> <span class="n">ContentType</span><span class="p">,</span>
+            <span class="s1">&#39;Space&#39;</span><span class="p">:</span> <span class="n">Space</span><span class="p">,</span>
+            <span class="s1">&#39;DeletedEntry&#39;</span><span class="p">:</span> <span class="n">DeletedEntry</span><span class="p">,</span>
+            <span class="s1">&#39;DeletedAsset&#39;</span><span class="p">:</span> <span class="n">DeletedAsset</span><span class="p">,</span>
+            <span class="s1">&#39;Locale&#39;</span><span class="p">:</span> <span class="n">Locale</span>
+        <span class="p">}</span>
+
+        <span class="n">resource</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resource_from_cache</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reuse_entries</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">resource</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">resource</span>
+
         <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">buildables</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]](</span>
+            <span class="k">return</span> <span class="n">buildables</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]](</span>
                 <span class="n">item</span><span class="p">,</span>
                 <span class="n">default_locale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_locale</span><span class="p">,</span>
                 <span class="n">localized</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">localized</span><span class="p">,</span>
                 <span class="n">includes</span><span class="o">=</span><span class="n">includes</span><span class="p">,</span>
                 <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
+                <span class="n">resources</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">,</span>
                 <span class="n">depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span>
                 <span class="n">max_depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_depth</span>
             <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_resource_from_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="n">cache_key</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:</span><span class="si">{1}</span><span class="s2">:</span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">],</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;locale&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="ow">and</span> <span class="n">cache_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_includes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">includes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">])</span>

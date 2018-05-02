@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.entry &#8212; Contentful 1.8.0 documentation</title>
+    <title>contentful.entry &#8212; Contentful 1.9.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.8.0',
+        VERSION:     '1.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -62,12 +62,13 @@
 <span class="sd">    API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_id</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_id</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">is_link</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">unresolvable</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_nested_resource</span><span class="p">(</span>
                 <span class="n">value</span><span class="p">,</span>
                 <span class="n">localized</span><span class="p">,</span>
-                <span class="n">includes</span>
+                <span class="n">includes</span><span class="p">,</span>
+                <span class="n">resources</span><span class="o">=</span><span class="n">resources</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">is_link_array</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
             <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
@@ -78,7 +79,8 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_build_nested_resource</span><span class="p">(</span>
                         <span class="n">link</span><span class="p">,</span>
                         <span class="n">localized</span><span class="p">,</span>
-                        <span class="n">includes</span>
+                        <span class="n">includes</span><span class="p">,</span>
+                        <span class="n">resources</span><span class="o">=</span><span class="n">resources</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
 
@@ -97,33 +99,48 @@
             <span class="n">value</span><span class="p">,</span>
             <span class="n">localized</span><span class="p">,</span>
             <span class="n">includes</span><span class="p">,</span>
-            <span class="n">errors</span>
+            <span class="n">errors</span><span class="p">,</span>
+            <span class="n">resources</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_build_nested_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_build_nested_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Maximum include Depth is 10 in the API, but we raise it to 20 (default),</span>
         <span class="c1"># in case one of the included items has a reference in an upper level,</span>
         <span class="c1"># so we can keep the include chain for that object as well</span>
-        <span class="c1"># Any included object after the 20th level of depth will be just a Link</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_depth</span><span class="p">:</span>
-            <span class="n">resource</span> <span class="o">=</span> <span class="n">resource_for_link</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="p">)</span>
+        <span class="c1"># Any included object after the 20th level of depth will be just a Link.</span>
+        <span class="c1"># When using reuse_entries, this is not the case if the entry was previously</span>
+        <span class="c1"># cached.</span>
 
+        <span class="n">resource</span> <span class="o">=</span> <span class="n">resource_for_link</span><span class="p">(</span>
+            <span class="n">value</span><span class="p">,</span>
+            <span class="n">includes</span><span class="p">,</span>
+            <span class="n">resources</span><span class="o">=</span><span class="n">resources</span><span class="p">,</span>
+            <span class="n">locale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;locale&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">FieldsResource</span><span class="p">):</span>  <span class="c1"># Resource comes from instance cache</span>
+            <span class="k">return</span> <span class="n">resource</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_depth</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">resource</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_include</span><span class="p">(</span>
                     <span class="n">resource</span><span class="p">,</span>
                     <span class="n">localized</span><span class="p">,</span>
-                    <span class="n">includes</span>
+                    <span class="n">includes</span><span class="p">,</span>
+                    <span class="n">resources</span><span class="o">=</span><span class="n">resources</span>
                 <span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_link</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_resolve_include</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_resolve_include</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">localized</span><span class="p">,</span> <span class="n">includes</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">.resource_builder</span> <span class="k">import</span> <span class="n">ResourceBuilder</span>
         <span class="k">return</span> <span class="n">ResourceBuilder</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">default_locale</span><span class="p">,</span>
             <span class="n">localized</span><span class="p">,</span>
             <span class="n">resource</span><span class="p">,</span>
             <span class="n">includes</span><span class="p">,</span>
+            <span class="n">reuse_entries</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">resources</span><span class="p">),</span>
+            <span class="n">resources</span><span class="o">=</span><span class="n">resources</span><span class="p">,</span>
             <span class="n">depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
             <span class="n">max_depth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_depth</span>
         <span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>

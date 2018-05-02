@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.9.0
 ### Added
 * Added support to reuse entries. This is a performance improvement, which is disabled by default due to backwards compatibility. All users are highly encouraged to enable it and test it in their applications. Inspired by @rezonant in [contentful/contentful.rb#164]((https://github.com/contentful/contentful.rb/pull/164).
 

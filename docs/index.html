@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Contentful Delivery API SDK &#8212; Contentful 1.8.0 documentation</title>
+    <title>Contentful Delivery API SDK &#8212; Contentful 1.9.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.8.0',
+        VERSION:     '1.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -41,7 +41,7 @@
             
   <div class="section" id="contentful-delivery-api-sdk">
 <h1>Contentful Delivery API SDK<a class="headerlink" href="#contentful-delivery-api-sdk" title="Permalink to this headline">¶</a></h1>
-<p>Release v1.8.0.</p>
+<p>Release v1.9.0.</p>
 <p><a class="reference external" href="https://www.contentful.com">Contentful</a> provides a content infrastructure for digital teams to power content in websites, apps, and devices. Unlike a CMS, Contentful was built to integrate with the modern software stack. It offers a central hub for structured content, powerful management and delivery APIs, and a customizable web app that enable developers and content creators to ship digital products faster.</p>
 <blockquote>
 <div>This SDK is intended to replace the former unofficial Python CDA SDK. The old SDK can still be found at: <a class="reference external" href="https://github.com/contentful-labs/contentful.py">https://github.com/contentful-labs/contentful.py</a></div></blockquote>
@@ -185,13 +185,14 @@ have those available as object properties, for example:</p>
 <p><code class="docutils literal"><span class="pre">gzip_encoded</span></code>: (optional) Boolean determining wether to accept gzip encoded results, defaults to True.</p>
 <p><code class="docutils literal"><span class="pre">raise_errors</span></code>: (optional) Boolean determining wether to raise an exception on requests that aren’t successful, defaults to True.</p>
 <p><code class="docutils literal"><span class="pre">content_type_cache</span></code>: (optional) Boolean determining wether to store a Cache of the Content Types in order to properly coerce Entry fields, defaults to True.</p>
+<p><code class="docutils literal"><span class="pre">reuse_entries</span></code>: (optional) Boolean, when True, reuse hydrated Entry and Asset objects within the same request when possible. Can result in a large speed increase and better handles cyclical object graphs. This can be a good alternative to max_include_resolution_depth if your content model contains (or can contain) circular references.</p>
 <p><code class="docutils literal"><span class="pre">proxy_host</span></code>: (optional) URL for Proxy, defaults to None.</p>
 <p><code class="docutils literal"><span class="pre">proxy_port</span></code>: (optional) Port for Proxy, defaults to None.</p>
 <p><code class="docutils literal"><span class="pre">proxy_username</span></code>: (optional) Username for Proxy, defaults to None.</p>
 <p><code class="docutils literal"><span class="pre">proxy_password</span></code>: (optional) Password for Proxy, defaults to None.</p>
 <p><code class="docutils literal"><span class="pre">max_rate_limit_retries</span></code>: (optional) Maximum amount of retries after RateLimitError, defaults to 1.</p>
 <p><code class="docutils literal"><span class="pre">max_rate_limit_wait</span></code>: (optional) Timeout (in seconds) for waiting for retry after RateLimitError, defaults to 60.</p>
-<p><code class="docutils literal"><span class="pre">max_include_resolution_depth</span></code>: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2).</p>
+<p><code class="docutils literal"><span class="pre">max_include_resolution_depth</span></code>: (optional) Maximum include resolution level for Resources, defaults to 20 (max include level * 2).Note that when <cite>reuse_entries</cite> is enabled, the max include resolution depth only affects deep chains of unique objects (ie, not simple circular references).</p>
 <p><code class="docutils literal"><span class="pre">application_name</span></code>: (optional) User application name, defaults to None.</p>
 <p><code class="docutils literal"><span class="pre">application_version</span></code>: (optional) User application version, defaults to None.</p>
 <p><code class="docutils literal"><span class="pre">integration_name</span></code>: (optional) Integration name, defaults to None.</p>
