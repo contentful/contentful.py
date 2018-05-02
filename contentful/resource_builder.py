@@ -111,9 +111,10 @@ class ResourceBuilder(object):
             )
 
     def _resource_from_cache(self, item):
-        cache_key = "{0}:{1}".format(
+        cache_key = "{0}:{1}:{2}".format(
             item['sys']['type'],
-            item['sys']['id']
+            item['sys']['id'],
+            item['sys'].get('locale', '*')
         )
         if self.resources and cache_key in self.resources:
             return self.resources[cache_key]

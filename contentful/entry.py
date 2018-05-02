@@ -70,7 +70,12 @@ class Entry(FieldsResource):
         # When using reuse_entries, this is not the case if the entry was previously
         # cached.
 
-        resource = resource_for_link(value, includes, resources=resources)
+        resource = resource_for_link(
+            value,
+            includes,
+            resources=resources,
+            locale=self.sys.get('locale', '*')
+        )
 
         if isinstance(resource, FieldsResource):  # Resource comes from instance cache
             return resource

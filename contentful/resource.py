@@ -42,9 +42,10 @@ class Resource(object):
         self.sys = self._hydrate_sys(item)
 
         if resources is not None and 'sys' in item:
-            cache_key = "{0}:{1}".format(
+            cache_key = "{0}:{1}:{2}".format(
                 item['sys']['type'],
-                item['sys']['id']
+                item['sys']['id'],
+                item['sys'].get('locale', '*')
             )
             resources[cache_key] = self
 

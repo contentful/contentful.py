@@ -46,12 +46,12 @@ class UtilsTest(TestCase):
 
     def test_resource_for_link_with_cached_resource(self):
         includes = []
-        cached_resources = {"Entry:foo": "foobar"}
+        cached_resources = {"Entry:foo:*": "foobar"}
 
-        foo_entry = utils.resource_for_link({'sys': {'type': 'Link', 'id': 'foo', 'linkType': 'Entry'}}, includes, resources=cached_resources)
-        self.assertEqual(foo_entry, cached_resources["Entry:foo"])
+        foo_entry = utils.resource_for_link({'sys': {'type': 'Link', 'id': 'foo', 'linkType': 'Entry'}}, includes, resources=cached_resources, locale='*')
+        self.assertEqual(foo_entry, cached_resources["Entry:foo:*"])
 
-        bar_entry = utils.resource_for_link({'sys': {'type': 'Link', 'id': 'bar', 'linkType': 'Entry'}}, includes, resources=cached_resources)
+        bar_entry = utils.resource_for_link({'sys': {'type': 'Link', 'id': 'bar', 'linkType': 'Entry'}}, includes, resources=cached_resources, locale='*')
         self.assertIsNone(bar_entry)
 
     def _test_retry_request(self):

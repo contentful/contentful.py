@@ -115,13 +115,14 @@ def unresolvable(item, errors):
     return False
 
 
-def resource_for_link(link, includes, resources=None):
+def resource_for_link(link, includes, resources=None, locale=None):
     """Returns the resource that matches the link"""
 
     if resources is not None:
-        cache_key = "{0}:{1}".format(
+        cache_key = "{0}:{1}:{2}".format(
             link['sys']['linkType'],
-            link['sys']['id']
+            link['sys']['id'],
+            locale
         )
         if cache_key in resources:
             return resources[cache_key]
