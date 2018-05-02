@@ -1,12 +1,11 @@
-# Classes imported here are meant to be used via globals() on build
-from .array import Array  # noqa: F401
-from .entry import Entry  # noqa: F401
-from .asset import Asset  # noqa: F401
-from .space import Space  # noqa: F401
-from .content_type import ContentType  # noqa: F401
-from .deleted_asset import DeletedAsset  # noqa: F401
-from .deleted_entry import DeletedEntry  # noqa: F401
-from .locale import Locale  # noqa: F401
+from .array import Array
+from .entry import Entry
+from .asset import Asset
+from .space import Space
+from .content_type import ContentType
+from .deleted_asset import DeletedAsset
+from .deleted_entry import DeletedEntry
+from .locale import Locale
 from .sync_page import SyncPage
 from .utils import unresolvable
 
@@ -31,14 +30,21 @@ class ResourceBuilder(object):
             localized,
             json,
             includes_for_single=None,
+            reuse_entries=False,
+            resources=None,
             depth=0,
             max_depth=20):
         self.default_locale = default_locale
         self.localized = localized
         self.json = json
         self.includes_for_single = includes_for_single
+        self.reuse_entries = reuse_entries
         self.depth = depth
         self.max_depth = max_depth
+
+        if resources is None:
+            resources = {} if self.reuse_entries else None
+        self.resources = resources
 
     def build(self):
         """Creates the objects from the JSON response"""
@@ -78,25 +84,39 @@ class ResourceBuilder(object):
         if errors is None:
             errors = []
 
-        buildables = [
-            'Entry',
-            'Asset',
-            'ContentType',
-            'Space',
-            'DeletedEntry',
-            'DeletedAsset',
-            'Locale'
-        ]
+        buildables = {
+            'Entry': Entry,
+            'Asset': Asset,
+            'ContentType': ContentType,
+            'Space': Space,
+            'DeletedEntry': DeletedEntry,
+            'DeletedAsset': DeletedAsset,
+            'Locale': Locale
+        }
+
+        resource = self._resource_from_cache(item) if self.reuse_entries else None
+        if resource is not None:
+            return resource
+
         if item['sys']['type'] in buildables:
-            return globals()[item['sys']['type']](
+            return buildables[item['sys']['type']](
                 item,
                 default_locale=self.default_locale,
                 localized=self.localized,
                 includes=includes,
                 errors=errors,
+                resources=self.resources,
                 depth=self.depth,
                 max_depth=self.max_depth
             )
+
+    def _resource_from_cache(self, item):
+        cache_key = "{0}:{1}".format(
+            item['sys']['type'],
+            item['sys']['id']
+        )
+        if self.resources and cache_key in self.resources:
+            return self.resources[cache_key]
 
     def _includes(self):
         includes = list(self.json['items'])

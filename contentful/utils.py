@@ -115,8 +115,16 @@ def unresolvable(item, errors):
     return False
 
 
-def resource_for_link(link, includes):
+def resource_for_link(link, includes, resources=None):
     """Returns the resource that matches the link"""
+
+    if resources is not None:
+        cache_key = "{0}:{1}".format(
+            link['sys']['linkType'],
+            link['sys']['id']
+        )
+        if cache_key in resources:
+            return resources[cache_key]
 
     for i in includes:
         if (i['sys']['id'] == link['sys']['id'] and
@@ -165,5 +173,6 @@ class retry_request(object):
                     )
                     log.debug(retry_message)
                     time.sleep(reset_time * uniform(1.0, 1.2))
-            raise exception
+            if exception is not None:
+                raise exception
         return wrapper
