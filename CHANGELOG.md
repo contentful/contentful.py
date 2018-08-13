@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+* Ensure all arrays sent as parameters to the API are properly serialized.
 
 ## v1.9.0
 ### Added

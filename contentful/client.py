@@ -513,7 +513,7 @@ class Client(object):
 
         for k, v in query.items():
             if isinstance(v, list):
-                query[k] = ','.join(v)
+                query[k] = ','.join([str(e) for e in v])
 
     def _http_get(self, url, query):
         """
