@@ -109,7 +109,6 @@ class EntryTest(TestCase):
         self.assertEqual(entry.name, 'foobar')
         self.assertEqual(entry.date, datetime(2016, 6, 6))
 
-
     def test_entry_includes(self):
         entry = Entry({
             'sys': {
@@ -294,13 +293,11 @@ class EntryTest(TestCase):
             }
         ])
 
-
         self.assertEqual(str(default_entry.a), "<Entry[foo] id='linkedEntry'>")
         self.assertEqual(str(default_entry.a.b), "<Entry[foo] id='foobar'>")
         self.assertEqual(str(default_entry.a.b.a.b.a), "<Entry[foo] id='linkedEntry'>")
         self.assertEqual(str(default_entry.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b), "<Entry[foo] id='foobar'>")
         self.assertEqual(str(default_entry.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a.b.a), "<Link[Entry] id='linkedEntry'>")
-
 
     def test_defined_entry_include_resolution_depth(self):
         entry_only_5_nesting_levels = Entry({
@@ -310,22 +307,22 @@ class EntryTest(TestCase):
                         'type': 'Link',
                         'linkType': 'Space',
                         'id': 'foo'
-                    }
-                },
+                        }
+                    },
                 'contentType': {
                     'sys': {
                         'type': 'Link',
                         'linkType': 'ContentType',
                         'id': 'foo'
-                    }
-                },
+                        }
+                    },
                 'type': 'Entry',
                 'createdAt': '2016-06-06',
                 'updatedAt': '2016-06-06',
                 'deletedAt': '2016-06-06',
                 'id': 'foobar',
                 'version': 1
-            },
+                },
             'fields': {
                 'name': 'foobar',
                 'date': '2016-06-06',
@@ -334,65 +331,62 @@ class EntryTest(TestCase):
                         'type': 'Link',
                         'linkType': 'Entry',
                         'id': 'linkedEntry'
-                    }
-                }
-            }
-        },
-        includes=[
-            {
-                'sys': {
-                    'space': {
-                        'sys': {
-                            'id': 'foo'
-                        }
-                    },
-                    'contentType': {
-                        'sys': {
-                            'id': 'foo'
-                        }
-                    },
-                    'type': 'Entry',
-                    'id': 'foobar',
-                },
-                'fields': {
-                    'name': 'foobar',
-                    'date': '2016-06-06',
-                    'a': {
-                        'sys': {
-                            'type': 'Link',
-                            'linkType': 'Entry',
-                            'id': 'linkedEntry'
                         }
                     }
                 }
             },
-            {
-                'sys': {
-                    'id': 'linkedEntry',
-                    'type': 'Entry',
-                    'contentType': {
-                        'sys': {
-                            'id': 'foo'
+            includes=[
+                {
+                    'sys': {
+                        'space': {
+                            'sys': {
+                                'id': 'foo'
+                                }
+                            },
+                        'contentType': {
+                            'sys': {
+                                'id': 'foo'
+                                }
+                            },
+                        'type': 'Entry',
+                        'id': 'foobar',
+                        },
+                    'fields': {
+                        'name': 'foobar',
+                        'date': '2016-06-06',
+                        'a': {
+                            'sys': {
+                                'type': 'Link',
+                                'linkType': 'Entry',
+                                'id': 'linkedEntry'
+                                }
+                            }
+                        }
+                    },
+                {
+                    'sys': {
+                        'id': 'linkedEntry',
+                        'type': 'Entry',
+                        'contentType': {
+                            'sys': {
+                                'id': 'foo'
+                                }
+                            }
+                        },
+                    'fields': {
+                        'b': {
+                            'sys': {
+                                'type': 'Link',
+                                'linkType': 'Entry',
+                                'id': 'foobar'
+                                }
+                            }
                         }
                     }
-                },
-                'fields': {
-                    'b': {
-                        'sys': {
-                            'type': 'Link',
-                            'linkType': 'Entry',
-                            'id': 'foobar'
-                        }
-                    }
-                }
-            }
-        ],
-        max_depth=5)
-
+                ],
+            max_depth=5)
 
         self.assertEqual(str(entry_only_5_nesting_levels.a), "<Entry[foo] id='linkedEntry'>")
         self.assertEqual(str(entry_only_5_nesting_levels.a.b), "<Entry[foo] id='foobar'>")
         self.assertEqual(str(entry_only_5_nesting_levels.a.b.a.b.a), "<Entry[foo] id='linkedEntry'>")
         self.assertEqual(str(entry_only_5_nesting_levels.a.b.a.b.a.b), "<Link[Entry] id='foobar'>")
-
-

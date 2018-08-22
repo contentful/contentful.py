@@ -31,12 +31,12 @@ class ContentTypeField(object):
         self.disabled = field_data.get('disabled', False)
         self._coercion = self._get_coercion()
 
-    def coerce(self, value):
+    def coerce(self, value, **kwargs):
         """Coerces the value to the proper type."""
 
         if value is None:
             return None
-        return self._coercion.coerce(value)
+        return self._coercion.coerce(value, **kwargs)
 
     def _get_coercion(self):
         """Gets the proper coercion type"""

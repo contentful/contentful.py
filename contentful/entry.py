@@ -51,7 +51,14 @@ class Entry(FieldsResource):
         if content_type is not None:
             content_type_field = content_type.field_for(field_id)
             if content_type_field is not None:
-                return content_type_field.coerce(value)
+                return content_type_field.coerce(
+                    value,
+                    includes=includes,
+                    errors=errors,
+                    resources=resources,
+                    default_locale=self.default_locale,
+                    locale=self.sys.get('locale', '*')
+                )
 
         return super(Entry, self)._coerce(
             field_id,

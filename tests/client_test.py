@@ -7,6 +7,7 @@ from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
 from contentful.utils import ConfigurationException, NotSupportedException
+from contentful.entry import Entry
 
 
 class ClientTest(TestCase):
@@ -378,3 +379,22 @@ class ClientTest(TestCase):
 
         entry = client.entry('1HR1QvURo4MoSqO0eqmUeO')
         self.assertEqual(len(entry.modules), 2)
+
+    @vcr.use_cassette('fixtures/fields/structured_text.yaml')
+    def test_structured_text_field(self):
+        client = Client(
+            'jd7yc4wnatx3',
+            '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248'
+        )
+
+        entry = client.entry('4BupPSmi4M02m0U48AQCSM')
+
+        expected_entry_occurrances = 2
+        embedded_entry_index = 1
+        for content in entry.body['content']:
+            if content['nodeType'] == 'embedded-entry-block':
+                self.assertTrue(isinstance(content['data'], Entry))
+                self.assertEqual(content['data'].body, 'Embedded {0}'.format(embedded_entry_index))
+                expected_entry_occurrances -= 1
+                embedded_entry_index += 1
+        self.assertEqual(expected_entry_occurrances, 0)
