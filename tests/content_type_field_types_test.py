@@ -13,8 +13,10 @@ from contentful.content_type_field_types import (
     LocationField,
     LinkField,
     ArrayField,
-    ObjectField
+    ObjectField,
+    StructuredTextField
 )
+
 
 class BasicFieldTest(TestCase):
     def test_basic_field(self):
@@ -125,3 +127,57 @@ class ObjectFieldTest(TestCase):
         self.assertEqual(object_field.coerce('foo'), 'foo')
         self.assertEqual(object_field.coerce([1, 2, 3]), [1, 2, 3])
         self.assertEqual(object_field.coerce([{'foo': 'bar'}, {'baz': 'qux'}]), [{'foo': 'bar'}, {'baz': 'qux'}])
+
+
+class StructuredTextFieldTest(TestCase):
+    def test_structured_text_field(self):
+        st_field = StructuredTextField()
+
+        self.assertEqual(repr(st_field), '<StructuredTextField>')
+
+        # on empty or non structured text field will return the value as is
+        self.assertEqual(st_field.coerce({}), {})
+        self.assertEqual(st_field.coerce(123), 123)
+
+        # on proper structured text field, but without embedded entries will return as is
+        document = {
+            "nodeType": "document",
+            "content": [{
+                "nodeType": "paragraph",
+                "nodeClass": "block",
+                "content": [{
+                    "nodeClass": "text",
+                    "nodeType": "text",
+                    "value": "This text is bold",
+                    "marks": [{
+                        "type": "bold"
+                    }]
+                }]
+            }]
+        }
+        self.assertEqual(st_field.coerce(document), document)
+
+        # with embedded entries but with errors, will remove the node
+        document = {
+            "nodeType": "document",
+            "content": [{
+                "nodeType": "embedded-entry-block",
+                "nodeClass": "block",
+                "data": {
+                    "target": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Entry",
+                            "id": "4JJ21pcEI0QSsea20g6K6K"
+                        }
+                    }
+                }
+            }]
+        }
+
+        errors = [{"details": {"id": "4JJ21pcEI0QSsea20g6K6K"}}]
+
+        self.assertEqual(st_field.coerce(document, errors=errors), {
+            "nodeType": "document",
+            "content": []
+        })

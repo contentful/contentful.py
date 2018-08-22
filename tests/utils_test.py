@@ -57,3 +57,6 @@ class UtilsTest(TestCase):
     def _test_retry_request(self):
         """Tested as part of Errors"""
         pass
+
+    def test_unresolvable_empty_item_returns_true(self):
+        self.assertTrue(utils.unresolvable(None, []))

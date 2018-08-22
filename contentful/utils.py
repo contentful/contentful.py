@@ -42,7 +42,7 @@ def string_class():
     depends on the Python version."""
     if sys.version_info[0] >= 3:
         return str
-    return basestring
+    return basestring  # noqa: F821
 
 
 def json_error_class():
@@ -109,6 +109,9 @@ def is_link_array(value):
 
 
 def unresolvable(item, errors):
+    if not item:
+        return True
+
     for error in errors:
         if error.get('details', {}).get('id', None) == item['sys']['id']:
             return True
