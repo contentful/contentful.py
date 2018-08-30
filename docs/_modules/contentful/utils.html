@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.utils &#8212; Contentful 1.9.1 documentation</title>
+    <title>contentful.utils &#8212; Contentful 1.10.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.9.1',
+        VERSION:     '1.10.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -83,7 +83,7 @@
 <span class="sd">    depends on the Python version.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span>
-    <span class="k">return</span> <span class="n">basestring</span></div>
+    <span class="k">return</span> <span class="n">basestring</span>  <span class="c1"># noqa: F821</span></div>
 
 
 <div class="viewcode-block" id="json_error_class"><a class="viewcode-back" href="../../contentful.html#contentful.utils.json_error_class">[docs]</a><span class="k">def</span> <span class="nf">json_error_class</span><span class="p">():</span>
@@ -150,6 +150,9 @@
 
 
 <div class="viewcode-block" id="unresolvable"><a class="viewcode-back" href="../../contentful.html#contentful.utils.unresolvable">[docs]</a><span class="k">def</span> <span class="nf">unresolvable</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
     <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">error</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;details&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">True</span>

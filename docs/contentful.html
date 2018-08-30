@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful package &#8212; Contentful 1.9.1 documentation</title>
+    <title>contentful package &#8212; Contentful 1.10.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.9.1',
+        VERSION:     '1.10.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -552,7 +552,7 @@ API Reference: <a class="reference external" href="https://www.contentful.com/de
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-types</a></p>
 <dl class="method">
 <dt id="contentful.content_type_field.ContentTypeField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field.html#ContentTypeField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field.ContentTypeField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field.html#ContentTypeField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field.ContentTypeField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces the value to the proper type.</p>
 </dd></dl>
 
@@ -569,7 +569,7 @@ API Reference: <a class="reference external" href="https://www.contentful.com/de
 <p>Coerces items in collection with it’s proper Coercion Class.</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.ArrayField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ArrayField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ArrayField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ArrayField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ArrayField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces array items with proper coercion.</p>
 </dd></dl>
 
@@ -582,7 +582,7 @@ API Reference: <a class="reference external" href="https://www.contentful.com/de
 <p>Base Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.BasicField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BasicField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BasicField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BasicField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BasicField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Just returns the value.</p>
 </dd></dl>
 
@@ -595,7 +595,7 @@ API Reference: <a class="reference external" href="https://www.contentful.com/de
 <p>Boolean Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.BooleanField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BooleanField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BooleanField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#BooleanField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.BooleanField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces value to boolean</p>
 </dd></dl>
 
@@ -608,7 +608,7 @@ API Reference: <a class="reference external" href="https://www.contentful.com/de
 <p>Date Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.DateField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#DateField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.DateField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#DateField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.DateField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces ISO8601 date to <code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code> object.</p>
 </dd></dl>
 
@@ -621,7 +621,7 @@ API Reference: <a class="reference external" href="https://www.contentful.com/de
 <p>Integer Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.IntegerField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#IntegerField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.IntegerField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#IntegerField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.IntegerField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces value to int</p>
 </dd></dl>
 
@@ -643,7 +643,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <p>Location Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.LocationField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#LocationField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.LocationField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#LocationField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.LocationField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces value to Location object</p>
 </dd></dl>
 
@@ -656,7 +656,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <p>Number Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.NumberField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#NumberField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.NumberField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#NumberField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.NumberField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces value to float</p>
 </dd></dl>
 
@@ -666,11 +666,24 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <dt id="contentful.content_type_field_types.ObjectField">
 <em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">ObjectField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ObjectField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ObjectField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
-<p>Object Coercion Class</p>
+<p>Object Coercion Class.</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.ObjectField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ObjectField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ObjectField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ObjectField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ObjectField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces JSON values properly.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.StructuredTextField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">StructuredTextField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#StructuredTextField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.StructuredTextField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Coerces Structured Text fields and resolves includes for entries included.</p>
+<dl class="method">
+<dt id="contentful.content_type_field_types.StructuredTextField.coerce">
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>includes=None</em>, <em>errors=None</em>, <em>resources=None</em>, <em>default_locale='en-US'</em>, <em>locale=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#StructuredTextField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.StructuredTextField.coerce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces Structured Text properly.</p>
 </dd></dl>
 
 </dd></dl>
@@ -682,7 +695,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <p>Symbol Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.SymbolField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#SymbolField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.SymbolField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#SymbolField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.SymbolField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces value to str</p>
 </dd></dl>
 
@@ -695,7 +708,7 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <p>Text Coercion Class</p>
 <dl class="method">
 <dt id="contentful.content_type_field_types.TextField.coerce">
-<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#TextField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.TextField.coerce" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coerce</code><span class="sig-paren">(</span><em>value</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#TextField.coerce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.TextField.coerce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces value to str</p>
 </dd></dl>
 
