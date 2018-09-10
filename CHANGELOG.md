@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## v1.10.0
+## v1.10.1
 ### Added
 * Added support for `StructuredText` field type.
 
