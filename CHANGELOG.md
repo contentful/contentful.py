@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.10.0
 ### Added
 * Added support for `StructuredText` field type.
 
