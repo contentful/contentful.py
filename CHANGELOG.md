@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.10.2
 ### Added
 * Added support for `StructuredText` inline Entry include resolution.
 
