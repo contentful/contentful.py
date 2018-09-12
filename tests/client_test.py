@@ -6,7 +6,7 @@ from unittest import TestCase
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
-from contentful.utils import ConfigurationException, NotSupportedException
+from contentful.utils import ConfigurationException
 from contentful.entry import Entry
 
 
@@ -111,7 +111,7 @@ class ClientTest(TestCase):
     def test_entry_incoming_references_with_query(self):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
         entry = client.entry('nyancat')
-        entries = entry.incoming_references(client, { 'content_type': 'cat', 'select': ['fields.name'] })
+        entries = entry.incoming_references(client, {'content_type': 'cat', 'select': ['fields.name']})
         self.assertEqual(len(entries), 1)
         self.assertEqual(str(entries[0]), "<Entry[cat] id='happycat'>")
         self.assertEqual(entries[0].fields(), {'name': 'Happy Cat'})
@@ -136,7 +136,10 @@ class ClientTest(TestCase):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
         asset = client.asset('nyancat')
 
-        self.assertEqual(str(asset), "<Asset id='nyancat' url='//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png'>")
+        self.assertEqual(
+            str(asset),
+            "<Asset id='nyancat' url='//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png'>"
+        )
 
     @vcr.use_cassette('fixtures/client/locales_on_environment.yaml')
     def test_client_locales_on_environment(self):
@@ -151,14 +154,22 @@ class ClientTest(TestCase):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
         assets = client.assets()
 
-        self.assertEqual(str(assets[0]), "<Asset id='1x0xpXu4pSGS4OukSyWGUK' url='//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg'>")
+        self.assertEqual(
+            str(assets[0]),
+            "<Asset id='1x0xpXu4pSGS4OukSyWGUK' url='//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg'>"
+        )
 
     @vcr.use_cassette('fixtures/client/sync.yaml')
     def test_client_sync(self):
         client = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
         sync = client.sync({'initial': True})
 
-        self.assertEqual(str(sync), "<SyncPage next_sync_token='w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE'>")
+        self.assertEqual(
+            str(sync),
+            "<SyncPage next_sync_token='{0}'>".format(
+                'w5ZGw6JFwqZmVcKsE8Kow4grw45QdybCnV_Cg8OASMKpwo1UY8K8bsKFwqJrw7DDhcKnM2RDOVbDt1E-wo7CnDjChMKKGsK1wrzCrBzCqMOpZAwOOcOvCcOAwqHDv0XCiMKaOcOxZA8BJUzDr8K-wo1lNx7DnHE'
+            )
+        )
         self.assertEqual(str(sync.items[0]), "<Entry[1t9IbcfdCk6m04uISSsaIK] id='5ETMRzkl9KM4omyMwKAOki'>")
 
     @vcr.use_cassette('fixtures/client/sync_environments.yaml')
@@ -398,3 +409,37 @@ class ClientTest(TestCase):
                 expected_entry_occurrances -= 1
                 embedded_entry_index += 1
         self.assertEqual(expected_entry_occurrances, 0)
+
+    @vcr.use_cassette('fixtures/fields/structured_text_lists_with_embeds.yaml')
+    def test_structured_text_field_with_embeds_in_lists(self):
+        client = Client(
+            'jd7yc4wnatx3',
+            '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
+            gzip_encoded=False
+        )
+
+        entry = client.entry('6NGLswCREsGA28kGouScyY')
+
+        # Hyperlink data is conserved
+        self.assertEqual(entry.body['content'][0], {
+            'data': {},
+            'content': [
+                {'marks': [], 'value': 'A link to ', 'nodeType': 'text', 'nodeClass': 'text'},
+                {
+                    'data': {'uri': 'https://google.com'},
+                    'content': [{'marks': [], 'value': 'google', 'nodeType': 'text', 'nodeClass': 'text'}],
+                    'nodeType': 'hyperlink',
+                    'nodeClass': 'inline'
+                },
+                {'marks': [], 'value': '', 'nodeType': 'text', 'nodeClass': 'text'}
+            ],
+            'nodeType': 'paragraph',
+            'nodeClass': 'block'
+        })
+
+        # Unordered lists and ordered lists can contain embedded entries
+        self.assertEqual(entry.body['content'][3]['nodeType'], 'unordered-list')
+        self.assertEqual(str(entry.body['content'][3]['content'][2]['content'][0]['data']), "<Entry[embedded] id='49rofLvvxCOiIMIi6mk8ai'>")
+
+        self.assertEqual(entry.body['content'][4]['nodeType'], 'ordered-list')
+        self.assertEqual(str(entry.body['content'][4]['content'][2]['content'][0]['data']), "<Entry[embedded] id='5ZF9Q4K6iWSYIU2OUs0UaQ'>")

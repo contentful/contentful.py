@@ -150,11 +150,8 @@ class StructuredTextField(BasicField):
     """
 
     def _coerce_link(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
-        if 'data' not in value or 'target' not in value['data']:
-            return value
-
-        if not('target' in value['data'] and value['data']['target']['sys']['type'] == 'Link'):
-            return value
+        if value['data']['target']['sys']['type'] != 'Link':
+            return value['data']
 
         if unresolvable(value['data']['target'], errors):
             return None
@@ -184,8 +181,9 @@ class StructuredTextField(BasicField):
             return value
 
         invalid_nodes = []
+        coerced_nodes = {}
         for index, node in enumerate(value['content']):
-            if node['nodeClass'] == 'block' and 'data' in node:
+            if node.get('data', None) and node['data'].get('target', None):
                 link = self._coerce_link(
                     node,
                     includes=includes,
@@ -198,8 +196,8 @@ class StructuredTextField(BasicField):
                     node['data'] = link
                 else:
                     invalid_nodes.append(index)
-            elif node['nodeClass'] == 'block' and 'content' in node:
-                node['content'] = self._coerce_block(
+            if node.get('content', None):
+                coerced_nodes[index] = self._coerce_block(
                     node,
                     includes=includes,
                     errors=errors,
@@ -207,6 +205,9 @@ class StructuredTextField(BasicField):
                     default_locale=default_locale,
                     locale=locale
                 )
+
+        for node_index, coerced_node in coerced_nodes.items():
+            value['content'][node_index] = coerced_node
 
         for node_index in invalid_nodes:
             del value['content'][node_index]
