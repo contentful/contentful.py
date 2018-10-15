@@ -14,7 +14,7 @@ from contentful.content_type_field_types import (
     LinkField,
     ArrayField,
     ObjectField,
-    StructuredTextField
+    RichTextField
 )
 
 
@@ -129,17 +129,17 @@ class ObjectFieldTest(TestCase):
         self.assertEqual(object_field.coerce([{'foo': 'bar'}, {'baz': 'qux'}]), [{'foo': 'bar'}, {'baz': 'qux'}])
 
 
-class StructuredTextFieldTest(TestCase):
-    def test_structured_text_field(self):
-        st_field = StructuredTextField()
+class RichTextFieldTest(TestCase):
+    def test_rich_text_field(self):
+        rt_field = RichTextField()
 
-        self.assertEqual(repr(st_field), '<StructuredTextField>')
+        self.assertEqual(repr(rt_field), '<RichTextField>')
 
-        # on empty or non structured text field will return the value as is
-        self.assertEqual(st_field.coerce({}), {})
-        self.assertEqual(st_field.coerce(123), 123)
+        # on empty or non rich text field will return the value as is
+        self.assertEqual(rt_field.coerce({}), {})
+        self.assertEqual(rt_field.coerce(123), 123)
 
-        # on proper structured text field, but without embedded entries will return as is
+        # on proper rich text field, but without embedded entries will return as is
         document = {
             "nodeType": "document",
             "content": [{
@@ -155,7 +155,7 @@ class StructuredTextFieldTest(TestCase):
                 }]
             }]
         }
-        self.assertEqual(st_field.coerce(document), document)
+        self.assertEqual(rt_field.coerce(document), document)
 
         # with embedded entries but with errors, will remove the node
         document = {
@@ -177,7 +177,7 @@ class StructuredTextFieldTest(TestCase):
 
         errors = [{"details": {"id": "4JJ21pcEI0QSsea20g6K6K"}}]
 
-        self.assertEqual(st_field.coerce(document, errors=errors), {
+        self.assertEqual(rt_field.coerce(document, errors=errors), {
             "nodeType": "document",
             "content": []
         })

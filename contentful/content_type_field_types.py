@@ -144,9 +144,9 @@ class ObjectField(BasicField):
         return json.loads(json.dumps(value))
 
 
-class StructuredTextField(BasicField):
+class RichTextField(BasicField):
     """
-    Coerces Structured Text fields and resolves includes for entries included.
+    Coerces Rich Text fields and resolves includes for entries included.
     """
 
     def _coerce_link(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
@@ -215,7 +215,7 @@ class StructuredTextField(BasicField):
         return value
 
     def coerce(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
-        """Coerces Structured Text properly."""
+        """Coerces Rich Text properly."""
 
         return self._coerce_block(
             value,

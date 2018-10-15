@@ -487,8 +487,8 @@ class Client(object):
 
         if self.authorization_as_header:
             headers['Authorization'] = 'Bearer {0}'.format(self.access_token)
-        if self.gzip_encoded:
-            headers['Accept-Encoding'] = 'gzip'
+
+        headers['Accept-Encoding'] = 'gzip' if self.gzip_encoded else 'identity'
 
         return headers
 

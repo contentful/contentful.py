@@ -1,0 +1,260 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [identity]
+      Authorization: [Bearer 6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [python-requests/2.12.1]
+      X-Contentful-User-Agent: [sdk contentful.py/1.10.2; platform python/3.6.3; os
+          macOS/16.7.0;]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/jd7yc4wnatx3/environments/master/content_types
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 2,\n
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n
+        \       \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n
+        \           \"linkType\": \"Space\",\n            \"id\": \"jd7yc4wnatx3\"\n
+        \         }\n        },\n        \"id\": \"embedded\",\n        \"type\":
+        \"ContentType\",\n        \"createdAt\": \"2018-08-22T10:44:07.886Z\",\n        \"updatedAt\":
+        \"2018-08-22T10:44:07.886Z\",\n        \"environment\": {\n          \"sys\":
+        {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\":
+        \"Environment\"\n          }\n        },\n        \"revision\": 1\n      },\n
+        \     \"displayField\": \"body\",\n      \"name\": \"Embedded\",\n      \"description\":
+        \"\",\n      \"fields\": [\n        {\n          \"id\": \"body\",\n          \"name\":
+        \"Body\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n
+        \         \"required\": false,\n          \"disabled\": false,\n          \"omitted\":
+        false\n        }\n      ]\n    },\n    {\n      \"sys\": {\n        \"space\":
+        {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\":
+        \"Space\",\n            \"id\": \"jd7yc4wnatx3\"\n          }\n        },\n
+        \       \"id\": \"stTest\",\n        \"type\": \"ContentType\",\n        \"createdAt\":
+        \"2018-08-22T10:43:50.802Z\",\n        \"updatedAt\": \"2018-08-22T10:43:50.802Z\",\n
+        \       \"environment\": {\n          \"sys\": {\n            \"id\": \"master\",\n
+        \           \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n
+        \         }\n        },\n        \"revision\": 1\n      },\n      \"displayField\":
+        \"name\",\n      \"name\": \"StTest\",\n      \"description\": \"\",\n      \"fields\":
+        [\n        {\n          \"id\": \"name\",\n          \"name\": \"Name\",\n
+        \         \"type\": \"Symbol\",\n          \"localized\": false,\n          \"required\":
+        false,\n          \"disabled\": false,\n          \"omitted\": false\n        },\n
+        \       {\n          \"id\": \"body\",\n          \"name\": \"Body\",\n          \"type\":
+        \"RichText\",\n          \"localized\": false,\n          \"required\":
+        false,\n          \"disabled\": false,\n          \"omitted\": false\n        }\n
+        \     ]\n    }\n  ]\n}\n"}
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['348']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Length: ['2017']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Contentful-Api: [cda_cached]
+      Date: ['Mon, 15 Oct 2018 13:13:34 GMT']
+      ETag: [W/"df23ab55e257a1f3eb634ed5ee9759ec"]
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [HIT]
+      X-Cache-Hits: ['1']
+      X-Content-Type-Options: [nosniff]
+      X-Contentful-Region: [us-east-1]
+      X-Contentful-Request-Id: [138cd1a3c95b973ae85629958176b55a]
+      X-Served-By: [cache-ams4443-AMS]
+      X-Timer: ['S1539609215.608580,VS0,VE1']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [identity]
+      Authorization: [Bearer 6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [python-requests/2.12.1]
+      X-Contentful-User-Agent: [sdk contentful.py/1.10.2; platform python/3.6.3; os
+          macOS/16.7.0;]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/jd7yc4wnatx3/environments/master/entries?sys.id=6NGLswCREsGA28kGouScyY
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n
+        \       \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n
+        \           \"linkType\": \"Space\",\n            \"id\": \"jd7yc4wnatx3\"\n
+        \         }\n        },\n        \"id\": \"6NGLswCREsGA28kGouScyY\",\n        \"type\":
+        \"Entry\",\n        \"createdAt\": \"2018-09-11T09:40:41.531Z\",\n        \"updatedAt\":
+        \"2018-09-12T10:04:16.991Z\",\n        \"environment\": {\n          \"sys\":
+        {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\":
+        \"Environment\"\n          }\n        },\n        \"revision\": 2,\n        \"contentType\":
+        {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\":
+        \"ContentType\",\n            \"id\": \"stTest\"\n          }\n        },\n
+        \       \"locale\": \"en-US\"\n      },\n      \"fields\": {\n        \"name\":
+        \"Test Inline Stuff and Links\",\n        \"body\": {\n          \"content\":
+        [\n            {\n              \"data\": {},\n              \"content\":
+        [\n                {\n                  \"marks\": [],\n                  \"value\":
+        \"A link to \",\n                  \"nodeType\": \"text\",\n                  \"nodeClass\":
+        \"text\"\n                },\n                {\n                  \"data\":
+        {\n                    \"uri\": \"https://google.com\"\n                  },\n
+        \                 \"content\": [\n                    {\n                      \"marks\":
+        [],\n                      \"value\": \"google\",\n                      \"nodeType\":
+        \"text\",\n                      \"nodeClass\": \"text\"\n                    }\n
+        \                 ],\n                  \"nodeType\": \"hyperlink\",\n                  \"nodeClass\":
+        \"inline\"\n                },\n                {\n                  \"marks\":
+        [],\n                  \"value\": \"\",\n                  \"nodeType\": \"text\",\n
+        \                 \"nodeClass\": \"text\"\n                }\n              ],\n
+        \             \"nodeType\": \"paragraph\",\n              \"nodeClass\": \"block\"\n
+        \           },\n            {\n              \"data\": {},\n              \"content\":
+        [\n                {\n                  \"data\": {},\n                  \"content\":
+        [\n                    {\n                      \"marks\": [],\n                      \"value\":
+        \"Some quoted text\",\n                      \"nodeType\": \"text\",\n                      \"nodeClass\":
+        \"text\"\n                    }\n                  ],\n                  \"nodeType\":
+        \"paragraph\",\n                  \"nodeClass\": \"block\"\n                }\n
+        \             ],\n              \"nodeType\": \"blockquote\",\n              \"nodeClass\":
+        \"block\"\n            },\n            {\n              \"data\": {},\n              \"content\":
+        [\n                {\n                  \"marks\": [],\n                  \"value\":
+        \"\",\n                  \"nodeType\": \"text\",\n                  \"nodeClass\":
+        \"text\"\n                }\n              ],\n              \"nodeType\":
+        \"hr\",\n              \"nodeClass\": \"block\"\n            },\n            {\n
+        \             \"data\": {},\n              \"content\": [\n                {\n
+        \                 \"data\": {},\n                  \"content\": [\n                    {\n
+        \                     \"data\": {},\n                      \"content\": [\n
+        \                       {\n                          \"marks\": [],\n                          \"value\":
+        \"unordered item\",\n                          \"nodeType\": \"text\",\n                          \"nodeClass\":
+        \"text\"\n                        }\n                      ],\n                      \"nodeType\":
+        \"paragraph\",\n                      \"nodeClass\": \"block\"\n                    }\n
+        \                 ],\n                  \"nodeType\": \"list-item\",\n                  \"nodeClass\":
+        \"block\"\n                },\n                {\n                  \"data\":
+        {},\n                  \"content\": [\n                    {\n                      \"data\":
+        {},\n                      \"content\": [\n                        {\n                          \"marks\":
+        [],\n                          \"value\": \"another unordered item\",\n                          \"nodeType\":
+        \"text\",\n                          \"nodeClass\": \"text\"\n                        }\n
+        \                     ],\n                      \"nodeType\": \"paragraph\",\n
+        \                     \"nodeClass\": \"block\"\n                    }\n                  ],\n
+        \                 \"nodeType\": \"list-item\",\n                  \"nodeClass\":
+        \"block\"\n                },\n                {\n                  \"data\":
+        {},\n                  \"content\": [\n                    {\n                      \"data\":
+        {\n                        \"target\": {\n                          \"sys\":
+        {\n                            \"id\": \"49rofLvvxCOiIMIi6mk8ai\",\n                            \"type\":
+        \"Link\",\n                            \"linkType\": \"Entry\"\n                          }\n
+        \                       }\n                      },\n                      \"content\":
+        [\n                        {\n                          \"marks\": [],\n                          \"value\":
+        \"\",\n                          \"nodeType\": \"text\",\n                          \"nodeClass\":
+        \"text\"\n                        }\n                      ],\n                      \"nodeType\":
+        \"embedded-entry-block\",\n                      \"nodeClass\": \"block\"\n
+        \                   },\n                    {\n                      \"data\":
+        {},\n                      \"content\": [\n                        {\n                          \"marks\":
+        [],\n                          \"value\": \"\",\n                          \"nodeType\":
+        \"text\",\n                          \"nodeClass\": \"text\"\n                        }\n
+        \                     ],\n                      \"nodeType\": \"paragraph\",\n
+        \                     \"nodeClass\": \"block\"\n                    }\n                  ],\n
+        \                 \"nodeType\": \"list-item\",\n                  \"nodeClass\":
+        \"block\"\n                }\n              ],\n              \"nodeType\":
+        \"unordered-list\",\n              \"nodeClass\": \"block\"\n            },\n
+        \           {\n              \"data\": {},\n              \"content\": [\n
+        \               {\n                  \"data\": {},\n                  \"content\":
+        [\n                    {\n                      \"data\": {},\n                      \"content\":
+        [\n                        {\n                          \"marks\": [],\n                          \"value\":
+        \"first item\",\n                          \"nodeType\": \"text\",\n                          \"nodeClass\":
+        \"text\"\n                        }\n                      ],\n                      \"nodeType\":
+        \"paragraph\",\n                      \"nodeClass\": \"block\"\n                    }\n
+        \                 ],\n                  \"nodeType\": \"list-item\",\n                  \"nodeClass\":
+        \"block\"\n                },\n                {\n                  \"data\":
+        {},\n                  \"content\": [\n                    {\n                      \"data\":
+        {},\n                      \"content\": [\n                        {\n                          \"marks\":
+        [],\n                          \"value\": \"second item\",\n                          \"nodeType\":
+        \"text\",\n                          \"nodeClass\": \"text\"\n                        }\n
+        \                     ],\n                      \"nodeType\": \"paragraph\",\n
+        \                     \"nodeClass\": \"block\"\n                    }\n                  ],\n
+        \                 \"nodeType\": \"list-item\",\n                  \"nodeClass\":
+        \"block\"\n                },\n                {\n                  \"data\":
+        {},\n                  \"content\": [\n                    {\n                      \"data\":
+        {\n                        \"target\": {\n                          \"sys\":
+        {\n                            \"id\": \"5ZF9Q4K6iWSYIU2OUs0UaQ\",\n                            \"type\":
+        \"Link\",\n                            \"linkType\": \"Entry\"\n                          }\n
+        \                       }\n                      },\n                      \"content\":
+        [\n                        {\n                          \"marks\": [],\n                          \"value\":
+        \"\",\n                          \"nodeType\": \"text\",\n                          \"nodeClass\":
+        \"text\"\n                        }\n                      ],\n                      \"nodeType\":
+        \"embedded-entry-block\",\n                      \"nodeClass\": \"block\"\n
+        \                   },\n                    {\n                      \"data\":
+        {},\n                      \"content\": [\n                        {\n                          \"marks\":
+        [],\n                          \"value\": \"\",\n                          \"nodeType\":
+        \"text\",\n                          \"nodeClass\": \"text\"\n                        }\n
+        \                     ],\n                      \"nodeType\": \"paragraph\",\n
+        \                     \"nodeClass\": \"block\"\n                    }\n                  ],\n
+        \                 \"nodeType\": \"list-item\",\n                  \"nodeClass\":
+        \"block\"\n                }\n              ],\n              \"nodeType\":
+        \"ordered-list\",\n              \"nodeClass\": \"block\"\n            },\n
+        \           {\n              \"data\": {},\n              \"content\": [\n
+        \               {\n                  \"marks\": [],\n                  \"value\":
+        \"\",\n                  \"nodeType\": \"text\",\n                  \"nodeClass\":
+        \"text\"\n                }\n              ],\n              \"nodeType\":
+        \"hr\",\n              \"nodeClass\": \"block\"\n            },\n            {\n
+        \             \"data\": {},\n              \"content\": [\n                {\n
+        \                 \"marks\": [],\n                  \"value\": \"Some \",\n
+        \                 \"nodeType\": \"text\",\n                  \"nodeClass\":
+        \"text\"\n                },\n                {\n                  \"marks\":
+        [\n                    {\n                      \"data\": {},\n                      \"type\":
+        \"code\",\n                      \"object\": \"mark\"\n                    }\n
+        \                 ],\n                  \"value\": \"inline code\",\n                  \"nodeType\":
+        \"text\",\n                  \"nodeClass\": \"text\"\n                }\n
+        \             ],\n              \"nodeType\": \"paragraph\",\n              \"nodeClass\":
+        \"block\"\n            }\n          ],\n          \"nodeType\": \"document\",\n
+        \         \"nodeClass\": \"document\"\n        }\n      }\n    }\n  ],\n  \"includes\":
+        {\n    \"Entry\": [\n      {\n        \"sys\": {\n          \"space\": {\n
+        \           \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\":
+        \"Space\",\n              \"id\": \"jd7yc4wnatx3\"\n            }\n          },\n
+        \         \"id\": \"49rofLvvxCOiIMIi6mk8ai\",\n          \"type\": \"Entry\",\n
+        \         \"createdAt\": \"2018-08-22T10:45:20.685Z\",\n          \"updatedAt\":
+        \"2018-08-22T10:45:20.686Z\",\n          \"environment\": {\n            \"sys\":
+        {\n              \"id\": \"master\",\n              \"type\": \"Link\",\n
+        \             \"linkType\": \"Environment\"\n            }\n          },\n
+        \         \"revision\": 1,\n          \"contentType\": {\n            \"sys\":
+        {\n              \"type\": \"Link\",\n              \"linkType\": \"ContentType\",\n
+        \             \"id\": \"embedded\"\n            }\n          },\n          \"locale\":
+        \"en-US\"\n        },\n        \"fields\": {\n          \"body\": \"Embedded
+        1\"\n        }\n      },\n      {\n        \"sys\": {\n          \"space\":
+        {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\":
+        \"Space\",\n              \"id\": \"jd7yc4wnatx3\"\n            }\n          },\n
+        \         \"id\": \"5ZF9Q4K6iWSYIU2OUs0UaQ\",\n          \"type\": \"Entry\",\n
+        \         \"createdAt\": \"2018-08-22T10:45:29.715Z\",\n          \"updatedAt\":
+        \"2018-08-22T10:45:29.715Z\",\n          \"environment\": {\n            \"sys\":
+        {\n              \"id\": \"master\",\n              \"type\": \"Link\",\n
+        \             \"linkType\": \"Environment\"\n            }\n          },\n
+        \         \"revision\": 1,\n          \"contentType\": {\n            \"sys\":
+        {\n              \"type\": \"Link\",\n              \"linkType\": \"ContentType\",\n
+        \             \"id\": \"embedded\"\n            }\n          },\n          \"locale\":
+        \"en-US\"\n        },\n        \"fields\": {\n          \"body\": \"Embedded
+        2\"\n        }\n      }\n    ]\n  }\n}\n"}
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['7110']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Length: ['11591']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Contentful-Api: [cda_cached]
+      Date: ['Mon, 15 Oct 2018 13:13:34 GMT']
+      ETag: [W/"ad6896d8b4604d1307178a506ce1b102"]
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [HIT]
+      X-Cache-Hits: ['1']
+      X-Content-Type-Options: [nosniff]
+      X-Contentful-Region: [us-east-1]
+      X-Contentful-Request-Id: [11cf690b6ba279d7e5f5c640982b3f4d]
+      X-Served-By: [cache-ams4149-AMS]
+      X-Timer: ['S1539609215.720527,VS0,VE1']
+    status: {code: 200, message: OK}
+version: 1
