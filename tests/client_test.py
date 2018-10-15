@@ -391,11 +391,12 @@ class ClientTest(TestCase):
         entry = client.entry('1HR1QvURo4MoSqO0eqmUeO')
         self.assertEqual(len(entry.modules), 2)
 
-    @vcr.use_cassette('fixtures/fields/structured_text.yaml')
-    def test_structured_text_field(self):
+    @vcr.use_cassette('fixtures/fields/rich_text.yaml')
+    def test_rich_text_field(self):
         client = Client(
             'jd7yc4wnatx3',
-            '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248'
+            '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
+            gzip_encoded=False
         )
 
         entry = client.entry('4BupPSmi4M02m0U48AQCSM')
@@ -410,8 +411,8 @@ class ClientTest(TestCase):
                 embedded_entry_index += 1
         self.assertEqual(expected_entry_occurrances, 0)
 
-    @vcr.use_cassette('fixtures/fields/structured_text_lists_with_embeds.yaml')
-    def test_structured_text_field_with_embeds_in_lists(self):
+    @vcr.use_cassette('fixtures/fields/rich_text_lists_with_embeds.yaml')
+    def test_rich_text_field_with_embeds_in_lists(self):
         client = Client(
             'jd7yc4wnatx3',
             '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
