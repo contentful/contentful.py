@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Changed
+* Removed Pandoc depedency from installation
 
 ## v1.11.1
 
