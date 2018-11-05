@@ -6,7 +6,7 @@ except ImportError:
 import dateutil.parser
 from collections import namedtuple
 from .utils import unicode_class, resource_for_link, unresolvable
-from .resource import FieldsResource
+from .resource import FieldsResource, Link
 
 """
 contentful.content_type_field_types
@@ -166,12 +166,16 @@ class RichTextField(BasicField):
         if isinstance(resource, FieldsResource):  # Resource comes from instance cache
             return resource
 
+        if resource is None:  # Resource is valid but not reachable on includes
+            return Link(value['data']['target'])
+
         from .resource_builder import ResourceBuilder
         return ResourceBuilder(
             default_locale,
             locale and locale == '*',
             resource,
-            includes,
+            includes_for_single=includes,
+            errors_for_single=errors,
             reuse_entries=bool(resources),
             resources=resources
         ).build()

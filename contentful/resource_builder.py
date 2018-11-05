@@ -30,6 +30,7 @@ class ResourceBuilder(object):
             localized,
             json,
             includes_for_single=None,
+            errors_for_single=None,
             reuse_entries=False,
             resources=None,
             depth=0,
@@ -38,6 +39,7 @@ class ResourceBuilder(object):
         self.localized = localized
         self.json = json
         self.includes_for_single = includes_for_single
+        self.errors_for_single = errors_for_single
         self.reuse_entries = reuse_entries
         self.depth = depth
         self.max_depth = max_depth
@@ -61,9 +63,17 @@ class ResourceBuilder(object):
 
     def _build_single(self):
         includes = []
+        errors = []
         if self.includes_for_single is not None:
             includes = self.includes_for_single
-        return self._build_item(self.json, includes)
+        if self.errors_for_single is not None:
+            errors = self.errors_for_single
+
+        return self._build_item(
+            self.json,
+            includes=includes,
+            errors=errors
+        )
 
     def _build_array(self):
         includes = self._includes()
@@ -128,4 +138,9 @@ class ResourceBuilder(object):
         return includes
 
     def _errors(self):
-        return self.json.get('errors', [])
+        errors = []
+        if self.errors_for_single is not None:
+            errors = self.errors_for_single
+        errors += self.json.get('errors', [])
+
+        return errors

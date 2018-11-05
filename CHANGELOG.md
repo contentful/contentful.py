@@ -1,6 +1,9 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+* Errors are now being correctly propagated through the chain of relationships.
+* Links in `RichText` fields, that are published but unreachable, due to not having enough include depth on the request, are now returned as `Link` objects.
 
 ## v1.11.2
 ### Changed
