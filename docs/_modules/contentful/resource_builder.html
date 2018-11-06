@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.resource_builder &#8212; Contentful 1.11.2 documentation</title>
+    <title>contentful.resource_builder &#8212; Contentful 1.11.3 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.11.2',
+        VERSION:     '1.11.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -36,6 +36,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for contentful.resource_builder</h1><div class="highlight"><pre>
@@ -71,6 +73,7 @@
             <span class="n">localized</span><span class="p">,</span>
             <span class="n">json</span><span class="p">,</span>
             <span class="n">includes_for_single</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">errors_for_single</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">reuse_entries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -79,6 +82,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">localized</span> <span class="o">=</span> <span class="n">localized</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">json</span> <span class="o">=</span> <span class="n">json</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">includes_for_single</span> <span class="o">=</span> <span class="n">includes_for_single</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors_for_single</span> <span class="o">=</span> <span class="n">errors_for_single</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reuse_entries</span> <span class="o">=</span> <span class="n">reuse_entries</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_depth</span> <span class="o">=</span> <span class="n">max_depth</span>
@@ -102,9 +106,17 @@
 
     <span class="k">def</span> <span class="nf">_build_single</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">includes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">includes_for_single</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">includes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">includes_for_single</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">,</span> <span class="n">includes</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors_for_single</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors_for_single</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_item</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">,</span>
+            <span class="n">includes</span><span class="o">=</span><span class="n">includes</span><span class="p">,</span>
+            <span class="n">errors</span><span class="o">=</span><span class="n">errors</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_build_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">includes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_includes</span><span class="p">()</span>
@@ -169,10 +181,16 @@
         <span class="k">return</span> <span class="n">includes</span>
 
     <span class="k">def</span> <span class="nf">_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;errors&#39;</span><span class="p">,</span> <span class="p">[])</span></div>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors_for_single</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors_for_single</span>
+        <span class="n">errors</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;errors&#39;</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="k">return</span> <span class="n">errors</span></div>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">

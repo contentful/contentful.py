@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.content_type_cache &#8212; Contentful 1.11.2 documentation</title>
+    <title>contentful.content_type_cache &#8212; Contentful 1.11.3 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.11.2',
+        VERSION:     '1.11.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -36,6 +36,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for contentful.content_type_cache</h1><div class="highlight"><pre>
@@ -60,26 +62,27 @@
     <span class="n">__CACHE__</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="ContentTypeCache.get"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_cache.ContentTypeCache.get">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">content_type_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">content_type_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fetches a Content Type from the Cache.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">content_type</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">__CACHE__</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">content_type</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__CACHE__</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">content_type</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">content_type_id</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">content_type</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="ContentTypeCache.update_cache"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_cache.ContentTypeCache.update_cache">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">update_cache</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">update_cache</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates the Cache with all Content Types from the Space.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">cls</span><span class="o">.</span><span class="n">__CACHE__</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">content_types</span><span class="p">()</span></div></div>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">__CACHE__</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">content_types</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
