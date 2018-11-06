@@ -5,6 +5,9 @@
 * Errors are now being correctly propagated through the chain of relationships.
 * Links in `RichText` fields, that are published but unreachable, due to not having enough include depth on the request, are now returned as `Link` objects.
 
+### Changed
+* Updated `requests` version due to a vulnerability found in versions `2.19` and below.
+
 ## v1.11.2
 ### Changed
 * Removed Pandoc depedency from installation
