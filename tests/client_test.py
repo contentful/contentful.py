@@ -405,8 +405,8 @@ class ClientTest(TestCase):
         embedded_entry_index = 1
         for content in entry.body['content']:
             if content['nodeType'] == 'embedded-entry-block':
-                self.assertTrue(isinstance(content['data'], Entry))
-                self.assertEqual(content['data'].body, 'Embedded {0}'.format(embedded_entry_index))
+                self.assertTrue(isinstance(content['data']['target'], Entry))
+                self.assertEqual(content['data']['target'].body, 'Embedded {0}'.format(embedded_entry_index))
                 expected_entry_occurrances -= 1
                 embedded_entry_index += 1
         self.assertEqual(expected_entry_occurrances, 0)
@@ -440,7 +440,7 @@ class ClientTest(TestCase):
 
         # Unordered lists and ordered lists can contain embedded entries
         self.assertEqual(entry.body['content'][3]['nodeType'], 'unordered-list')
-        self.assertEqual(str(entry.body['content'][3]['content'][2]['content'][0]['data']), "<Entry[embedded] id='49rofLvvxCOiIMIi6mk8ai'>")
+        self.assertEqual(str(entry.body['content'][3]['content'][2]['content'][0]['data']['target']), "<Entry[embedded] id='49rofLvvxCOiIMIi6mk8ai'>")
 
         self.assertEqual(entry.body['content'][4]['nodeType'], 'ordered-list')
-        self.assertEqual(str(entry.body['content'][4]['content'][2]['content'][0]['data']), "<Entry[embedded] id='5ZF9Q4K6iWSYIU2OUs0UaQ'>")
+        self.assertEqual(str(entry.body['content'][4]['content'][2]['content'][0]['data']['target']), "<Entry[embedded] id='5ZF9Q4K6iWSYIU2OUs0UaQ'>")

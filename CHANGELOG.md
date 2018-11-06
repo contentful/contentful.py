@@ -1,6 +1,13 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+* Errors are now being correctly propagated through the chain of relationships.
+* Links in `RichText` fields, that are published but unreachable, due to not having enough include depth on the request, are now returned as `Link` objects.
+
+### Changed
+* Updated `requests` version due to a vulnerability found in versions `2.19` and below.
+* Included resources for embedded entries and assets in Rich Text fields are now properly serialized to `data.target` instead of the top level `data`.
 
 ## v1.11.2
 ### Changed

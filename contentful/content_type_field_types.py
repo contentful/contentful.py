@@ -6,7 +6,7 @@ except ImportError:
 import dateutil.parser
 from collections import namedtuple
 from .utils import unicode_class, resource_for_link, unresolvable
-from .resource import FieldsResource
+from .resource import FieldsResource, Link
 
 """
 contentful.content_type_field_types
@@ -151,7 +151,7 @@ class RichTextField(BasicField):
 
     def _coerce_link(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
         if value['data']['target']['sys']['type'] != 'Link':
-            return value['data']
+            return value['data']['target']
 
         if unresolvable(value['data']['target'], errors):
             return None
@@ -166,12 +166,16 @@ class RichTextField(BasicField):
         if isinstance(resource, FieldsResource):  # Resource comes from instance cache
             return resource
 
+        if resource is None:  # Resource is valid but not reachable on includes
+            return Link(value['data']['target'])
+
         from .resource_builder import ResourceBuilder
         return ResourceBuilder(
             default_locale,
             locale and locale == '*',
             resource,
-            includes,
+            includes_for_single=includes,
+            errors_for_single=errors,
             reuse_entries=bool(resources),
             resources=resources
         ).build()
@@ -193,7 +197,7 @@ class RichTextField(BasicField):
                     locale=locale
                 )
                 if link:
-                    node['data'] = link
+                    node['data']['target'] = link
                 else:
                     invalid_nodes.append(index)
             if node.get('content', None):
@@ -216,6 +220,11 @@ class RichTextField(BasicField):
 
     def coerce(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
         """Coerces Rich Text properly."""
+
+        if includes is None:
+            includes = []
+        if errors is None:
+            errors = []
 
         return self._coerce_block(
             value,

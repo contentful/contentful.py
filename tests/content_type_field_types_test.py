@@ -16,6 +16,7 @@ from contentful.content_type_field_types import (
     ObjectField,
     RichTextField
 )
+from contentful.resource import Link
 
 
 class BasicFieldTest(TestCase):
@@ -181,3 +182,24 @@ class RichTextFieldTest(TestCase):
             "nodeType": "document",
             "content": []
         })
+
+        # With embedded entry that's unresolvable
+        document = {
+            "nodeType": "document",
+            "content": [{
+                "nodeType": "embedded-entry-block",
+                "nodeClass": "block",
+                "data": {
+                    "target": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Entry",
+                            "id": "4JJ21pcEI0QSsea20g6K6K"
+                        }
+                    }
+                }
+            }]
+        }
+
+        coerced = rt_field.coerce(document)
+        self.assertTrue(isinstance(coerced['content'][0]['data']['target'], Link))

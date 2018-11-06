@@ -27,6 +27,7 @@ class Entry(FieldsResource):
                 value,
                 localized,
                 includes,
+                errors,
                 resources=resources
             )
         elif is_link_array(value):
@@ -39,6 +40,7 @@ class Entry(FieldsResource):
                         link,
                         localized,
                         includes,
+                        errors,
                         resources=resources
                     )
                 )
@@ -69,7 +71,7 @@ class Entry(FieldsResource):
             resources
         )
 
-    def _build_nested_resource(self, value, localized, includes, resources=None):
+    def _build_nested_resource(self, value, localized, includes, errors, resources=None):
         # Maximum include Depth is 10 in the API, but we raise it to 20 (default),
         # in case one of the included items has a reference in an upper level,
         # so we can keep the include chain for that object as well
@@ -93,18 +95,20 @@ class Entry(FieldsResource):
                     resource,
                     localized,
                     includes,
+                    errors,
                     resources=resources
                 )
 
         return self._build_link(value)
 
-    def _resolve_include(self, resource, localized, includes, resources=None):
+    def _resolve_include(self, resource, localized, includes, errors, resources=None):
         from .resource_builder import ResourceBuilder
         return ResourceBuilder(
             self.default_locale,
             localized,
             resource,
-            includes,
+            includes_for_single=includes,
+            errors_for_single=errors,
             reuse_entries=bool(resources),
             resources=resources,
             depth=self._depth + 1,
