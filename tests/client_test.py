@@ -444,3 +444,17 @@ class ClientTest(TestCase):
 
         self.assertEqual(entry.body['content'][4]['nodeType'], 'ordered-list')
         self.assertEqual(str(entry.body['content'][4]['content'][2]['content'][0]['data']['target']), "<Entry[embedded] id='5ZF9Q4K6iWSYIU2OUs0UaQ'>")
+
+    @vcr.use_cassette('fixtures/integration/issue-41.yaml')
+    def test_rich_text_fields_should_not_get_hydrated_twice(self):
+        client = Client(
+            'fds721b88p6b',
+            '45ba81cc69423fcd2e3f0a4779de29481bb5c11495bc7e14649a996cf984e98e',
+            gzip_encoded=False
+        )
+
+        entry = client.entry('1tBAu0wP9qAQEg6qCqMics')
+
+        # Not failing is already a success
+        self.assertEqual(str(entry.children[0]), str(entry.children[1]))
+        self.assertEqual(str(entry.children[0].body), str(entry.children[1].body))

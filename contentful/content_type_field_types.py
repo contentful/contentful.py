@@ -6,7 +6,7 @@ except ImportError:
 import dateutil.parser
 from collections import namedtuple
 from .utils import unicode_class, resource_for_link, unresolvable
-from .resource import FieldsResource, Link
+from .resource import FieldsResource, Link, Resource
 
 """
 contentful.content_type_field_types
@@ -188,6 +188,10 @@ class RichTextField(BasicField):
         coerced_nodes = {}
         for index, node in enumerate(value['content']):
             if node.get('data', None) and node['data'].get('target', None):
+                # Resource has already been hydrated previously
+                if isinstance(node['data']['target'], Resource):
+                    continue
+
                 link = self._coerce_link(
                     node,
                     includes=includes,

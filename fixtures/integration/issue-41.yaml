@@ -1,0 +1,180 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [identity]
+      Authorization: [Bearer 45ba81cc69423fcd2e3f0a4779de29481bb5c11495bc7e14649a996cf984e98e]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [python-requests/2.20.0]
+      X-Contentful-User-Agent: [sdk contentful.py/1.11.3; platform python/3.6.3; os
+          macOS/16.7.0;]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/fds721b88p6b/environments/master/content_types
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 2,\n
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n
+        \       \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n
+        \           \"linkType\": \"Space\",\n            \"id\": \"fds721b88p6b\"\n
+        \         }\n        },\n        \"id\": \"parent\",\n        \"type\": \"ContentType\",\n
+        \       \"createdAt\": \"2018-11-22T13:46:07.272Z\",\n        \"updatedAt\":
+        \"2018-11-22T13:46:07.272Z\",\n        \"environment\": {\n          \"sys\":
+        {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\":
+        \"Environment\"\n          }\n        },\n        \"revision\": 1\n      },\n
+        \     \"displayField\": \"title\",\n      \"name\": \"Parent\",\n      \"description\":
+        \"\",\n      \"fields\": [\n        {\n          \"id\": \"title\",\n          \"name\":
+        \"Title\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n
+        \         \"required\": false,\n          \"disabled\": false,\n          \"omitted\":
+        false\n        },\n        {\n          \"id\": \"children\",\n          \"name\":
+        \"Children\",\n          \"type\": \"Array\",\n          \"localized\": false,\n
+        \         \"required\": false,\n          \"disabled\": false,\n          \"omitted\":
+        false,\n          \"items\": {\n            \"type\": \"Link\",\n            \"validations\":
+        [],\n            \"linkType\": \"Entry\"\n          }\n        }\n      ]\n
+        \   },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\":
+        {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n
+        \           \"id\": \"fds721b88p6b\"\n          }\n        },\n        \"id\":
+        \"child\",\n        \"type\": \"ContentType\",\n        \"createdAt\": \"2018-11-22T13:48:47.928Z\",\n
+        \       \"updatedAt\": \"2018-11-22T13:48:47.928Z\",\n        \"environment\":
+        {\n          \"sys\": {\n            \"id\": \"master\",\n            \"type\":
+        \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        },\n
+        \       \"revision\": 1\n      },\n      \"displayField\": \"title\",\n      \"name\":
+        \"Child\",\n      \"description\": \"\",\n      \"fields\": [\n        {\n
+        \         \"id\": \"title\",\n          \"name\": \"Title\",\n          \"type\":
+        \"Symbol\",\n          \"localized\": false,\n          \"required\": false,\n
+        \         \"disabled\": false,\n          \"omitted\": false\n        },\n
+        \       {\n          \"id\": \"body\",\n          \"name\": \"Body\",\n          \"type\":
+        \"RichText\",\n          \"localized\": false,\n          \"required\": false,\n
+        \         \"disabled\": false,\n          \"omitted\": false\n        }\n
+        \     ]\n    }\n  ]\n}\n"}
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['0']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Length: ['2357']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Contentful-Api: [cda_cached]
+      Date: ['Thu, 22 Nov 2018 13:58:02 GMT']
+      ETag: [W/"c2b8adf3ad96fc1cb1b7d1d679e17d7c"]
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [MISS]
+      X-Cache-Hits: ['0']
+      X-Content-Type-Options: [nosniff]
+      X-Contentful-Region: [us-east-1]
+      X-Contentful-Request-Id: [1ad1c6ab1ba098f56907d007cf499365]
+      X-Served-By: [cache-fra19144-FRA]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: [identity]
+      Authorization: [Bearer 45ba81cc69423fcd2e3f0a4779de29481bb5c11495bc7e14649a996cf984e98e]
+      Connection: [keep-alive]
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      User-Agent: [python-requests/2.20.0]
+      X-Contentful-User-Agent: [sdk contentful.py/1.11.3; platform python/3.6.3; os
+          macOS/16.7.0;]
+    method: GET
+    uri: https://cdn.contentful.com/spaces/fds721b88p6b/environments/master/entries?sys.id=1tBAu0wP9qAQEg6qCqMics
+  response:
+    body: {string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 1,\n
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n
+        \       \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n
+        \           \"linkType\": \"Space\",\n            \"id\": \"fds721b88p6b\"\n
+        \         }\n        },\n        \"id\": \"1tBAu0wP9qAQEg6qCqMics\",\n        \"type\":
+        \"Entry\",\n        \"createdAt\": \"2018-11-22T13:49:04.334Z\",\n        \"updatedAt\":
+        \"2018-11-22T13:50:01.448Z\",\n        \"environment\": {\n          \"sys\":
+        {\n            \"id\": \"master\",\n            \"type\": \"Link\",\n            \"linkType\":
+        \"Environment\"\n          }\n        },\n        \"revision\": 2,\n        \"contentType\":
+        {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\":
+        \"ContentType\",\n            \"id\": \"parent\"\n          }\n        },\n
+        \       \"locale\": \"en-US\"\n      },\n      \"fields\": {\n        \"title\":
+        \"Parent\",\n        \"children\": [\n          {\n            \"sys\": {\n
+        \             \"type\": \"Link\",\n              \"linkType\": \"Entry\",\n
+        \             \"id\": \"2RJFAOGr1KeCQuYiASOY82\"\n            }\n          },\n
+        \         {\n            \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\":
+        \"Entry\",\n              \"id\": \"2RJFAOGr1KeCQuYiASOY82\"\n            }\n
+        \         },\n          {\n            \"sys\": {\n              \"type\":
+        \"Link\",\n              \"linkType\": \"Entry\",\n              \"id\": \"5YcYYsGv3q4Oq68WQcOiAA\"\n
+        \           }\n          }\n        ]\n      }\n    }\n  ],\n  \"includes\":
+        {\n    \"Entry\": [\n      {\n        \"sys\": {\n          \"space\": {\n
+        \           \"sys\": {\n              \"type\": \"Link\",\n              \"linkType\":
+        \"Space\",\n              \"id\": \"fds721b88p6b\"\n            }\n          },\n
+        \         \"id\": \"2RJFAOGr1KeCQuYiASOY82\",\n          \"type\": \"Entry\",\n
+        \         \"createdAt\": \"2018-11-22T13:49:38.406Z\",\n          \"updatedAt\":
+        \"2018-11-22T13:49:38.406Z\",\n          \"environment\": {\n            \"sys\":
+        {\n              \"id\": \"master\",\n              \"type\": \"Link\",\n
+        \             \"linkType\": \"Environment\"\n            }\n          },\n
+        \         \"revision\": 1,\n          \"contentType\": {\n            \"sys\":
+        {\n              \"type\": \"Link\",\n              \"linkType\": \"ContentType\",\n
+        \             \"id\": \"child\"\n            }\n          },\n          \"locale\":
+        \"en-US\"\n        },\n        \"fields\": {\n          \"title\": \"Child\",\n
+        \         \"body\": {\n            \"data\": {},\n            \"content\":
+        [\n              {\n                \"data\": {},\n                \"content\":
+        [\n                  {\n                    \"data\": {},\n                    \"marks\":
+        [],\n                    \"value\": \"Some stuff here\",\n                    \"nodeType\":
+        \"text\"\n                  }\n                ],\n                \"nodeType\":
+        \"paragraph\"\n              },\n              {\n                \"data\":
+        {\n                  \"target\": {\n                    \"sys\": {\n                      \"id\":
+        \"3VDkQdyZ9YYaEceWKgGcAG\",\n                      \"type\": \"Link\",\n                      \"linkType\":
+        \"Entry\"\n                    }\n                  }\n                },\n
+        \               \"content\": [],\n                \"nodeType\": \"embedded-entry-block\"\n
+        \             },\n              {\n                \"data\": {},\n                \"content\":
+        [\n                  {\n                    \"data\": {},\n                    \"marks\":
+        [],\n                    \"value\": \"\",\n                    \"nodeType\":
+        \"text\"\n                  }\n                ],\n                \"nodeType\":
+        \"paragraph\"\n              }\n            ],\n            \"nodeType\":
+        \"document\"\n          }\n        }\n      },\n      {\n        \"sys\":
+        {\n          \"space\": {\n            \"sys\": {\n              \"type\":
+        \"Link\",\n              \"linkType\": \"Space\",\n              \"id\": \"fds721b88p6b\"\n
+        \           }\n          },\n          \"id\": \"5YcYYsGv3q4Oq68WQcOiAA\",\n
+        \         \"type\": \"Entry\",\n          \"createdAt\": \"2018-11-22T13:49:58.353Z\",\n
+        \         \"updatedAt\": \"2018-11-22T13:49:58.353Z\",\n          \"environment\":
+        {\n            \"sys\": {\n              \"id\": \"master\",\n              \"type\":
+        \"Link\",\n              \"linkType\": \"Environment\"\n            }\n          },\n
+        \         \"revision\": 1,\n          \"contentType\": {\n            \"sys\":
+        {\n              \"type\": \"Link\",\n              \"linkType\": \"ContentType\",\n
+        \             \"id\": \"child\"\n            }\n          },\n          \"locale\":
+        \"en-US\"\n        },\n        \"fields\": {\n          \"title\": \"Other
+        Child\",\n          \"body\": {\n            \"data\": {},\n            \"content\":
+        [\n              {\n                \"data\": {},\n                \"content\":
+        [\n                  {\n                    \"data\": {},\n                    \"marks\":
+        [],\n                    \"value\": \"Some other stuff here\",\n                    \"nodeType\":
+        \"text\"\n                  }\n                ],\n                \"nodeType\":
+        \"paragraph\"\n              }\n            ],\n            \"nodeType\":
+        \"document\"\n          }\n        }\n      }\n    ]\n  }\n}\n"}
+    headers:
+      Accept-Ranges: [bytes]
+      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: [Etag]
+      Access-Control-Max-Age: ['86400']
+      Age: ['0']
+      Cache-Control: [max-age=0]
+      Connection: [keep-alive]
+      Content-Length: ['4825']
+      Content-Type: [application/vnd.contentful.delivery.v1+json]
+      Contentful-Api: [cda_cached]
+      Date: ['Thu, 22 Nov 2018 13:58:02 GMT']
+      ETag: [W/"c5d3dbad3fcadc2086a73db56968fd73"]
+      Server: [Contentful]
+      Vary: [Accept-Encoding]
+      Via: [1.1 varnish]
+      X-Cache: [MISS]
+      X-Cache-Hits: ['0']
+      X-Content-Type-Options: [nosniff]
+      X-Contentful-Region: [us-east-1]
+      X-Contentful-Request-Id: [1321ee31210755c76387cdeb0ecc23ba]
+      X-Served-By: [cache-fra19147-FRA]
+    status: {code: 200, message: OK}
+version: 1
