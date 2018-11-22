@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.11.4
 ### Fixed
 * Entries that had already been processed when coercing RichText fields are now properly omitted. [#41](https://github.com/contentful/contentful.py/issues/41)
 
