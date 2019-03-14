@@ -41,7 +41,7 @@ class Client(object):
         to send access_token through a header or via GET params,
         defaults to True.
     :param raw_mode: (optional) Boolean determining wether to process the
-        response or return it raw after each API call, defaults to True.
+        response or return it raw after each API call, defaults to False.
     :param gzip_encoded: (optional) Boolean determining wether to accept
         gzip encoded results, defaults to True.
     :param raise_errors: (optional) Boolean determining wether to raise
