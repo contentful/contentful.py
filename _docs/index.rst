@@ -106,7 +106,7 @@ Core Features
 Getting Started
 ---------------
 
-In order to get started with the Contentful Ruby SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful.
+In order to get started with the Contentful Python SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful.
 
 .. raw:: html
 
