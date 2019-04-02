@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+import requests_mock
 import vcr
 import re
 from unittest import TestCase
+
+from requests_mock import ANY
+
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
+from contentful.errors import HTTPError
 from contentful.utils import ConfigurationException
 from contentful.entry import Entry
 
@@ -31,6 +37,21 @@ class ClientTest(TestCase):
             Client('foo', 'bar', default_locale=None)
         with self.assertRaises(ConfigurationException):
             Client('foo', 'bar', api_version=None)
+
+    def test_uses_timeouts(self):
+        c = Client('cfexampleapi', 'b4c0n73n7fu1')
+        with requests_mock.mock() as m:
+            m.register_uri('GET', ANY, status_code=500)
+            self.assertRaises(HTTPError, c.entries)
+            self.assertEqual(m.call_count, 1)
+            self.assertEqual(m.request_history[0].timeout, 1)
+
+        c = Client('cfexampleapi', 'b4c0n73n7fu1', timeout_s=0.1231570235)
+        with requests_mock.mock() as m:
+            m.register_uri('GET', ANY, status_code=500)
+            self.assertRaises(HTTPError, c.entries)
+            self.assertEqual(m.call_count, 1)
+            self.assertEqual(m.request_history[0].timeout, c.timeout_s)
 
     @vcr.use_cassette('fixtures/client/content_type_cache.yaml')
     def test_client_creates_a_content_type_cache(self):

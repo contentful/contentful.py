@@ -6,6 +6,7 @@ coverage==4.3.4
 flake8==3.3.0
 tox==2.5.0
 virtualenv==15.1.0
+requests-mock==1.5.2
 
 Sphinx==1.6.3
 sphinxcontrib-websupport==1.0.1
