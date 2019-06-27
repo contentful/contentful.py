@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful package &#8212; Contentful 1.11.4 documentation</title>
+    <title>contentful package &#8212; Contentful 1.12.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.11.4',
+        VERSION:     '1.12.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -125,7 +125,7 @@ with serialized parameters.</p>
 <span id="contentful-client-module"></span><h2>contentful.client module<a class="headerlink" href="#module-contentful.client" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.client.Client">
-<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>environment='master'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>reuse_entries=False</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em>, <em>max_include_resolution_depth=20</em>, <em>application_name=None</em>, <em>application_version=None</em>, <em>integration_name=None</em>, <em>integration_version=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>environment='master'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>reuse_entries=False</em>, <em>timeout_s=1</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em>, <em>max_include_resolution_depth=20</em>, <em>application_name=None</em>, <em>application_version=None</em>, <em>integration_name=None</em>, <em>integration_version=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Constructs the API Client.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -149,7 +149,7 @@ or http, defaults to True.</li>
 to send access_token through a header or via GET params,
 defaults to True.</li>
 <li><strong>raw_mode</strong> – (optional) Boolean determining wether to process the
-response or return it raw after each API call, defaults to True.</li>
+response or return it raw after each API call, defaults to False.</li>
 <li><strong>gzip_encoded</strong> – (optional) Boolean determining wether to accept
 gzip encoded results, defaults to True.</li>
 <li><strong>raise_errors</strong> – (optional) Boolean determining wether to raise
@@ -160,6 +160,8 @@ Entry fields, defaults to True.</li>
 <li><strong>reuse_entries</strong> – (optional) Boolean determining wether to reuse
 hydrated Entry and Asset objects within the same request when possible.
 Defaults to False</li>
+<li><strong>timeout_s</strong> – (optional) Max time allowed for each API call, in seconds.
+Defaults to 1s.</li>
 <li><strong>proxy_host</strong> – (optional) URL for Proxy, defaults to None.</li>
 <li><strong>proxy_port</strong> – (optional) Port for Proxy, defaults to None.</li>
 <li><strong>proxy_username</strong> – (optional) Username for Proxy, defaults to None.</li>

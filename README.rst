@@ -270,6 +270,13 @@ The client constructor supports several options you may set to achieve the expec
           </td>
         </tr>
         <tr>
+          <td><code>timeout_s</code></td>
+          <td><code>1</code></td>
+          <td>
+            Maximum time (in seconds) that is allowed for a request before raising a timeout error.
+          </td>
+        </tr>
+        <tr>
           <td><code>max_include_resolution_depth</code></td>
           <td><code>20</code></td>
           <td>

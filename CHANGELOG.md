@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v1.12.0
+### Added
+* Added `timeout_s` to Client. [#46](https://github.com/contentful/contentful.py/pull/46)
+
 ## v1.11.4
 ### Fixed
 * Entries that had already been processed when coercing RichText fields are now properly omitted. [#41](https://github.com/contentful/contentful.py/issues/41)

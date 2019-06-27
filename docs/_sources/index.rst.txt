@@ -106,7 +106,7 @@ Core Features
 Getting Started
 ---------------
 
-In order to get started with the Contentful Ruby SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful.
+In order to get started with the Contentful Python SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful.
 
 .. raw:: html
 
@@ -272,6 +272,13 @@ The client constructor supports several options you may set to achieve the expec
             Keep in mind that if you hit the hourly rate limit maximum, you can have up to 60 minutes of blocked requests.
             It is set to a default of 60 seconds in order to avoid blocking processes for too long, as rate limit retry behaviour
             is blocking per execution thread.
+          </td>
+        </tr>
+        <tr>
+          <td><code>timeout_s</code></td>
+          <td><code>1</code></td>
+          <td>
+            Maximum time (in seconds) that is allowed for a request before raising a timeout error.
           </td>
         </tr>
         <tr>

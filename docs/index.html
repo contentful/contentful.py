@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.py - Contentful Python Delivery SDK &#8212; Contentful 1.11.4 documentation</title>
+    <title>contentful.py - Contentful Python Delivery SDK &#8212; Contentful 1.12.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.11.4',
+        VERSION:     '1.12.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -273,6 +273,13 @@ Please note, that all methods of the Python client library are <code class="docu
         Keep in mind that if you hit the hourly rate limit maximum, you can have up to 60 minutes of blocked requests.
         It is set to a default of 60 seconds in order to avoid blocking processes for too long, as rate limit retry behaviour
         is blocking per execution thread.
+      </td>
+    </tr>
+    <tr>
+      <td><code>timeout_s</code></td>
+      <td><code>1</code></td>
+      <td>
+        Maximum time (in seconds) that is allowed for a request before raising a timeout error.
       </td>
     </tr>
     <tr>

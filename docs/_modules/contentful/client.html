@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.client &#8212; Contentful 1.11.4 documentation</title>
+    <title>contentful.client &#8212; Contentful 1.12.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.11.4',
+        VERSION:     '1.12.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -84,7 +84,7 @@
 <span class="sd">        to send access_token through a header or via GET params,</span>
 <span class="sd">        defaults to True.</span>
 <span class="sd">    :param raw_mode: (optional) Boolean determining wether to process the</span>
-<span class="sd">        response or return it raw after each API call, defaults to True.</span>
+<span class="sd">        response or return it raw after each API call, defaults to False.</span>
 <span class="sd">    :param gzip_encoded: (optional) Boolean determining wether to accept</span>
 <span class="sd">        gzip encoded results, defaults to True.</span>
 <span class="sd">    :param raise_errors: (optional) Boolean determining wether to raise</span>
@@ -95,6 +95,8 @@
 <span class="sd">    :param reuse_entries: (optional) Boolean determining wether to reuse</span>
 <span class="sd">        hydrated Entry and Asset objects within the same request when possible.</span>
 <span class="sd">        Defaults to False</span>
+<span class="sd">    :param timeout_s: (optional) Max time allowed for each API call, in seconds.</span>
+<span class="sd">        Defaults to 1s.</span>
 <span class="sd">    :param proxy_host: (optional) URL for Proxy, defaults to None.</span>
 <span class="sd">    :param proxy_port: (optional) Port for Proxy, defaults to None.</span>
 <span class="sd">    :param proxy_username: (optional) Username for Proxy, defaults to None.</span>
@@ -136,6 +138,7 @@
             <span class="n">raise_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">content_type_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">reuse_entries</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">timeout_s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">proxy_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">proxy_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">proxy_username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -160,6 +163,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">raise_errors</span> <span class="o">=</span> <span class="n">raise_errors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content_type_cache</span> <span class="o">=</span> <span class="n">content_type_cache</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reuse_entries</span> <span class="o">=</span> <span class="n">reuse_entries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout_s</span> <span class="o">=</span> <span class="n">timeout_s</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proxy_host</span> <span class="o">=</span> <span class="n">proxy_host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proxy_port</span> <span class="o">=</span> <span class="n">proxy_port</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proxy_username</span> <span class="o">=</span> <span class="n">proxy_username</span>
@@ -572,7 +576,8 @@
 
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
-            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_headers</span><span class="p">()</span>
+            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_headers</span><span class="p">(),</span>
+            <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout_s</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_proxy</span><span class="p">():</span>
