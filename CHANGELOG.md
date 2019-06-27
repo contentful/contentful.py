@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v1.12.1
+### Fixed
+* Fixed project description for PyPI.
+
 ## v1.12.0
 ### Added
 * Added `timeout_s` to Client. [#46](https://github.com/contentful/contentful.py/pull/46)
