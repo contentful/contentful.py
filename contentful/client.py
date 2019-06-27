@@ -52,6 +52,8 @@ class Client(object):
     :param reuse_entries: (optional) Boolean determining wether to reuse
         hydrated Entry and Asset objects within the same request when possible.
         Defaults to False
+    :param timeout_s: (optional) Max time allowed for each API call, in seconds.
+        Defaults to 1s.
     :param proxy_host: (optional) URL for Proxy, defaults to None.
     :param proxy_port: (optional) Port for Proxy, defaults to None.
     :param proxy_username: (optional) Username for Proxy, defaults to None.
@@ -93,6 +95,7 @@ class Client(object):
             raise_errors=True,
             content_type_cache=True,
             reuse_entries=False,
+            timeout_s=1,
             proxy_host=None,
             proxy_port=None,
             proxy_username=None,
@@ -117,6 +120,7 @@ class Client(object):
         self.raise_errors = raise_errors
         self.content_type_cache = content_type_cache
         self.reuse_entries = reuse_entries
+        self.timeout_s = timeout_s
         self.proxy_host = proxy_host
         self.proxy_port = proxy_port
         self.proxy_username = proxy_username
@@ -529,7 +533,8 @@ class Client(object):
 
         kwargs = {
             'params': query,
-            'headers': self._request_headers()
+            'headers': self._request_headers(),
+            'timeout': self.timeout_s
         }
 
         if self._has_proxy():
