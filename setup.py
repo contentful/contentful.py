@@ -11,12 +11,7 @@ import os
 import re
 import sys
 
-try:
-    readme = ''
-    with open('README.rst', 'r') as f:
-        readme = f.read()
-except Exception:
-    readme = ''
+readme = 'Contentful Delivery API Python SDK.\nRead full docs at: https://contentful.github.io/contentful.py/'
 
 
 package = 'contentful'
