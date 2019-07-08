@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+* Assets with empty or missing files no longer error when trying to get it serialized to string. [#48](https://github.com/contentful/contentful.py/issues/48)
 
 ## v1.12.1
 ### Fixed
