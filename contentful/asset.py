@@ -30,6 +30,9 @@ class Asset(FieldsResource):
             "//images.contentful.com/spaces/foobar/...?w=120&h=160"
         """
 
+        if not hasattr(self, 'file') or not self.file:
+            return ""
+
         url = self.file['url']
         args = ['{0}={1}'.format(k, v) for k, v in kwargs.items()]
 

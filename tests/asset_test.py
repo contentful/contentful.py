@@ -38,3 +38,50 @@ class AssetTest(TestCase):
         self.assertEqual(asset.url(), '//images.contentful.com/...')
         self.assertEqual(asset.url(w=123), '//images.contentful.com/...?w=123')
         self.assertEqual(str(asset), "<Asset id='foo' url='//images.contentful.com/...'>")
+
+    def test_asset_with_no_file_can_be_serialized_correctly(self):
+        asset = Asset({
+            'sys': {
+                'type': 'Asset',
+                'id': 'foo',
+                'createdAt': '2016-12-01T11:39:20.257859',
+                'updatedAt': '2016-12-01T11:39:20.257859',
+                'space': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'Space',
+                        'id': 'foo'
+                    }
+                }
+            },
+            'fields': {
+                'title': 'Awesome Pic',
+                'description': 'A picture of something'
+            }
+        })
+
+        self.assertEqual(str(asset), "<Asset id='foo' url=''>")
+
+    def test_asset_with_empty_file_can_be_serialized_correctly(self):
+        asset = Asset({
+            'sys': {
+                'type': 'Asset',
+                'id': 'foo',
+                'createdAt': '2016-12-01T11:39:20.257859',
+                'updatedAt': '2016-12-01T11:39:20.257859',
+                'space': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'Space',
+                        'id': 'foo'
+                    }
+                }
+            },
+            'fields': {
+                'title': 'Awesome Pic',
+                'description': 'A picture of something',
+                'file': {}
+            }
+        })
+
+        self.assertEqual(str(asset), "<Asset id='foo' url=''>")
