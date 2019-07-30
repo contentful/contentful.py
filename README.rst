@@ -250,6 +250,13 @@ The client constructor supports several options you may set to achieve the expec
           <td>Enables gzip response content encoding.</td>
         </tr>
         <tr>
+          <td><code>max_retries</code></td>
+          <td><code>1</code></td>
+          <td>
+            Maximum number of retries after a request failure.
+          </td>
+        </tr>
+        <tr>
           <td><code>max_rate_limit_retries</code></td>
           <td><code>1</code></td>
           <td>

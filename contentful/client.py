@@ -1,9 +1,11 @@
 import requests
 import platform
+from requests.adapters import HTTPAdapter
+from urllib3.exceptions import ConnectTimeoutError
 from re import sub
 from .utils import ConfigurationException
 from .utils import retry_request, string_class
-from .errors import get_error, RateLimitExceededError, EntryNotFoundError
+from .errors import get_error, RateLimitExceededError, EntryNotFoundError, ServerError
 from .resource_builder import ResourceBuilder
 from .content_type_cache import ContentTypeCache
 
@@ -58,6 +60,7 @@ class Client(object):
     :param proxy_port: (optional) Port for Proxy, defaults to None.
     :param proxy_username: (optional) Username for Proxy, defaults to None.
     :param proxy_password: (optional) Password for Proxy, defaults to None.
+    :param max_retries: (optional) Maximum number of retries after timeout, defaults to 3.
     :param max_rate_limit_retries: (optional) Maximum amount of retries
         after RateLimitError, defaults to 1.
     :param max_rate_limit_wait: (optional) Timeout (in seconds) for waiting
@@ -100,6 +103,7 @@ class Client(object):
             proxy_port=None,
             proxy_username=None,
             proxy_password=None,
+            max_retries=3,
             max_rate_limit_retries=1,
             max_rate_limit_wait=60,
             max_include_resolution_depth=20,
@@ -125,6 +129,7 @@ class Client(object):
         self.proxy_port = proxy_port
         self.proxy_username = proxy_username
         self.proxy_password = proxy_password
+        self.max_retries = max_retries
         self.max_rate_limit_retries = max_rate_limit_retries
         self.max_rate_limit_wait = max_rate_limit_wait
         self.max_include_resolution_depth = max_include_resolution_depth
@@ -540,14 +545,18 @@ class Client(object):
         if self._has_proxy():
             kwargs['proxies'] = self._proxy_parameters()
 
-        response = requests.get(
-            self._url(url),
-            **kwargs
-        )
+        with requests.Session() as s:
+            s.mount(self._url(url), HTTPAdapter(max_retries=self.max_retries))
+            try:
+                response = s.get(
+                    self._url(url),
+                    **kwargs
+                )
+            except ConnectTimeoutError:
+                response['status_code'] = 500
 
-        if response.status_code == 429:
-            raise RateLimitExceededError(response)
-
+            if response.status_code == 429:
+                raise RateLimitExceededError(response)
         return response
 
     def _get(self, url, query=None):

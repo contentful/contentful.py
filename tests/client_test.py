@@ -7,7 +7,7 @@ import re
 from unittest import TestCase
 
 from requests_mock import ANY
-
+from urllib3.exceptions import MaxRetryError
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
@@ -198,7 +198,7 @@ class ClientTest(TestCase):
         client = Client('a22o2qgm356c', 'bfbc63cf745a037125dbcc64f716a9a0e9d091df1a79e84920b890f87a6e7ab9', environment='staging', content_type_cache=False)
         sync = client.sync({'initial': True})
 
-        self.assertEquals(sync.items[0].environment.id, 'staging')
+        self.assertEqual(sync.items[0].environment.id, 'staging')
 
     @vcr.use_cassette('fixtures/client/array_endpoints.yaml')
     def test_client_creates_wrapped_arrays(self):
