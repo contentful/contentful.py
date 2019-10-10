@@ -203,3 +203,41 @@ class RichTextFieldTest(TestCase):
 
         coerced = rt_field.coerce(document)
         self.assertTrue(isinstance(coerced['content'][0]['data']['target'], Link))
+
+        # with 2 embedded entries that have errors, both will be removed
+        # without a list index out of range error
+        document = {
+            "nodeType": "document",
+            "content": [{
+                "nodeType": "embedded-entry-block",
+                "nodeClass": "block",
+                "data": {
+                    "target": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Entry",
+                            "id": "4JJ21pcEI0QSsea20g6K6K"
+                        }
+                    }
+                }
+            }, {
+                "nodeType": "embedded-entry-block",
+                "nodeClass": "block",
+                "data": {
+                    "target": {
+                        "sys": {
+                            "type": "Link",
+                            "linkType": "Entry",
+                            "id": "4JJ21pcEI0QSsea20g6K6K"
+                        }
+                    }
+                }
+            }]
+        }
+
+        errors = [{"details": {"id": "4JJ21pcEI0QSsea20g6K6K"}}]
+
+        self.assertEqual(rt_field.coerce(document, errors=errors), {
+            "nodeType": "document",
+            "content": []
+        })
