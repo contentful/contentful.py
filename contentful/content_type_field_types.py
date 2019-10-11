@@ -217,7 +217,7 @@ class RichTextField(BasicField):
         for node_index, coerced_node in coerced_nodes.items():
             value['content'][node_index] = coerced_node
 
-        for node_index in invalid_nodes:
+        for node_index in reversed(invalid_nodes):
             del value['content'][node_index]
 
         return value
