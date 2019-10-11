@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v1.12.3
+### Fixed
+* Fixed an `IndexError` when multiple invalid nodes were found in a RichText field. [#52](https://github.com/contentful/contentful.py/pull/52)
+
 ## v1.12.2
 ### Fixed
 * Assets with empty or missing files no longer error when trying to get it serialized to string. [#48](https://github.com/contentful/contentful.py/issues/48)
