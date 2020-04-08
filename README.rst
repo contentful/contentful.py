@@ -153,7 +153,8 @@ You can create API keys using the `Contentful web interface <https://app.content
 
 Don't forget to also get your Space ID.
 
-For more information, check the [Contentful REST API reference on Authentication](https://www.contentful.com/developers/docs/references/authentication/).
+For more information, check the
+`Contentful REST API reference on Authentication <https://www.contentful.com/developers/docs/references/authentication/>`_.
 
 Documentation & References
 --------------------------
