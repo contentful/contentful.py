@@ -22,7 +22,9 @@ class Entry(FieldsResource):
     """
 
     def _coerce(self, field_id, value, localized, includes, errors, resources=None):
-        if is_link(value) and not unresolvable(value, errors):
+        if is_link(value):
+            if unresolvable(value, errors):
+                return None
             return self._build_nested_resource(
                 value,
                 localized,

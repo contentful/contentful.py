@@ -42,6 +42,64 @@ class EntryTest(TestCase):
         self.assertEqual(entry.name, 'foobar')
         self.assertEqual(entry.date, '2016-06-06')
 
+    def test_entry_unresolved_link(self):
+        ContentTypeCache.__CACHE__ = []
+
+        errors = [
+            {
+                "sys": {
+                    "id": "notResolvable",
+                    "type": "error"
+                },
+                "details": {
+                    "type": "Link",
+                    "linkType": "Entry",
+                    "id": "unresolvedLinkId"
+                }
+            }
+        ]
+
+        entry = Entry(
+            {
+                'sys': {
+                    'space': {
+                        'sys': {
+                            'type': 'Link',
+                            'linkType': 'Space',
+                            'id': 'foo'
+                        }
+                    },
+                    'contentType': {
+                        'sys': {
+                            'type': 'Link',
+                            'linkType': 'ContentType',
+                            'id': 'foo'
+                        }
+                    },
+                    'type': 'Entry',
+                    'createdAt': '2016-06-06',
+                    'updatedAt': '2016-06-06',
+                    'deletedAt': '2016-06-06',
+                    'id': 'foobar',
+                    'version': 1
+                },
+                'fields': {
+                    'name': 'foobar',
+                    'entryLink': {
+                        'sys': {
+                            'type': 'Link',
+                            'linkType': 'Entry',
+                            'id': 'unresolvedLinkId'
+                        }
+                    }
+                }
+            },
+            None,
+            errors
+        )
+
+        self.assertEqual(entry.fields().get('entryLink'), None)
+
     def test_cached_content_type_entry(self):
         ContentTypeCache.__CACHE__ = []
 
