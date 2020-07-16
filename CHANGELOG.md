@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v1.12.4
 ### Fixed
 * Unresolved single references fields will no longer return the invalid Link and return None instead, matching behaviour of multiple references fields, where unresolvable links are ignored. [#58](https://github.com/contentful/contentful.py/issues/58)
 

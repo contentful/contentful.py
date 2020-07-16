@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.resource_builder &#8212; Contentful 1.12.3 documentation</title>
+    <title>contentful.resource_builder &#8212; Contentful 1.12.4 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.12.3',
+        VERSION:     '1.12.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -41,16 +41,16 @@
           <div class="body" role="main">
             
   <h1>Source code for contentful.resource_builder</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.array</span> <span class="k">import</span> <span class="n">Array</span>
-<span class="kn">from</span> <span class="nn">.entry</span> <span class="k">import</span> <span class="n">Entry</span>
-<span class="kn">from</span> <span class="nn">.asset</span> <span class="k">import</span> <span class="n">Asset</span>
-<span class="kn">from</span> <span class="nn">.space</span> <span class="k">import</span> <span class="n">Space</span>
-<span class="kn">from</span> <span class="nn">.content_type</span> <span class="k">import</span> <span class="n">ContentType</span>
-<span class="kn">from</span> <span class="nn">.deleted_asset</span> <span class="k">import</span> <span class="n">DeletedAsset</span>
-<span class="kn">from</span> <span class="nn">.deleted_entry</span> <span class="k">import</span> <span class="n">DeletedEntry</span>
-<span class="kn">from</span> <span class="nn">.locale</span> <span class="k">import</span> <span class="n">Locale</span>
-<span class="kn">from</span> <span class="nn">.sync_page</span> <span class="k">import</span> <span class="n">SyncPage</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">unresolvable</span>
+<span></span><span class="kn">from</span> <span class="nn">.array</span> <span class="kn">import</span> <span class="n">Array</span>
+<span class="kn">from</span> <span class="nn">.entry</span> <span class="kn">import</span> <span class="n">Entry</span>
+<span class="kn">from</span> <span class="nn">.asset</span> <span class="kn">import</span> <span class="n">Asset</span>
+<span class="kn">from</span> <span class="nn">.space</span> <span class="kn">import</span> <span class="n">Space</span>
+<span class="kn">from</span> <span class="nn">.content_type</span> <span class="kn">import</span> <span class="n">ContentType</span>
+<span class="kn">from</span> <span class="nn">.deleted_asset</span> <span class="kn">import</span> <span class="n">DeletedAsset</span>
+<span class="kn">from</span> <span class="nn">.deleted_entry</span> <span class="kn">import</span> <span class="n">DeletedEntry</span>
+<span class="kn">from</span> <span class="nn">.locale</span> <span class="kn">import</span> <span class="n">Locale</span>
+<span class="kn">from</span> <span class="nn">.sync_page</span> <span class="kn">import</span> <span class="n">SyncPage</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">unresolvable</span>
 
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -67,7 +67,7 @@
 <div class="viewcode-block" id="ResourceBuilder"><a class="viewcode-back" href="../../contentful.html#contentful.resource_builder.ResourceBuilder">[docs]</a><span class="k">class</span> <span class="nc">ResourceBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Creates objects of the proper Resource Type&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">default_locale</span><span class="p">,</span>
             <span class="n">localized</span><span class="p">,</span>

@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.client &#8212; Contentful 1.12.3 documentation</title>
+    <title>contentful.client &#8212; Contentful 1.12.4 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.12.3',
+        VERSION:     '1.12.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -43,12 +43,12 @@
   <h1>Source code for contentful.client</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">platform</span>
-<span class="kn">from</span> <span class="nn">re</span> <span class="k">import</span> <span class="n">sub</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">ConfigurationException</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">retry_request</span><span class="p">,</span> <span class="n">string_class</span>
-<span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">get_error</span><span class="p">,</span> <span class="n">RateLimitExceededError</span><span class="p">,</span> <span class="n">EntryNotFoundError</span>
-<span class="kn">from</span> <span class="nn">.resource_builder</span> <span class="k">import</span> <span class="n">ResourceBuilder</span>
-<span class="kn">from</span> <span class="nn">.content_type_cache</span> <span class="k">import</span> <span class="n">ContentTypeCache</span>
+<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">sub</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ConfigurationException</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">retry_request</span><span class="p">,</span> <span class="n">string_class</span>
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="kn">import</span> <span class="n">get_error</span><span class="p">,</span> <span class="n">RateLimitExceededError</span><span class="p">,</span> <span class="n">EntryNotFoundError</span>
+<span class="kn">from</span> <span class="nn">.resource_builder</span> <span class="kn">import</span> <span class="n">ResourceBuilder</span>
+<span class="kn">from</span> <span class="nn">.content_type_cache</span> <span class="kn">import</span> <span class="n">ContentTypeCache</span>
 
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -123,7 +123,7 @@
 <span class="sd">          default_locale=&quot;en-US&quot;&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">space_id</span><span class="p">,</span>
             <span class="n">access_token</span><span class="p">,</span>
@@ -476,7 +476,7 @@
 <span class="sd">        Sets the X-Contentful-User-Agent header.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">__version__</span>
+        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__version__</span>
         <span class="n">header</span><span class="p">[</span><span class="s1">&#39;sdk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;contentful.py&#39;</span><span class="p">,</span>
             <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">__version__</span>
@@ -656,7 +656,7 @@
             <span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="n">proxy</span>
         <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;contentful.Client space_id=&quot;</span><span class="si">{0}</span><span class="s1">&quot; access_token=&quot;</span><span class="si">{1}</span><span class="s1">&quot; default_locale=&quot;</span><span class="si">{2}</span><span class="s1">&quot;&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>  <span class="c1"># noqa: E501</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">space_id</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span>
