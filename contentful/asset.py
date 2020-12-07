@@ -41,7 +41,7 @@ class Asset(FieldsResource):
 
         return url
 
-    def incoming_references(self, client=None, query={}):
+    def incoming_references(self, client=None, query=None):
         """Fetches all entries referencing the asset
 
         API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset
@@ -54,6 +54,8 @@ class Asset(FieldsResource):
             >>> entries = asset.incoming_references(client)
             [<Entry[cat] id='happycat'>]
         """
+        if query is None:
+            query = {}
 
         if client is None:
             return False

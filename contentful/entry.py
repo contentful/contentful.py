@@ -117,7 +117,7 @@ class Entry(FieldsResource):
             max_depth=self._max_depth
         ).build()
 
-    def incoming_references(self, client=None, query={}):
+    def incoming_references(self, client=None, query=None):
         """Fetches all entries referencing the entry
 
         API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-asset
@@ -131,6 +131,8 @@ class Entry(FieldsResource):
             >>> entries = entry.incoming_references(client)
             [<Entry[cat] id='happycat'>]
         """
+        if query is None:
+            query = {}
 
         if client is None:
             return False
