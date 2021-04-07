@@ -42,6 +42,57 @@ class EntryTest(TestCase):
         self.assertEqual(entry.name, 'foobar')
         self.assertEqual(entry.date, '2016-06-06')
 
+    def test_metadata_tags(self):
+        ContentTypeCache.__CACHE__ = []
+
+        entry = Entry({
+            'sys': {
+                'space': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'Space',
+                        'id': 'foo'
+                    }
+                },
+                'contentType': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'ContentType',
+                        'id': 'foo'
+                    }
+                },
+                'type': 'Entry',
+                'createdAt': '2016-06-06',
+                'updatedAt': '2016-06-06',
+                'deletedAt': '2016-06-06',
+                'id': 'foobar',
+                'version': 1
+            },
+            'metadata': {
+                'tags': [
+                    {
+                        'sys': {
+                            'type': 'Link',
+                            'linkType': 'Tag',
+                            'id': 'nyCampaign'
+                        }
+                    }
+                ]
+            },
+            'fields': {
+                'name': 'foobar',
+                'date': '2016-06-06',
+                'metadata': 'baz'
+            }
+        })
+
+        self.assertEqual(len(entry._metadata), 1)
+
+        tag = entry._metadata['tags'][0]
+        self.assertEqual(str(tag), "<Link[Tag] id='nyCampaign'>")
+        self.assertEqual(tag.id, 'nyCampaign')
+        self.assertEqual(tag.link_type, 'Tag')
+
     def test_entry_unresolved_link(self):
         ContentTypeCache.__CACHE__ = []
 

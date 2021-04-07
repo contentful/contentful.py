@@ -40,6 +40,7 @@ class Resource(object):
         self._depth = depth
         self._max_depth = max_depth
         self.sys = self._hydrate_sys(item)
+        self._metadata = self._hydrate_metadata(item)
 
         if resources is not None and 'sys' in item:
             cache_key = "{0}:{1}:{2}".format(
@@ -58,6 +59,14 @@ class Resource(object):
                 v = dateutil.parser.parse(v)
             sys[snake_case(k)] = v
         return sys
+
+    def _hydrate_metadata(self, item):
+        _metadata = {}
+        for k, v in item.get('metadata', {}).items():
+            if k == 'tags':
+                v = list(map(self._build_link, v))
+            _metadata[snake_case(k)] = v
+        return _metadata
 
     def _build_link(self, link):
         return Link(link)
