@@ -86,7 +86,7 @@ class EntryTest(TestCase):
             }
         })
 
-        self.assertEqual(len(entry._metadata), 1)
+        self.assertEqual(len(entry._metadata['tags']), 1)
 
         tag = entry._metadata['tags'][0]
         self.assertEqual(str(tag), "<Link[Tag] id='nyCampaign'>")

@@ -79,7 +79,7 @@ class AssetTest(TestCase):
             }
         })
 
-        self.assertEqual(len(asset._metadata), 1)
+        self.assertEqual(len(asset._metadata['tags']), 1)
 
         tag = asset._metadata['tags'][0]
         self.assertEqual(str(tag), "<Link[Tag] id='nyCampaign'>")
