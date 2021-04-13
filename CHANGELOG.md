@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## v1.2
+## v1.13.0
 ### Added
 * Added `#_metadata['tags']` to read metadata tags on entry and asset.
 
