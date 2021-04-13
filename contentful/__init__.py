@@ -11,6 +11,6 @@ from .content_type_cache import ContentTypeCache  # noqa: F401
 from .content_type_field import ContentTypeField  # noqa: F401
 
 
-__version__ = "1.12.4"
-__author__ = "Contentful GmbH (David Litvak Bruno)"
-__email__ = "david.litvak@contentful.com"
+__version__ = "1.2.0"
+__author__ = "Contentful GmbH"
+__email__ = "bhushan.lodha@external.contentful.com"
