@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v1.2
+### Added
+* Added `#_metadata['tags']` to read metadata tags on entry and asset.
+
 ## v1.12.4
 ### Fixed
 * Unresolved single references fields will no longer return the invalid Link and return None instead, matching behaviour of multiple references fields, where unresolvable links are ignored. [#58](https://github.com/contentful/contentful.py/issues/58)

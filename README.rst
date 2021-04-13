@@ -378,6 +378,17 @@ Entry fields also have direct accessors and will be coerced to the type defined 
     entry.lives # 1337
     entry.fields() # { 'name': '...', 'lives': '...', ... }
 
+Accessing tags
+...................................
+
+::
+
+    nyancat = client.entry('nyancat')
+    nyancat._metadata['tags'] # => [<Link[Tag] id='nyCampaign'>]
+
+Tags can be accessed via the ``#_metadata`` method.
+
+
 Using different locales
 .......................
 
