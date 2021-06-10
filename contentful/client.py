@@ -219,10 +219,14 @@ class Client(object):
 
         try:
             query.update({'sys.id': entry_id})
-            return self._get(
+            response = self._get(
                 self.environment_url('/entries'),
                 query
-            )[0]
+            )
+
+            if self.raw_mode:
+                return response
+            return response[0]
         except IndexError:
             raise EntryNotFoundError(
                 "Entry not found for ID: '{0}'".format(entry_id)

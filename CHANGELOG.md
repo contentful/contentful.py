@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## Unreleased
+* Fixed a bug to retrieve an entry when raw_mode is enabled.
 
 ## v1.13.0
 ### Added
