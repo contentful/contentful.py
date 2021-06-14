@@ -170,7 +170,7 @@ class FieldsResource(Resource):
 
     @property
     def locale(self):
-        return self.sys.get('locale', None)
+        return self.sys.get('locale')
 
     def _locale(self):
         return self.locale or self.default_locale
