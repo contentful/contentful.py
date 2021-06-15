@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.client &#8212; Contentful 1.13.0 documentation</title>
+    <title>contentful.client &#8212; Contentful 1.13.1 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.13.0',
+        VERSION:     '1.13.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -262,10 +262,14 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;sys.id&#39;</span><span class="p">:</span> <span class="n">entry_id</span><span class="p">})</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">environment_url</span><span class="p">(</span><span class="s1">&#39;/entries&#39;</span><span class="p">),</span>
                 <span class="n">query</span>
-            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_mode</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">response</span>
+            <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">EntryNotFoundError</span><span class="p">(</span>
                 <span class="s2">&quot;Entry not found for ID: &#39;</span><span class="si">{0}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entry_id</span><span class="p">)</span>
