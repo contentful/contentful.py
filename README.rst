@@ -482,7 +482,7 @@ Advanced Concepts
 Logging
 .......
 
-To use the logger, use the standard SDK ``logging`` module::
+To use the logger, use the standard library ``logging`` module::
 
     import logging
     logging.basicConfig(level=logging.DEBUG)
