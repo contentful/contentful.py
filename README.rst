@@ -14,8 +14,8 @@
      </a>
    </p>
 
-contentful.py - Contentful Python Delivery SDK
-==============================================
+contentful.py - Contentful Python Delivery Library
+==================================================
 
 .. raw:: html
 
@@ -34,7 +34,7 @@ contentful.py - Contentful Python Delivery SDK
 
 `Contentful <https://www.contentful.com>`_ provides a content infrastructure for digital teams to power content in websites, apps, and devices. Unlike a CMS, Contentful was built to integrate with the modern software stack. It offers a central hub for structured content, powerful management and delivery APIs, and a customizable web app that enable developers and content creators to ship digital products faster.
 
-    This SDK is intended to replace the former unofficial Python CDA SDK. The old SDK can still be found at: https://github.com/contentful-labs/contentful.py
+    This library is intended to replace the former unofficial Python CDA library. The old library can still be found at: https://github.com/contentful-labs/contentful.py
 
 .. raw:: html
     <details>
@@ -43,14 +43,14 @@ contentful.py - Contentful Python Delivery SDK
     <!-- TOC -->
 
     <ul>
-        <li><a href="#contentfulpy---contentful-python-delivery-sdk">contentful.py - Contentful Python Delivery SDK</a></li>
+        <li><a href="#contentfulpy---contentful-python-delivery-library">contentful.py - Contentful Python Delivery library</a></li>
         <ul>
             <li><a href="#core-features">Core Features</a></li>
             <li><a href="#getting-started">Getting started</a></li>
             <ul>
                 <li><a href="#installation">Installation</a></li>
                 <li><a href="#your-first-request">Your first request</a></li>
-                <li><a href="#using-this-sdk-with-the-preview-api">Using this SDK with the Preview API</a></li>
+                <li><a href="#using-this-library-with-the-preview-api">Using this library with the Preview API</a></li>
                 <li><a href="#authentication">Authentication</a></li>
             </ul>
             <li><a href="#documentation--references">Documentation & References</a></li>
@@ -101,14 +101,14 @@ Core Features
 Getting Started
 ---------------
 
-In order to get started with the Contentful Python SDK you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful.
+In order to get started with the Contentful Python library you'll need not only to install it, but also to get credentials which will allow you to have access to your content in Contentful.
 
 .. raw:: html
 
     <ul>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#your-first-request">Your first request</a></li>
-        <li><a href="#using-this-sdk-with-the-preview-api">Using this SDK with the Preview API</a></li>
+        <li><a href="#using-this-library-with-the-preview-api">Using this library with the Preview API</a></li>
         <li><a href="#authentication">Authentication</a></li>
     </ul>
 
@@ -122,7 +122,7 @@ Install Contentful from the Python Package Index::
 Your first request
 ~~~~~~~~~~~~~~~~~~
 
-The following code snippet is the most basic one you can use to get some content from Contentful with this SDK::
+The following code snippet is the most basic one you can use to get some content from Contentful with this library::
 
     import contentful
 
@@ -134,10 +134,10 @@ The following code snippet is the most basic one you can use to get some content
     # This API call will request an entry with the specified ID from the space defined at the top, using a space-specific access token.
     entry = client.entry('nyancat')
 
-Using this SDK with the Preview API
+Using this library with the Preview API
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This SDK can also be used with the Preview API. In order to do so, you need to use the Preview API Access token, available on the same page where you get the Delivery API token, and specify the host of the preview API, such as::
+This library can also be used with the Preview API. In order to do so, you need to use the Preview API Access token, available on the same page where you get the Delivery API token, and specify the host of the preview API, such as::
 
     client = contentful.Client('cfexampleapi', 'b4c0n73n7fu1', api_url='preview.contentful.com')
 
@@ -168,7 +168,7 @@ Documentation & References
         <li><a href="#advanced-concepts">Advanced Concepts</a></li>
     </ul>
 
-To help you get the most out of this SDK, we've prepared all available client configuration options, reference documentation, tutorials and other examples that will help you learn and understand how to use this library.
+To help you get the most out of this library, we've prepared all available client configuration options, reference documentation, tutorials and other examples that will help you learn and understand how to use this library.
 
 Configuration
 ~~~~~~~~~~~~~
@@ -281,7 +281,7 @@ The client constructor supports several options you may set to achieve the expec
           <td><code>max_include_resolution_depth</code></td>
           <td><code>20</code></td>
           <td>
-            Maximum amount of levels to resolve includes for SDK entities
+            Maximum amount of levels to resolve includes for library entities
             (this is independent of API-level includes - it represents the maximum depth the include resolution
             tree is allowed to resolved before falling back to <code>Link</code> objects).
             This include resolution strategy is in place in order to avoid having infinite circular recursion on resources with circular dependencies.
@@ -446,7 +446,7 @@ Entries can have fields in it's default locale accessible with accessor methods:
 Property Accessors
 ..................
 
-This SDK provides a simple API to interact with resources that come from the API,
+This library provides a simple API to interact with resources that come from the API,
 by abstracting the underlying JSON structure of the objects, and exposing all the relevant fields as
 object properties.
 
@@ -482,7 +482,7 @@ Advanced Concepts
 Logging
 .......
 
-To use the logger, use the standard library ``logging`` module::
+To use the logger, use the standard SDK ``logging`` module::
 
     import logging
     logging.basicConfig(level=logging.DEBUG)
