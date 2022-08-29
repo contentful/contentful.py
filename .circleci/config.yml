@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test_and_lint:
+  test:
     parameters:
       python-version:
         type: string
