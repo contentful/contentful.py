@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## Unreleased
+* Fixed URL to 'Create Issue' button in readme
 
 ## v1.13.1
 * Fixed a bug to retrieve an entry when raw_mode is enabled.
