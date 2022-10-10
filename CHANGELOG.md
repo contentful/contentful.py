@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## Unreleased
+* Fixed URL to 'Create Issue' button in readme
 * Changed CI/CD vendor from Travis to CircleCi.
 
 ## v1.13.1

@@ -584,7 +584,7 @@ You found a bug or want to propose a feature?
   <ul>
     <li>
       File an issue here on GitHub:
-      <a href="https://github.com/contentful/contentful.rb/issues/new">
+      <a href="https://github.com/contentful/contentful.py/issues/new">
         <img alt="File an Issue" src="https://img.shields.io/badge/-Create%20Issue-6cc644.svg?logo=github&maxAge=31557600" />
       </a>.
       Make sure to remove any credential from your code before sharing it.
