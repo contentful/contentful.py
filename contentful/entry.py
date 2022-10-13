@@ -50,7 +50,7 @@ class Entry(FieldsResource):
             return items
 
         content_type = ContentTypeCache.get(
-            self.sys['content_type'].id
+            self.sys['space'].id, self.sys['content_type'].id
         )
         if content_type is not None:
             content_type_field = content_type.field_for(field_id)

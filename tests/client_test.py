@@ -18,7 +18,7 @@ from contentful.entry import Entry
 
 class ClientTest(TestCase):
     def setUp(self):
-        ContentTypeCache.__CACHE__ = []
+        ContentTypeCache.__CACHE__ = {}
 
     def test_client_repr(self):
         self.assertEqual(

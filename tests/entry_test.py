@@ -7,7 +7,7 @@ from contentful.content_type_cache import ContentTypeCache
 
 class EntryTest(TestCase):
     def test_entry(self):
-        ContentTypeCache.__CACHE__ = []
+        ContentTypeCache.__CACHE__ = {}
 
         entry = Entry({
             'sys': {
@@ -43,7 +43,7 @@ class EntryTest(TestCase):
         self.assertEqual(entry.date, '2016-06-06')
 
     def test_metadata_tags(self):
-        ContentTypeCache.__CACHE__ = []
+        ContentTypeCache.__CACHE__ = {}
 
         entry = Entry({
             'sys': {
@@ -94,7 +94,7 @@ class EntryTest(TestCase):
         self.assertEqual(tag.link_type, 'Tag')
 
     def test_entry_unresolved_link(self):
-        ContentTypeCache.__CACHE__ = []
+        ContentTypeCache.__CACHE__ = {}
 
         errors = [
             {
@@ -152,10 +152,17 @@ class EntryTest(TestCase):
         self.assertEqual(entry.fields().get('entryLink'), None)
 
     def test_cached_content_type_entry(self):
-        ContentTypeCache.__CACHE__ = []
+        ContentTypeCache.__CACHE__ = {}
 
         foo_ct = ContentType({
             'sys': {
+                'space': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'Space',
+                        'id': 'foo'
+                    }
+                },
                 'type': 'ContentType',
                 'id': 'foo'
             },
@@ -184,7 +191,9 @@ class EntryTest(TestCase):
             ]
         })
 
-        ContentTypeCache.__CACHE__.append(foo_ct)
+        if 'foo' not in ContentTypeCache.__CACHE__:
+            ContentTypeCache.__CACHE__['foo'] = []
+        ContentTypeCache.__CACHE__['foo'].append(foo_ct)
 
         entry = Entry({
             'sys': {
@@ -279,7 +288,14 @@ class EntryTest(TestCase):
                         'sys': {
                             'id': 'foobar'
                         }
-                    }
+                    },
+                    'space': {
+                        'sys': {
+                            'type': 'Link',
+                            'linkType': 'Space',
+                            'id': 'foo'
+                        }
+                    },
                 },
                 'fields': {
                     'foo': 'bar'
@@ -293,7 +309,14 @@ class EntryTest(TestCase):
                         'sys': {
                             'id': 'foobar'
                         }
-                    }
+                    },
+                    'space': {
+                        'sys': {
+                            'type': 'Link',
+                            'linkType': 'Space',
+                            'id': 'foo'
+                        }
+                    },
                 },
                 'fields': {
                     'foo': 'baz'

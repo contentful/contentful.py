@@ -2,56 +2,113 @@ interactions:
 - request:
     body: null
     headers:
-      Accept: ['*/*']
-      Accept-Encoding: [gzip]
-      Authorization: [Bearer b4c0n73n7fu1]
-      Connection: [keep-alive]
-      Content-Type: [application/vnd.contentful.delivery.v1+json]
-      User-Agent: [PythonContentfulClient/0.1.0]
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - identity
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      User-Agent:
+      - python-requests/2.27.1
+      X-Contentful-User-Agent:
+      - sdk contentful.py/1.13.1; platform python/3.6.15; os macOS/21.6.0;
     method: GET
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/content_types
+    uri: https://cdn.contentful.com/spaces/o4h6g9w3pooi/environments/master/content_types
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA+1YTVPbMBC98ytSnxuPZRuT+AahTDOlvSSndjgotgKayB+1FUrK8N+7kmNHsh0m
-        mBCmgC+JvPrYt2u9fdL9Ua9n5Kvc8Hv38BcafJUSaBmnWYZXBrx7+Cz68IRjBu9d2coXNIWGJRuM
-        RpRDC1lFm3ISiQl/yQmLaWuryJXyFAdiqbJH8VLxRbyQL0ufLmm8MMSamwdWjxfTtc8TOWOtAw0F
-        nGBO7nCUMoJTKlCVz0P1X+IsHqMYg/hwPAvm4WjhRZa7HE8mOR5/U+avHBslMScxl34o0wQZwZyE
-        pyI6hm0ht2/ZfRtNkeO7tu84pmUNf6oDlmn4tAEZuaU5TWIR/rX7FQ4jpHnK8OqCEiZjEONo417R
-        grcjyleVD0ZI8iCjKS/mjJeMlXiMuZhnk1gRKi11RdC0RUSfaqEf6vLSUuZ1Su64ljaDJQFm9C8R
-        fs8xy4maVCMjv5c0k0aeLXUbgMYztmVgAl8qJKSctC33LZACSC3JdAclTBG9Flv1uQIIGUjN+UND
-        W4O8kr/rj+M/3pQ3ywirEX3qHnT6lte3T6a27buej1wTOc6jexAGDGHfTtGxjyzf9swBGmgDlD3o
-        dNyDXzVQH5uwZROqxKTtp3InnivMpXXYA8s0KegFaIbRBcnbWeayadLrdDeGeR4sbc2y6KuZUxh+
-        sopmCdPAgfUWOB4KHlCkLCsFRQmaAqLakZtphK/1kl/Vm3HT9OJBa5SjWsV5Ssza1E49Yup8Uopt
-        xNBpnhO+Req8sZoQJteqiiqzvKMqq1UEx3SHOsHXVVlVEVzfsX2EzIFzsq0i2B0rwrkCqVYPjDOc
-        LT5tJNu71WVvvyR0Y7cGcewup/dYER7hopLc34omBZm/P/6xzcGx/agi9foIyWPksW8h33XMgWdt
-        4x+vI/+MFEh1/vlOkj/m6/NPo9Ye+Fj4odcqjba7XgsSlmw7SjdNZSVvkY+H4rQddeiM5PwioyQO
-        2xX8Gdh7bR2qy4L63dahAOpHB0VAfol5Jm8A14p807HleDajGb8J4caw9Wx21motoZ/DnZc+buc7
-        kufVqx2xMTrffjADU4+Ree3+qoQ2hpuj6/rd0X7QNeiv2+UWo7fbwYHpdcA189oN3fsQUPAdXx09
-        HP0DN/FAjM0XAAA=
+      string: "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 2,\n \
+        \ \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n\
+        \        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\"\
+        ,\n            \"linkType\": \"Space\",\n            \"id\": \"o4h6g9w3pooi\"\
+        \n          }\n        },\n        \"id\": \"article\",\n        \"type\"\
+        : \"ContentType\",\n        \"createdAt\": \"2022-10-07T14:39:22.930Z\",\n\
+        \        \"updatedAt\": \"2022-10-07T14:39:22.930Z\",\n        \"environment\"\
+        : {\n          \"sys\": {\n            \"id\": \"master\",\n            \"\
+        type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n\
+        \        },\n        \"revision\": 1\n      },\n      \"displayField\": \"\
+        title\",\n      \"name\": \"Article\",\n      \"description\": \"\",\n   \
+        \   \"fields\": [\n        {\n          \"id\": \"title\",\n          \"name\"\
+        : \"title\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n\
+        \          \"required\": false,\n          \"disabled\": false,\n        \
+        \  \"omitted\": false\n        },\n        {\n          \"id\": \"body\",\n\
+        \          \"name\": \"body\",\n          \"type\": \"RichText\",\n      \
+        \    \"localized\": false,\n          \"required\": false,\n          \"disabled\"\
+        : false,\n          \"omitted\": false\n        }\n      ]\n    },\n    {\n\
+        \      \"sys\": {\n        \"space\": {\n          \"sys\": {\n          \
+        \  \"type\": \"Link\",\n            \"linkType\": \"Space\",\n           \
+        \ \"id\": \"o4h6g9w3pooi\"\n          }\n        },\n        \"id\": \"test2\"\
+        ,\n        \"type\": \"ContentType\",\n        \"createdAt\": \"2021-02-15T06:43:10.638Z\"\
+        ,\n        \"updatedAt\": \"2021-12-17T10:50:13.535Z\",\n        \"environment\"\
+        : {\n          \"sys\": {\n            \"id\": \"master\",\n            \"\
+        type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n\
+        \        },\n        \"revision\": 15\n      },\n      \"displayField\": \"\
+        metadata\",\n      \"name\": \"test2\",\n      \"description\": \"\",\n  \
+        \    \"fields\": [\n        {\n          \"id\": \"metadata\",\n         \
+        \ \"name\": \"metadata\",\n          \"type\": \"Symbol\",\n          \"localized\"\
+        : false,\n          \"required\": false,\n          \"disabled\": false,\n\
+        \          \"omitted\": false\n        }\n      ]\n    }\n  ]\n}\n"
     headers:
-      Accept-Ranges: [bytes]
-      Access-Control-Allow-Headers: ['Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: [Etag]
-      Access-Control-Max-Age: ['86400']
-      Age: ['0']
-      Cache-Control: [max-age=0]
-      Connection: [keep-alive]
-      Content-Encoding: [gzip]
-      Content-Length: ['866']
-      Content-Type: [application/vnd.contentful.delivery.v1+json]
-      Date: ['Thu, 01 Dec 2016 17:17:33 GMT']
-      ETag: [W/"ef8728464e25e9fddfec5884589bf332"]
-      Server: [Contentful]
-      Vary: [Accept-Encoding]
-      Via: [1.1 varnish]
-      X-Cache: [MISS]
-      X-Cache-Hits: ['0']
-      X-Content-Type-Options: [nosniff, nosniff]
-      X-Contentful-Request-Id: [81c951e934a5a472c5f2c036c6aeca3b]
-      X-Served-By: [cache-gru7127-GRU]
-      X-Timer: ['S1480612652.847437,VS0,VE302']
-    status: {code: 200, message: OK}
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Age:
+      - '232'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2023'
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda
+      Date:
+      - Thu, 13 Oct 2022 01:59:26 GMT
+      Server:
+      - Contentful
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - 0, 1
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Served-By:
+      - cache-ewr18127-EWR, cache-fra19183-FRA
+      X-Timer:
+      - S1665626366.465026,VS0,VE1
+      cf-environment-id:
+      - master
+      cf-environment-uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      cf-organization-id:
+      - 4kQeJmhUWIKtNNmMkketza
+      cf-space-id:
+      - o4h6g9w3pooi
+      contentful-cache:
+      - MISS
+      etag:
+      - '"10475100208350505115"'
+      x-contentful-request-id:
+      - e845eecf-f32b-46a7-83e5-0e3ce2dedeab
+      x-contentful-route:
+      - /spaces/:space/environments/:environment/content_types
+    status:
+      code: 200
+      message: OK
 version: 1
