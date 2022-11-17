@@ -4,6 +4,11 @@
 * Fixed URL to 'Create Issue' button in readme
 * Changed CI/CD vendor from Travis to CircleCi.
 
+**Breaking Changes**: Breaking Changes introduced in order to improve caching.
+* Changed `__CACHE__` object type from `list` to `dict`
+* Changed get cache interface from `ContentTypeCache.get(content_type_id)` to `ContentTypeCache.get(space_id, content_type_id)`
+
+
 ## v1.13.1
 * Fixed a bug to retrieve an entry when raw_mode is enabled.
 
