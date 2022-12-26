@@ -111,6 +111,17 @@ class LinkField(BasicField):
     pass
 
 
+class ResourceLinkField(BasicField):
+    """
+    ResourceLinkField
+
+    Nothing should be done here as ResourceLink does not support entity
+    resolution on the backend side and linked field can’t be used in
+    ordering and filtering queries.
+    """
+    pass
+
+
 class ArrayField(BasicField):
     """Array Coercion Class
 
