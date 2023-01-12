@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 try:
     import simplejson as json
 except ImportError:
@@ -107,6 +109,17 @@ class LinkField(BasicField):
     Nothing should be done here as include resolution is handled within
     entries due to depth handling (explained within Entry).
     Only present as a placeholder for proper resolution within ContentType.
+    """
+    pass
+
+
+class ResourceLinkField(BasicField):
+    """
+    ResourceLinkField
+
+    Nothing should be done here as ResourceLink does not support entity
+    resolution on the backend side and linked field can’t be used in
+    ordering and filtering queries.
     """
     pass
 
