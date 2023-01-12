@@ -16,15 +16,15 @@ class ContentTypeCache(object):
     Used for properly coercing Entry fields.
     """
 
-    __CACHE__ = []
+    __CACHE__ = {}
 
     @classmethod
-    def get(cls, content_type_id):
+    def get(cls, space_id, content_type_id):
         """
         Fetches a Content Type from the Cache.
         """
 
-        for content_type in cls.__CACHE__:
+        for content_type in cls.__CACHE__.get(space_id, []):
             if content_type.sys.get('id') == content_type_id:
                 return content_type
         return None
@@ -35,4 +35,4 @@ class ContentTypeCache(object):
         Updates the Cache with all Content Types from the Space.
         """
 
-        cls.__CACHE__ = client.content_types()
+        cls.__CACHE__[client.space_id] = client.content_types()
