@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## Unreleased
+* Added ResourceLinkg to Field Coercion class
 
 ## v1.13.2
 * Fixed URL to 'Create Issue' button in readme
