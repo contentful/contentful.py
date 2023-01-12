@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful package &#8212; Contentful 2.0.0 documentation</title>
+    <title>contentful package &#8212; Contentful 2.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.0.0',
+        VERSION:     '2.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -677,6 +677,15 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <dd><p>Coerces JSON values properly.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="contentful.content_type_field_types.ResourceLinkField">
+<em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">ResourceLinkField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ResourceLinkField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ResourceLinkField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
+<p>Nothing should be done here as ResourceLink does not support entity
+resolution on the backend side and linked field can’t be used in
+ordering and filtering queries.</p>
 </dd></dl>
 
 <dl class="class">
