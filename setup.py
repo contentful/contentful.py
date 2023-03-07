@@ -53,7 +53,10 @@ def get_email(package):
 
 # python setup.py publish
 if sys.argv[-1] == 'publish':
-    os.system("python setup.py sdist upload")
+    os.system("python3 -m pip install --upgrade build")
+    os.system("python3 -m build")
+    os.system("python3 -m pip install --upgrade twine")
+    os.system("python3 -m twine upload dist/*")
     args = {'version': get_version(package)}
     print("Pushing tags to GitHub:")
     os.system("git tag -a %(version)s -m 'version %(version)s'" % args)
@@ -96,6 +99,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
     test_suite='tests',
     tests_require=test_requirements
