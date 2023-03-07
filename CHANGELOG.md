@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v2.1.1
+* Added twine to upload packages to pypi
+
 ## v2.1.0
 * Added ResourceLink to Field Coercion class
 
