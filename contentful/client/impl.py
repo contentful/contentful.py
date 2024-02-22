@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from contentful.client import base
 from contentful.client.transport import aio, sio, errors
+from contentful.content_type_cache import ContentTypeCache
 
 if TYPE_CHECKING:
     from contentful import (
@@ -214,7 +215,11 @@ class Client(base.BaseClient):
         if self.content_type_cache:
             self._cache_content_types()
 
-    def _cache_content_types(self): ...
+    def _cache_content_types(self):
+        content_types = self.content_types()
+        ContentTypeCache.update_cache(
+            space_id=self.space_id, content_types=content_types
+        )
 
     def _get(self, url: str, query: QueryT | None = None):
         params = self._format_params(query)
@@ -232,7 +237,11 @@ class AsyncClient(base.BaseClient):
         if self.content_type_cache:
             await self._cache_content_types()
 
-    async def _cache_content_types(self): ...
+    async def _cache_content_types(self):
+        content_types = await self.content_types()
+        ContentTypeCache.update_cache(
+            space_id=self.space_id, content_types=content_types
+        )
 
     async def _get(self, url: str, query: QueryT | None = None):
         params = self._format_params(query)
