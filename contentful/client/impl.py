@@ -51,7 +51,7 @@ class Client(base.BaseClient):
             <Space[Contentful Example API] id='cfexampleapi'>
         """
 
-        return self._get("", query)
+        return self._get(f"/spaces/{self.space_id}", query)
 
     def content_type(
         self, content_type_id: str, query: QueryT | None = None
@@ -223,10 +223,10 @@ class Client(base.BaseClient):
 
     def _get(self, url: str, query: QueryT | None = None):
         params = self._format_params(query)
-        response = self.transport.get(url, params=params, raw_mode=self.raw_mode)
+        response = self.transport.get(url, query=params, raw_mode=self.raw_mode)
         if self.raw_mode:
             return response
-        return self._format_response(response)
+        return self._format_response(response=response, query=params)
 
 
 class AsyncClient(base.BaseClient):
@@ -248,7 +248,7 @@ class AsyncClient(base.BaseClient):
         response = await self.transport.get(url, params=params, raw_mode=self.raw_mode)
         if self.raw_mode:
             return response
-        return self._format_response(response)
+        return self._format_response(response=response, query=params)
 
     async def space(self, query: QueryT | None = None) -> Space:
         """Fetches the current Space.
@@ -265,7 +265,7 @@ class AsyncClient(base.BaseClient):
             <Space[Contentful Example API] id='cfexampleapi'>
         """
 
-        return await self._get("", query)
+        return await self._get(f"/spaces/{self.space_id}", query)
 
     async def content_type(
         self, content_type_id: str, query: QueryT | None = None

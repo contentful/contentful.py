@@ -29,6 +29,7 @@ class SyncTransport(
     def initialize(self) -> requests.Session:
         if self._session is None:
             self._session = requests.Session()
+            self._session.headers.update(self.default_headers)
 
         return self._session
 
@@ -50,7 +51,7 @@ class SyncTransport(
         **headers: str,
     ) -> dict[str, Any] | requests.Response:
         response = self.retry(
-            self._get, query=query, session=session, raw_mode=raw_mode, **headers
+            self._get, url, query=query, session=session, raw_mode=raw_mode, **headers
         )
         return response
 
@@ -67,7 +68,13 @@ class SyncTransport(
         sess: requests.Session
         with self.session(session=session) as sess:
             response: requests.Response
-            with sess.get(qualified_url, params=query, headers=headers) as response:
+            with sess.get(
+                qualified_url,
+                params=query,
+                headers=headers,
+                timeout=self.timeout_s,
+                proxies=self.proxy_info,
+            ) as response:
                 content = response.content
                 status_code = response.status_code
                 headers = response.headers
@@ -106,5 +113,5 @@ def translate_sync_transport_errors() -> Iterator[None]:
     ) as e:
         raise errors.TransientHTTPError(e) from e
     # Malformed request, etc.
-    except requests.exceptions.RequestException as e:
+    except (requests.exceptions.RequestException, ValueError) as e:
         raise errors.PermanentHTTPError(e) from e

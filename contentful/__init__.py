@@ -1,4 +1,4 @@
-from .client import Client  # noqa: F401
+from .client import Client, AsyncClient  # noqa: F401
 from .entry import Entry  # noqa: F401
 from .asset import Asset  # noqa: F401
 from .space import Space  # noqa: F401

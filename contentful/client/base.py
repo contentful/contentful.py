@@ -4,7 +4,7 @@ import platform
 import re
 from typing import TypedDict, TYPE_CHECKING, ClassVar
 
-from contentful import resource_builder, __version__
+from contentful import resource_builder
 from contentful.client import queries
 from contentful.client.transport import abstract
 
@@ -218,6 +218,8 @@ class BaseClient:
         return transport
 
     def _get_client_info(self) -> ClientInfo:
+        from contentful import __version__
+
         os_name = platform.system()
         if os_name == "Darwin":
             os_name = "macOS"
@@ -269,6 +271,9 @@ class BaseClient:
 
         header_encoded = ""
         for key, values in self.client_info.items():
+            if values["name"] is None:
+                continue
+
             name = f"{key} {values['name']}"
             if values["version"]:
                 name = f"{name}/{values['version']}"
@@ -302,7 +307,7 @@ class BaseClient:
             protocol, self.api_url, self.space_id, url
         )
 
-    def _format_params(self, query: QueryT | None) -> RequestParams:
+    def _format_params(self, query: QueryT | None) -> dict[str, str]:
         query = query or {}
         params = queries.normalize(**query)
         if not self.authorization_as_header:
@@ -310,7 +315,10 @@ class BaseClient:
 
         return params
 
-    def _format_response(self, response: dict[str, Any], localized: bool) -> Resource:
+    def _format_response(
+        self, *, response: dict[str, Any], query: dict[str, str]
+    ) -> Resource:
+        localized = query.get("locale", "") == "*"
         builder = resource_builder.ResourceBuilder(
             default_locale=self.default_locale,
             localized=localized,
@@ -349,15 +357,11 @@ class BaseClient:
 
     def __repr__(self):
         return (
-            f"<{self.__class__.__name__} "
+            f"<contentful.{self.__class__.__name__} "
             f"space_id={self.space_id!r} "
             f"access_token={self.access_token!r} "
             f"default_locale={self.default_locale!r}>"
         )
-
-
-class RequestParams(TypedDict):
-    params: QueryT
 
 
 class ClientInfo(TypedDict):

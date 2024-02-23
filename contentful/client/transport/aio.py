@@ -106,3 +106,6 @@ def translate_async_transport_errors() -> Iterator[None]:
     # Malformed request, etc.
     except (aiohttp.ClientError, ValueError) as e:
         raise errors.PermanentHTTPError(e) from e
+    except Exception as e:
+        print(e)
+        raise

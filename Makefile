@@ -48,7 +48,7 @@ lint:
 	flake8 contentful
 
 test:
-	python setup.py test
+	python -m unittest discover tests
 
 test-all:
 	tox

@@ -99,7 +99,9 @@ class AbstractTransport(abc.ABC, Generic[SessionT, ResponseT]):
     ) -> dict[str, Any] | ResponseT: ...
 
 
-class AbstractAsyncTransport(AbstractTransport[SessionT], abc.ABC, Generic[SessionT]):
+class AbstractAsyncTransport(
+    AbstractTransport[SessionT, ResponseT], abc.ABC, Generic[SessionT, ResponseT]
+):
 
     @abc.abstractmethod
     def session(
@@ -107,7 +109,9 @@ class AbstractAsyncTransport(AbstractTransport[SessionT], abc.ABC, Generic[Sessi
     ) -> AsyncSessionContext[SessionT]: ...
 
 
-class AbstractSyncTransport(AbstractTransport[SessionT], abc.ABC, Generic[SessionT]):
+class AbstractSyncTransport(
+    AbstractTransport[SessionT, ResponseT], abc.ABC, Generic[SessionT, ResponseT]
+):
 
     @abc.abstractmethod
     def session(
@@ -201,7 +205,10 @@ def parse_response(
     """Parse the received response, raising an error if necessary."""
     if status_code >= 400:
         err_cls = errors.get_error_for_status_code(status_code)
-        body = orjson.loads(content)
+        try:
+            body = orjson.loads(content)
+        except orjson.JSONDecodeError:
+            body = {}
         info = errors.ErrorResponseInfo(
             status_code=status_code,
             reason=reason,

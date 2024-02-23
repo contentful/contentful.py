@@ -51,7 +51,7 @@ def normalize_select(select: str | list[str]) -> str:
         q = q.split(",")
 
     filtered = ",".join(iternormalize(*q, filter=_filter_sys))
-    normalized = ",".join(filtered, "sys")
+    normalized = ",".join((filtered, "sys"))
     return normalized
 
 

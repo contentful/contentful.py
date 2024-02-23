@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 try:
-    import simplejson as json
+    import orjson as json
 except ImportError:
     import json
 
 import dateutil.parser
 from collections import namedtuple
-from .utils import unicode_class, resource_for_link, unresolvable
+from .utils import resource_for_link, unresolvable
 from .resource import FieldsResource, Link, Resource
 
 """
@@ -44,7 +44,7 @@ class SymbolField(BasicField):
     def coerce(self, value, **kwargs):
         """Coerces value to str"""
 
-        return unicode_class()(value)
+        return str(value)
 
 
 class TextField(BasicField):
@@ -53,7 +53,7 @@ class TextField(BasicField):
     def coerce(self, value, **kwargs):
         """Coerces value to str"""
 
-        return unicode_class()(value)
+        return str(value)
 
 
 class IntegerField(BasicField):
