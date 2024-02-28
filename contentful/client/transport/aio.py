@@ -76,11 +76,11 @@ class AsyncTransport(
                 status_code = response.status
                 headers = response.headers
                 # For some reason aiohttp is failing to auto-decompress these.
-                if headers.get("Content-Encoding") == "gzip" and content.startswith(
-                    # Start bytes for gzip.
-                    b"\x1f\x8b"
-                ):
-                    content = gzip.decompress(content)
+                if headers.get("Content-Encoding") == "gzip":
+                    try:
+                        content = gzip.decompress(content)
+                    except gzip.BadGzipFile:
+                        pass
 
                 reason = response.reason
                 parsed = abstract.parse_response(
