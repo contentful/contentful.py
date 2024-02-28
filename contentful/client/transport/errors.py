@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import dataclasses
 
+import orjson
+
 """
 contentful.client.transport.errors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,10 +36,28 @@ __all__ = (
 
 
 def get_error_for_status_code(
-    status_code, *, default: type[HTTPError] | None = None
-) -> type[HTTPError]:
+    status_code: int,
+    *,
+    default: type[HTTPError] | None = None,
+    content: bytes = b"{}",
+    reason: str | None = None,
+    headers: dict[str, str] | None = None,
+) -> HTTPError:
     default = default or PermanentHTTPError
-    return _HTTP_STATUS_TO_ERROR_MAP.get(status_code, default)
+    err_cls = _HTTP_STATUS_TO_ERROR_MAP.get(status_code, default)
+    headers = headers or {}
+    try:
+        body = orjson.loads(content)
+    except orjson.JSONDecodeError:
+        body = {}
+    info = ErrorResponseInfo(
+        status_code=status_code,
+        reason=reason,
+        headers=headers,
+        content=content.decode(),
+        body=body,
+    )
+    return err_cls(reason, response=info)
 
 
 class HTTPError(Exception):
@@ -59,12 +79,15 @@ class HTTPError(Exception):
     def _has_additional_error_info(self):
         return False
 
-    def _additional_error_into(self) -> list[str]:
+    def _additional_error_info(self) -> list[str]:
         return []
 
     def _best_available_message(self) -> str:
         message = self.response.body.get("message")
         details = self.response.body.get("details")
+        if isinstance(details, dict) and "errors" in details:
+            details = details["errors"]
+
         request_id = self.response.body.get("requestId")
         status_str = (
             f"HTTP status code: {self.response.status_code}"
@@ -73,14 +96,14 @@ class HTTPError(Exception):
         )
         message_str = f"Message: {message or self._default_error_message()}"
         details_str = f"Details: {self._handle_details(details)}" if details else None
-        request_id_str = f"RequestId: {request_id}" if request_id else None
+        request_id_str = f"Request ID: {request_id}" if request_id else None
 
         messages = (
             status_str,
             message_str,
             details_str,
             request_id_str,
-            *self._additional_error_into(),
+            *self._additional_error_info(),
         )
         error_message = "\n".join(s for s in messages if s is not None)
         return error_message
@@ -110,7 +133,7 @@ class BadRequestError(PermanentHTTPError):
 class UnauthorizedError(PermanentHTTPError):
 
     def _default_error_message(self) -> str:
-        return "The authorization token was invalid"
+        return "The authorization token was invalid."
 
 
 class AccessDeniedError(PermanentHTTPError):
@@ -123,7 +146,7 @@ class AccessDeniedError(PermanentHTTPError):
 
 class NotFoundError(PermanentHTTPError):
     def _default_error_message(self) -> str:
-        return "The requested resource or endpoint could not be found"
+        return "The requested resource or endpoint could not be found."
 
     def _handle_details(self, details: dict | str) -> str:
         if isinstance(details, str):
@@ -187,7 +210,7 @@ class ServerError(TransientHTTPError):
 class BadGatewayError(TransientHTTPError):
 
     def _default_error_message(self) -> str:
-        return "The requested space is hibernated"
+        return "The requested space is hibernated."
 
 
 class ServiceUnavailableError(TransientHTTPError):

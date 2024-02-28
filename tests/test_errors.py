@@ -1,53 +1,67 @@
-import json
+from __future__ import annotations
+
+import orjson
 from unittest import TestCase
-from contentful import errors, utils, client
-from contentful.client.transport import retry
+from contentful import client
+from contentful.client.transport import errors
 
 
 class MockResponse(object):
-    def __init__(self, status_code, json, headers=None, invalid_json=False):
+    def __init__(
+        self,
+        status_code: int,
+        json: dict | list | str,
+        headers: dict | None = None,
+        invalid_json: bool = False,
+    ):
         self.status_code = status_code
-        self._json = json
+        self._json = json.encode() if isinstance(json, str) else orjson.dumps(json)
         self._invalid_json = invalid_json
         self.headers = headers if headers is not None else {}
 
     def json(self):
         if self._invalid_json:
-            raise json.JSONDecodeError("foo", "foo", 0)
-        return json.loads(json.dumps(self._json))
+            raise orjson.JSONDecodeError("foo", "foo", 0)
+        return orjson.loads(self._json)
+
+    @property
+    def content(self) -> bytes:
+        return self._json
 
     @property
     def text(self):
-        return self._json
+        return self._json.decode()
 
 
 http_attempts = 0
 
 
-def mock_http_call(url, query):
+def mock_http_call(url: str, query: dict) -> str:
     global http_attempts
     if http_attempts < query.get("fail_until", 1):
         http_attempts += 1
-        raise errors.RateLimitExceededError(
-            MockResponse(
-                429,
-                {"message": "foo"},
-                headers={"x-contentful-ratelimit-reset": query.get("reset", 0.1)},
-            )
+        error = errors.get_error_for_status_code(
+            status_code=429,
+            content=b'{"message": "foo"}',
+            headers={"x-contentful-ratelimit-reset": query.get("reset", 0.1)},
         )
+        raise error
     return "succeed"
 
 
 class ErrorsTest(TestCase):
     def test_default_additional_info_is_empty(self):
-        response = MockResponse(512, "not json", invalid_json=True)
-        error = errors.get_error(response)
-
+        error = errors.get_error_for_status_code(
+            512,
+            content=b"not json",
+        )
         self.assertEqual(error._additional_error_info(), [])
 
     def test_default_error_message(self):
-        response = MockResponse(512, "not json", invalid_json=True)
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            512,
+            content=b"not json",
+        )
 
         expected_error = "\n".join(
             [
@@ -58,13 +72,15 @@ class ErrorsTest(TestCase):
         self.assertEqual(str(error), expected_error)
 
     def test_generic_details(self):
-        response = MockResponse(512, {"details": "some text"})
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            512,
+            content=b'{"details":"some text"}',
+        )
 
         expected_error = "\n".join(
             [
                 "HTTP status code: 512",
-                "Message: The following error was received: {'details': 'some text'}",
+                'Message: The following error was received: {"details":"some text"}',
                 "Details: some text",
             ]
         )
@@ -80,9 +96,13 @@ class ErrorsTest(TestCase):
             },
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 404)
+        self.assertEqual(error.response.status_code, 404)
         expected_error = "\n".join(
             [
                 "HTTP status code: 404",
@@ -104,9 +124,13 @@ class ErrorsTest(TestCase):
             },
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 404)
+        self.assertEqual(error.response.status_code, 404)
         expected_error = "\n".join(
             [
                 "HTTP status code: 404",
@@ -128,9 +152,13 @@ class ErrorsTest(TestCase):
             },
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 404)
+        self.assertEqual(error.response.status_code, 404)
         expected_error = "\n".join(
             [
                 "HTTP status code: 404",
@@ -156,9 +184,13 @@ class ErrorsTest(TestCase):
             },
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 400)
+        self.assertEqual(error.response.status_code, 400)
         expected_error = "\n".join(
             [
                 "HTTP status code: 400",
@@ -180,9 +212,13 @@ class ErrorsTest(TestCase):
             },
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 400)
+        self.assertEqual(error.response.status_code, 400)
         expected_error = "\n".join(
             [
                 "HTTP status code: 400",
@@ -204,9 +240,13 @@ class ErrorsTest(TestCase):
             },
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 400)
+        self.assertEqual(error.response.status_code, 400)
         expected_error = "\n".join(
             [
                 "HTTP status code: 400",
@@ -223,9 +263,13 @@ class ErrorsTest(TestCase):
             403, {"message": "Access Denied", "details": {"reasons": ["foo", "bar"]}}
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 403)
+        self.assertEqual(error.response.status_code, 403)
         expected_error = "\n".join(
             [
                 "HTTP status code: 403",
@@ -248,9 +292,13 @@ class ErrorsTest(TestCase):
             },
         )
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 401)
+        self.assertEqual(error.response.status_code, 401)
         expected_error = "\n".join(
             [
                 "HTTP status code: 401",
@@ -264,9 +312,13 @@ class ErrorsTest(TestCase):
     def test_rate_limit_exceeded_error(self):
         response = MockResponse(429, {"message": "Rate Limit Exceeded"})
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 429)
+        self.assertEqual(error.response.status_code, 429)
         expected_error = "\n".join(
             ["HTTP status code: 429", "Message: Rate Limit Exceeded"]
         )
@@ -276,9 +328,13 @@ class ErrorsTest(TestCase):
     def test_rate_limit_exceeded_error_with_time(self):
         response = MockResponse(429, {}, headers={"x-contentful-ratelimit-reset": 60})
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 429)
+        self.assertEqual(error.response.status_code, 429)
         expected_error = "\n".join(
             [
                 "HTTP status code: 429",
@@ -292,9 +348,13 @@ class ErrorsTest(TestCase):
     def test_server_error(self):
         response = MockResponse(500, {"message": "Server Error"})
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 500)
+        self.assertEqual(error.response.status_code, 500)
         expected_error = "\n".join(["HTTP status code: 500", "Message: Server Error"])
         self.assertEqual(str(error), expected_error)
         self.assertTrue(isinstance(error, errors.ServerError))
@@ -302,9 +362,13 @@ class ErrorsTest(TestCase):
     def test_service_unavailable_error(self):
         response = MockResponse(503, {"message": "Service Unavailable"})
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 503)
+        self.assertEqual(error.response.status_code, 503)
         expected_error = "\n".join(
             ["HTTP status code: 503", "Message: Service Unavailable"]
         )
@@ -314,9 +378,13 @@ class ErrorsTest(TestCase):
     def test_other_error(self):
         response = MockResponse(418, {"message": "I'm a Teapot"})
 
-        error = errors.get_error(response)
+        error = errors.get_error_for_status_code(
+            response.status_code,
+            content=response.content,
+            headers=response.headers,
+        )
 
-        self.assertEqual(error.status_code, 418)
+        self.assertEqual(error.response.status_code, 418)
         expected_error = "\n".join(["HTTP status code: 418", "Message: I'm a Teapot"])
         self.assertEqual(str(error), expected_error)
         self.assertTrue(isinstance(error, errors.HTTPError))
@@ -328,7 +396,7 @@ class ErrorsTest(TestCase):
         )
 
         http_attempts = 0
-        result = retry.Retry()(mock_http_call)("/foo", {})
+        result = client_.transport.retry(mock_http_call, url="/foo", query={})
 
         self.assertEqual(http_attempts, 1)
         self.assertEqual(result, "succeed")
@@ -340,12 +408,8 @@ class ErrorsTest(TestCase):
         )
 
         http_attempts = 0
-        self.assertRaises(
-            errors.RateLimitExceededError,
-            retry.Retry()(mock_http_call),
-            "/foo",
-            {"fail_until": 2},
-        )
+        with self.assertRaises(errors.RateLimitExceededError):
+            client_.transport.retry(mock_http_call, url="/foo", query={"fail_until": 2})
 
     def test_rate_limit_max_wait(self):
         global http_attempts
@@ -354,12 +418,10 @@ class ErrorsTest(TestCase):
         )
 
         http_attempts = 0
-        self.assertRaises(
+        with self.assertRaises(
             errors.RateLimitExceededError,
-            retry.Retry()(mock_http_call),
-            "/foo",
-            {"reset": 100},
-        )
+        ):
+            client_.transport.retry(mock_http_call, url="/foo", query={"reset": 100})
 
     def test_predefined_errors_default_message(self):
         messages = {
@@ -376,7 +438,11 @@ class ErrorsTest(TestCase):
         for status_code, message in messages.items():
             response = MockResponse(status_code, "foo", invalid_json=True)
 
-            error = errors.get_error(response)
+            error = errors.get_error_for_status_code(
+                response.status_code,
+                content=response.content,
+                headers=response.headers,
+            )
 
             expected_error = "\n".join(
                 [

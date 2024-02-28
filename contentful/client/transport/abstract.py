@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import abc
+import http
 import types
 from typing import (
     Generic,
@@ -204,19 +205,16 @@ def parse_response(
 ) -> ResponseT | dict[str, Any]:
     """Parse the received response, raising an error if necessary."""
     if status_code >= 400:
-        err_cls = errors.get_error_for_status_code(status_code)
-        try:
-            body = orjson.loads(content)
-        except orjson.JSONDecodeError:
-            body = {}
-        info = errors.ErrorResponseInfo(
-            status_code=status_code,
+        if reason is None:
+            reason = http.HTTPStatus(status_code).phrase
+
+        err = errors.get_error_for_status_code(
+            status_code,
+            content=content,
             reason=reason,
             headers=headers,
-            content=content.decode(),
-            body=body,
         )
-        raise err_cls(reason, response=info)
+        raise err
 
     if raw_mode:
         # Read the data from the fd before closing the connection.

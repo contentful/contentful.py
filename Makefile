@@ -54,7 +54,7 @@ test-all:
 	tox
 
 coverage:
-	coverage run --source contentful setup.py test
+	coverage run --source contentful python -m unittest discover tests
 	coverage report -m
 	flake8 contentful
 

@@ -76,24 +76,19 @@ class Retry(BaseRetry):
         **kwargs,
     ):
         call = functools.partial(func, *args, **kwargs)
-        try:
-            return call()
-        except errors.TransientHTTPError as error:
-            tries = 1
-            while tries < self.max_retries:
+        tries = 0
+        while tries <= self.max_retries:
+            try:
+                return call()
+            except errors.TransientHTTPError as error:
+                tries += 1
                 reset_time = error.reset_time()
-                if reset_time > self.max_wait_seconds:
+                if reset_time > self.max_wait_seconds or tries > self.max_retries:
                     raise
 
                 self._report_error(error, tries=tries, reset_time=reset_time)
                 real_reset_time = reset_time * random.uniform(1.0, 1.2)
                 time.sleep(real_reset_time)
-                try:
-                    return call()
-                except errors.TransientHTTPError:
-                    tries += 1
-
-            raise
 
 
 class AsyncRetry(BaseRetry):
@@ -108,21 +103,15 @@ class AsyncRetry(BaseRetry):
         **kwargs,
     ):
         call = functools.partial(func, *args, **kwargs)
-        try:
-            return await call()
-        except errors.TransientHTTPError as error:
-            tries = 1
-            while tries < self.max_retries:
+        tries = 0
+        while tries <= self.max_retries:
+            try:
+                return await call()
+            except errors.TransientHTTPError as error:
+                tries += 1
                 reset_time = error.reset_time()
-                if reset_time > self.max_wait_seconds:
+                if reset_time > self.max_wait_seconds or tries >= self.max_retries:
                     raise
-
                 self._report_error(error, tries=tries, reset_time=reset_time)
                 real_reset_time = reset_time * random.uniform(1.0, 1.2)
                 time.sleep(real_reset_time)
-                try:
-                    return await call()
-                except errors.TransientHTTPError:
-                    tries += 1
-
-            raise

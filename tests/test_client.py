@@ -39,17 +39,26 @@ class ClientTest(TestCase):
             Client("foo", "bar", api_version=None)
 
     def test_uses_timeouts(self):
-        c = Client("cfexampleapi", "b4c0n73n7fu1")
+
         with requests_mock.mock() as m:
+            c = Client("cfexampleapi", "b4c0n73n7fu1", max_rate_limit_retries=0)
             m.register_uri("GET", ANY, status_code=500)
-            self.assertRaises(HTTPError, c.entries)
+            with self.assertRaises(HTTPError):
+                c.entries()
             self.assertEqual(m.call_count, 1)
             self.assertEqual(m.request_history[0].timeout, 1)
 
-        c = Client("cfexampleapi", "b4c0n73n7fu1", timeout_s=0.1231570235)
         with requests_mock.mock() as m:
+            c = Client(
+                "cfexampleapi",
+                "b4c0n73n7fu1",
+                timeout_s=0.1231570235,
+                max_rate_limit_retries=0,
+            )
             m.register_uri("GET", ANY, status_code=500)
-            self.assertRaises(HTTPError, c.entries)
+            with self.assertRaises(HTTPError):
+                c.entries()
+
             self.assertEqual(m.call_count, 1)
             self.assertEqual(m.request_history[0].timeout, c.timeout_s)
 
@@ -508,6 +517,7 @@ class ClientTest(TestCase):
                 "6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248",
                 gzip_encoded=False,
             )
+            client.initialize()
 
             entry = client.entry("4BupPSmi4M02m0U48AQCSM")
 
@@ -531,6 +541,7 @@ class ClientTest(TestCase):
                 "6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248",
                 gzip_encoded=False,
             )
+            client.initialize()
 
             entry = client.entry("6NGLswCREsGA28kGouScyY")
 

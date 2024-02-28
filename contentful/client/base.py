@@ -196,13 +196,13 @@ class BaseClient:
         return self._transport
 
     def qualified_url(self) -> str:
-        scheme = "https" if self.https else "http"
+        scheme = "https://" if self.https else "http://"
         hostname = self.api_url
         if hostname.startswith("http"):
             scheme = ""
 
         path = f"/spaces/{self.space_id}/environments/{self.environment}/"
-        url = f"{scheme}://{hostname}{path}"
+        url = f"{scheme}{hostname}{path}"
         return url
 
     def _get_transport(self) -> abstract.AbstractTransport:
@@ -326,7 +326,8 @@ class BaseClient:
             max_depth=self.max_include_resolution_depth,
             reuse_entries=self.reuse_entries,
         )
-        return builder.build()
+        resource = builder.build()
+        return resource
 
     def _has_proxy(self) -> bool:
         """
