@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 
-import orjson
+from contentful.client.transport.compat import json
 
 """
 contentful.client.transport.errors
@@ -47,8 +47,8 @@ def get_error_for_status_code(
     err_cls = _HTTP_STATUS_TO_ERROR_MAP.get(status_code, default)
     headers = headers or {}
     try:
-        body = orjson.loads(content)
-    except orjson.JSONDecodeError:
+        body = json.loads(content)
+    except json.JSONDecodeError:
         body = {}
     info = ErrorResponseInfo(
         status_code=status_code,

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import abc
+import gzip
 import http
 import types
 from typing import (
@@ -15,9 +16,8 @@ from typing import (
     ClassVar,
 )
 
-import orjson
-
 from contentful.client.transport import errors, retry
+from contentful.client.transport.compat import json
 
 """
 contentful.client.transport.abstract
@@ -204,6 +204,13 @@ def parse_response(
     raw_mode: bool,
 ) -> ResponseT | dict[str, Any]:
     """Parse the received response, raising an error if necessary."""
+    # Seeing failures to decode gzipped responses in newer python...
+    #   Just handle it by default here.
+    if headers.get("Content-Encoding") == "gzip":
+        try:
+            content = gzip.decompress(content)
+        except gzip.BadGzipFile:
+            pass
     if status_code >= 400:
         if reason is None:
             reason = http.HTTPStatus(status_code).phrase
@@ -222,5 +229,5 @@ def parse_response(
 
     # Don't bother with .text/.json() since we know this is JSON.
     #   Passing the raw bytes to orjson will be much more efficient.
-    body = orjson.loads(content)
+    body = json.loads(content)
     return body

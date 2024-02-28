@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import orjson
 from unittest import TestCase
 from contentful import client
 from contentful.client.transport import errors
+from contentful.client.transport.compat import json as mod_json
 
 
 class MockResponse(object):
@@ -15,14 +15,16 @@ class MockResponse(object):
         invalid_json: bool = False,
     ):
         self.status_code = status_code
-        self._json = json.encode() if isinstance(json, str) else orjson.dumps(json)
+        self._json = json.encode() if isinstance(json, str) else mod_json.dumps(json)
+        if isinstance(self._json, str):
+            self._json = self._json.encode()
         self._invalid_json = invalid_json
         self.headers = headers if headers is not None else {}
 
     def json(self):
         if self._invalid_json:
-            raise orjson.JSONDecodeError("foo", "foo", 0)
-        return orjson.loads(self._json)
+            raise mod_json.JSONDecodeError("foo", "foo", 0)
+        return mod_json.loads(self._json)
 
     @property
     def content(self) -> bytes:
