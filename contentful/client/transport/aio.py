@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import contextlib
+import gzip
+import urllib.parse
 from typing import AsyncIterator, Iterator, Any
 
 import aiohttp
@@ -28,9 +30,9 @@ class AsyncTransport(
     async def initialize(self) -> aiohttp.ClientSession:
         if self._session is None:
             self._session = aiohttp.ClientSession(
-                base_url=self.base_url,
                 timeout=aiohttp.ClientTimeout(total=self.timeout_s),
                 headers=self.default_headers,
+                auto_decompress=True,
             )
 
         return self._session
@@ -53,7 +55,7 @@ class AsyncTransport(
         **headers: str,
     ) -> dict[str, Any] | aiohttp.ClientResponse:
         response = await self.retry(
-            self._get, query=query, session=session, raw_mode=raw_mode, **headers
+            self._get, url, query=query, session=session, raw_mode=raw_mode, **headers
         )
         return response
 
@@ -66,12 +68,17 @@ class AsyncTransport(
         raw_mode: bool = False,
         **headers: str,
     ) -> dict[str, Any] | aiohttp.ClientResponse:
+        url = urllib.parse.urljoin(self.base_url, url)
         async with self.session(session=session) as sess:
             response: aiohttp.ClientResponse
             async with sess.get(url, params=query, headers=headers) as response:
                 content = await response.read()
                 status_code = response.status
                 headers = response.headers
+                # For some reason aiohttp is failing to auto-decompress these.
+                if headers.get("Content-Encoding") == "gzip":
+                    content = gzip.decompress(content)
+
                 reason = response.reason
                 parsed = abstract.parse_response(
                     status_code=status_code,
@@ -106,6 +113,3 @@ def translate_async_transport_errors() -> Iterator[None]:
     # Malformed request, etc.
     except (aiohttp.ClientError, ValueError) as e:
         raise errors.PermanentHTTPError(e) from e
-    except Exception as e:
-        print(e)
-        raise

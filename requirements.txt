@@ -9,6 +9,7 @@ flake8>=7,<8
 tox>=4,<5
 virtualenv>=20,<21
 requests-mock>=1.5,<2
+aioresponses >=0.7,<1
 
 Sphinx>=7,<8
 sphinxcontrib-websupport>=1,<2

@@ -215,6 +215,9 @@ class Client(base.BaseClient):
         if self.content_type_cache:
             self._cache_content_types()
 
+    def teardown(self):
+        self.transport.close()
+
     def _cache_content_types(self):
         content_types = self.content_types()
         ContentTypeCache.update_cache(
@@ -237,6 +240,9 @@ class AsyncClient(base.BaseClient):
         if self.content_type_cache:
             await self._cache_content_types()
 
+    async def teardown(self):
+        await self.transport.close()
+
     async def _cache_content_types(self):
         content_types = await self.content_types()
         ContentTypeCache.update_cache(
@@ -245,7 +251,7 @@ class AsyncClient(base.BaseClient):
 
     async def _get(self, url: str, query: QueryT | None = None):
         params = self._format_params(query)
-        response = await self.transport.get(url, params=params, raw_mode=self.raw_mode)
+        response = await self.transport.get(url, query=params, raw_mode=self.raw_mode)
         if self.raw_mode:
             return response
         return self._format_response(response=response, query=params)

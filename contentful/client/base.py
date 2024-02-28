@@ -152,6 +152,9 @@ class BaseClient:
     def initialize(self):
         raise NotImplementedError()
 
+    def teardown(self):
+        raise NotImplementedError()
+
     def _get(self, url: str, query: QueryT | None = None):
         """
         Wrapper for the HTTP Request,
