@@ -1,16 +1,35 @@
-from .client import Client, AsyncClient  # noqa: F401
-from .entry import Entry  # noqa: F401
-from .asset import Asset  # noqa: F401
-from .space import Space  # noqa: F401
-from .locale import Locale  # noqa: F401
-from .resource import Link  # noqa: F401
-from .content_type import ContentType  # noqa: F401
-from .deleted_asset import DeletedAsset  # noqa: F401
-from .deleted_entry import DeletedEntry  # noqa: F401
-from .content_type_cache import ContentTypeCache  # noqa: F401
-from .content_type_field import ContentTypeField  # noqa: F401
+# flake8: noqa
+from importlib import metadata
 
+from .client import Client, AsyncClient
+from .entry import Entry
+from .asset import Asset
+from .space import Space
+from .locale import Locale
+from .resource import Link
+from .content_type import ContentType
+from .deleted_asset import DeletedAsset
+from .deleted_entry import DeletedEntry
+from .content_type_cache import ContentTypeCache
+from .content_type_field import ContentTypeField
 
-__version__ = "2.1.1"
-__author__ = "Contentful GmbH"
-__email__ = "bhushan.lodha@external.contentful.com"
+__all__ = (
+    "Client",
+    "AsyncClient",
+    "Entry",
+    "Asset",
+    "Space",
+    "Locale",
+    "Link",
+    "ContentType",
+    "DeletedAsset",
+    "DeletedEntry",
+    "ContentTypeCache",
+    "ContentTypeField",
+)
+
+_metadata = metadata.metadata(__package__)
+
+__version__ = _metadata.get("version")
+__author__ = _metadata.get("author")
+__email__ = _metadata.get("author-email")

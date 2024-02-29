@@ -77,9 +77,13 @@ git-docs: docs
 	git commit --amend -C HEAD
 
 release: clean git-docs
-	python setup.py publish
+	$(eval VERSION := $(shell poetry version -s))
+	poetry publish --build --no-interaction
+	git tag -a $(VERSION) -m "version $(VERSION)"
+	git push --tags
+	git push
+
 
 dist: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
+	poetry build --no-interaction
 	ls -l dist
