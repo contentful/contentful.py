@@ -55,3 +55,6 @@ _docs/_build/
 
 # PyBuilder
 target/
+
+# dev
+.idea

@@ -1,14 +1,8 @@
-# -*- coding: utf-8 -*-
-
-try:
-    import simplejson as json
-except ImportError:
-    import json
-
 import dateutil.parser
 from collections import namedtuple
-from .utils import unicode_class, resource_for_link, unresolvable
-from .resource import FieldsResource, Link, Resource
+from contentful.client.transport.compat import json
+from contentful.utils import resource_for_link, unresolvable
+from contentful.resource import FieldsResource, Link, Resource
 
 """
 contentful.content_type_field_types
@@ -21,7 +15,7 @@ This module implements the Field Coercion classes.
 """
 
 
-class BasicField(object):
+class BasicField:
     """Base Coercion Class"""
 
     def __init__(self, items=None):
@@ -44,7 +38,7 @@ class SymbolField(BasicField):
     def coerce(self, value, **kwargs):
         """Coerces value to str"""
 
-        return unicode_class()(value)
+        return str(value)
 
 
 class TextField(BasicField):
@@ -53,7 +47,7 @@ class TextField(BasicField):
     def coerce(self, value, **kwargs):
         """Coerces value to str"""
 
-        return unicode_class()(value)
+        return str(value)
 
 
 class IntegerField(BasicField):
