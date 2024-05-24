@@ -48,13 +48,13 @@ lint:
 	flake8 contentful
 
 test:
-	python setup.py test
+	python -m unittest discover tests
 
 test-all:
 	tox
 
 coverage:
-	coverage run --source contentful setup.py test
+	coverage run -m unittest discover tests
 	coverage report -m
 	flake8 contentful
 
@@ -77,9 +77,13 @@ git-docs: docs
 	git commit --amend -C HEAD
 
 release: clean git-docs
-	python setup.py publish
+	$(eval VERSION := $(shell poetry version -s))
+	poetry publish --build --no-interaction
+	git tag -a $(VERSION) -m "version $(VERSION)"
+	git push --tags
+	git push
+
 
 dist: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
+	poetry build --no-interaction
 	ls -l dist

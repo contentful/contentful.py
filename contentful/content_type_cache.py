@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+from contentful.content_type import ContentType
 """
 contentful.content_type_cache
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +12,7 @@ This module implements the ContentTypeCache class.
 """
 
 
-class ContentTypeCache(object):
+class ContentTypeCache:
     """
     Cache for Content Types.
 
@@ -19,7 +22,7 @@ class ContentTypeCache(object):
     __CACHE__ = {}
 
     @classmethod
-    def get(cls, space_id, content_type_id):
+    def get(cls, space_id: str, content_type_id: str) -> ContentType | None:
         """
         Fetches a Content Type from the Cache.
         """
@@ -30,9 +33,9 @@ class ContentTypeCache(object):
         return None
 
     @classmethod
-    def update_cache(cls, client):
+    def update_cache(cls, *, space_id: str, content_types: list[ContentType]):
         """
         Updates the Cache with all Content Types from the Space.
         """
 
-        cls.__CACHE__[client.space_id] = client.content_types()
+        cls.__CACHE__[space_id] = content_types
