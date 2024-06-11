@@ -83,7 +83,27 @@ def is_link(value):
 
     return (
         isinstance(value, dict) and
-        value.get('sys', {}).get('type', '') == 'Link'
+        ((value.get('sys', {}).get('type', '') == 'Link'))# or (value.get('sys', {}).get('type', '') == 'ResourceLink'))
+    )
+
+
+def is_resource_link(value):
+    """Checks if value is a resource link or not.
+
+    :param value: any object.
+    :return: Boolean
+    :rtype: bool
+
+    Usage:
+        >>> is_resource_link('foo')
+        False
+        >>> is_resource_link({'sys': {'type': 'ResourceLink', 'urn': 'foobar'}})
+        True
+    """
+
+    return (
+        isinstance(value, dict) and
+        (value.get('sys', {}).get('type', '') == 'ResourceLink')
     )
 
 
@@ -113,7 +133,9 @@ def unresolvable(item, errors):
         return True
 
     for error in errors:
-        if error.get('details', {}).get('id', None) == item['sys']['id']:
+        if 'id' in item['sys'] and (error.get('details', {}).get('id', None) == item['sys']['id']):
+            return True
+        elif 'urn' in item['sys'] and (error.get('details', {}).get('urn', None) == item['sys']['urn']):
             return True
     return False
 
@@ -121,19 +143,36 @@ def unresolvable(item, errors):
 def resource_for_link(link, includes, resources=None, locale=None):
     """Returns the resource that matches the link"""
 
-    if resources is not None:
-        cache_key = "{0}:{1}:{2}".format(
-            link['sys']['linkType'],
-            link['sys']['id'],
-            locale
-        )
-        if cache_key in resources:
-            return resources[cache_key]
+    # Determine cache key using either 'id' or 'urn'
+    cache_key_id = "{0}:{1}:{2}".format(
+        link['sys']['linkType'],
+        link['sys'].get('id', ''),
+        locale
+    )
+    cache_key_urn = "{0}:{1}:{2}".format(
+        link['sys']['linkType'],
+        link['sys'].get('urn', '').split('/')[-1],
+        locale
+    )
 
+    # Check cache for both 'id' and 'urn'
+    if resources is not None:
+        if cache_key_id in resources:
+            return resources[cache_key_id]
+        if cache_key_urn in resources:
+            return resources[cache_key_urn]
+
+    # Search through includes
     for i in includes:
-        if (i['sys']['id'] == link['sys']['id'] and
+        if ('id' in i['sys'] and 'id' in link['sys'] and
+                i['sys']['id'] == link['sys']['id'] and
                 i['sys']['type'] == link['sys']['linkType']):
             return i
+        elif 'urn' in link['sys']:
+            urn_id = link['sys']['urn'].split('/')[-1]
+            if urn_id == i['sys']['id']:
+                return i
+
     return None
 
 

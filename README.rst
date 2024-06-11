@@ -421,6 +421,28 @@ You can easily request a resource that is represented by a link by calling ``#re
 
 This works for any kind of Resource.
 
+Links to other spaces
+.....................
+
+``entries`` endpoints can now resolve links to entries from other spaces as they do for regular links
+To use this functionality provide ``additional_tokens`` when creating the Contentful client::
+
+
+    client = contentful.Client(
+        "<current-space-access-token>",
+        "<current-space-id>",
+        additional_tokens={
+            spaces: {
+                "<space-id>": "<space-access-token>"
+            }
+        }
+
+    entries = client.entries()
+
+If any of the ``additionalTokens`` is missing or invalid, the links to the respective space will remain unresolved.
+
+By default, entries from other spaces will be resolved using the default locale of each space. If you specify the ``locale`` parameter (``client.entries({locale: <value>})``), this locale will be used for all spaces. If any of the spaces doesn't have this locale, the links to that space will remain unresolved.
+
 Assets
 ......
 

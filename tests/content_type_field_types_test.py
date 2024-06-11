@@ -241,3 +241,10 @@ class RichTextFieldTest(TestCase):
             "nodeType": "document",
             "content": []
         })
+
+
+class ResourceLinkFieldTest(TestCase):
+    def test_resource_link_field(self):
+        resource_link_field = ResourceLinkFieldTest()
+
+        self.assertEqual(resource_link_field.coerce('foo'), 'foo')

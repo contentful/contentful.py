@@ -1,3 +1,6 @@
+import base64
+import json
+
 import requests
 import platform
 from re import sub
@@ -68,6 +71,7 @@ class Client(object):
     :param application_version: (optional) User application version, defaults to None.
     :param integration_name: (optional) Integration name, defaults to None.
     :param integration_version: (optional) Integration version, defaults to None.
+    :param additional_tokens: (optional) Additional tokens to be sent in the headers for resource resolution, defaults to None.
     :return: :class:`Client <Client>` object.
     :rtype: contentful.Client
 
@@ -106,7 +110,8 @@ class Client(object):
             application_name=None,
             application_version=None,
             integration_name=None,
-            integration_version=None):
+            integration_version=None,
+            additional_tokens=None):
         self.space_id = space_id
         self.access_token = access_token
         self.api_url = api_url
@@ -132,6 +137,7 @@ class Client(object):
         self.application_version = application_version
         self.integration_name = integration_name
         self.integration_version = integration_version
+        self.additional_tokens = additional_tokens
 
         self._validate_configuration()
         if self.content_type_cache:
@@ -497,6 +503,12 @@ class Client(object):
             headers['Authorization'] = 'Bearer {0}'.format(self.access_token)
 
         headers['Accept-Encoding'] = 'gzip' if self.gzip_encoded else 'identity'
+
+        if self.additional_tokens:
+            json_str = json.dumps(self.additional_tokens)
+            json_bytes = json_str.encode('utf-8')
+            base64_encoded = base64.b64encode(json_bytes)
+            headers['x-contentful-resource-resolution'] = base64_encoded
 
         return headers
 
