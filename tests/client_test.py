@@ -7,7 +7,7 @@ import re
 from unittest import TestCase
 
 from requests_mock import ANY
-
+from urllib3.exceptions import MaxRetryError
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
