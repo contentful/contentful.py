@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## master
+* Update tox and circleci test matrix to test against Python 3.8, 3.9, 3.10, 3.11 and 3.12
+
 ## v2.1.1
 * Added twine to upload packages to pypi
 
