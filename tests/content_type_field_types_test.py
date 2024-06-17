@@ -14,7 +14,8 @@ from contentful.content_type_field_types import (
     LinkField,
     ArrayField,
     ObjectField,
-    RichTextField
+    RichTextField,
+    ResourceLinkField
 )
 from contentful.resource import Link
 
@@ -245,6 +246,6 @@ class RichTextFieldTest(TestCase):
 
 class ResourceLinkFieldTest(TestCase):
     def test_resource_link_field(self):
-        resource_link_field = ResourceLinkFieldTest()
+        resource_link_field = ResourceLinkField()
 
         self.assertEqual(resource_link_field.coerce('foo'), 'foo')
