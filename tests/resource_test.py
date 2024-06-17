@@ -189,7 +189,7 @@ class LinkTest(TestCase):
         self.assertEqual(link.link_type, 'Space')
         self.assertEqual(str(link), "<Link[Space] id='foo'>")
 
-    @vcr.use_cassette('fixtures/link/resolve_space.yaml')
+    @vcr.use_cassette('fixtures/link/resolve_space.yaml', decode_compressed_response=True)
     def test_link_space_resource(self):
         link = Link({
             'sys': {
@@ -204,7 +204,7 @@ class LinkTest(TestCase):
 
         self.assertEqual(str(space), "<Space[Contentful Example API] id='cfexampleapi'>")
 
-    @vcr.use_cassette('fixtures/link/resolve_other.yaml')
+    @vcr.use_cassette('fixtures/link/resolve_other.yaml', decode_compressed_response=True)
     def test_link_other_resource(self):
         link = Link({
             'sys': {
