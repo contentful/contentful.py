@@ -69,6 +69,8 @@ class Resource(object):
         return _metadata
 
     def _build_link(self, link):
+        if 'type' in link['sys'] and link['sys']['type'] == 'ResourceLink':
+            return ResourceLink(link)
         return Link(link)
 
     def __getattr__(self, name):
@@ -201,4 +203,17 @@ class Link(Resource):
         return "<Link[{0}] id='{1}'>".format(
             self.link_type,
             self.id
+        )
+
+
+class ResourceLink(Resource):
+    """Resource Link Class
+
+    API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/resource-links
+    """
+
+    def __repr__(self):
+        return "<ResourceLink[{0}] urn='{1}'>".format(
+            self.link_type,
+            self.urn
         )

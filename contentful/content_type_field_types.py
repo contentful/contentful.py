@@ -117,9 +117,9 @@ class ResourceLinkField(BasicField):
     """
     ResourceLinkField
 
-    Nothing should be done here as ResourceLink does not support entity
-    resolution on the backend side and linked field can’t be used in
-    ordering and filtering queries.
+    Nothing should be done here as include resolution is handled within
+    entries.
+    Only present as a placeholder for proper resolution within ContentType.
     """
     pass
 

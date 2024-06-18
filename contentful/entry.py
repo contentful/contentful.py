@@ -1,5 +1,5 @@
 from .resource import FieldsResource
-from .utils import is_link, is_link_array, resource_for_link, unresolvable
+from .utils import is_link, is_link_array, resource_for_link, unresolvable, is_resource_link
 from .content_type_cache import ContentTypeCache
 
 
@@ -48,6 +48,16 @@ class Entry(FieldsResource):
                 )
 
             return items
+        elif is_resource_link(value):
+            if unresolvable(value, errors):
+                return None
+            return self._build_nested_resource(
+                value,
+                localized,
+                includes,
+                errors,
+                resources=resources
+            )
 
         content_type = ContentTypeCache.get(
             self.sys['space'].id, self.sys['content_type'].id
