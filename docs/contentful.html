@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful package &#8212; Contentful 2.1.1 documentation</title>
+    <title>contentful package &#8212; Contentful 2.2.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.1.1',
+        VERSION:     '2.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -125,7 +125,7 @@ with serialized parameters.</p>
 <span id="contentful-client-module"></span><h2>contentful.client module<a class="headerlink" href="#module-contentful.client" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="contentful.client.Client">
-<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>environment='master'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>reuse_entries=False</em>, <em>timeout_s=1</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em>, <em>max_include_resolution_depth=20</em>, <em>application_name=None</em>, <em>application_version=None</em>, <em>integration_name=None</em>, <em>integration_version=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">contentful.client.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>space_id</em>, <em>access_token</em>, <em>api_url='cdn.contentful.com'</em>, <em>api_version=1</em>, <em>default_locale='en-US'</em>, <em>environment='master'</em>, <em>https=True</em>, <em>authorization_as_header=True</em>, <em>raw_mode=False</em>, <em>gzip_encoded=True</em>, <em>raise_errors=True</em>, <em>content_type_cache=True</em>, <em>reuse_entries=False</em>, <em>timeout_s=1</em>, <em>proxy_host=None</em>, <em>proxy_port=None</em>, <em>proxy_username=None</em>, <em>proxy_password=None</em>, <em>max_rate_limit_retries=1</em>, <em>max_rate_limit_wait=60</em>, <em>max_include_resolution_depth=20</em>, <em>application_name=None</em>, <em>application_version=None</em>, <em>integration_name=None</em>, <em>integration_version=None</em>, <em>additional_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Constructs the API Client.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -176,6 +176,7 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 <li><strong>application_version</strong> – (optional) User application version, defaults to None.</li>
 <li><strong>integration_name</strong> – (optional) Integration name, defaults to None.</li>
 <li><strong>integration_version</strong> – (optional) Integration version, defaults to None.</li>
+<li><strong>additional_tokens</strong> – (optional) Additional tokens to be sent in the headers for resource resolution, defaults to None.</li>
 </ul>
 </td>
 </tr>
@@ -683,9 +684,9 @@ Only present as a placeholder for proper resolution within ContentType.</p>
 <dt id="contentful.content_type_field_types.ResourceLinkField">
 <em class="property">class </em><code class="descclassname">contentful.content_type_field_types.</code><code class="descname">ResourceLinkField</code><span class="sig-paren">(</span><em>items=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/content_type_field_types.html#ResourceLinkField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.content_type_field_types.ResourceLinkField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#contentful.content_type_field_types.BasicField" title="contentful.content_type_field_types.BasicField"><code class="xref py py-class docutils literal"><span class="pre">contentful.content_type_field_types.BasicField</span></code></a></p>
-<p>Nothing should be done here as ResourceLink does not support entity
-resolution on the backend side and linked field can’t be used in
-ordering and filtering queries.</p>
+<p>Nothing should be done here as include resolution is handled within
+entries.
+Only present as a placeholder for proper resolution within ContentType.</p>
 </dd></dl>
 
 <dl class="class">
@@ -948,6 +949,14 @@ ordering and filtering queries.</p>
 <p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/common-resource-attributes">https://www.contentful.com/developers/docs/references/content-delivery-api/#/introduction/common-resource-attributes</a></p>
 </dd></dl>
 
+<dl class="class">
+<dt id="contentful.resource.ResourceLink">
+<em class="property">class </em><code class="descclassname">contentful.resource.</code><code class="descname">ResourceLink</code><span class="sig-paren">(</span><em>item</em>, <em>default_locale='en-US'</em>, <em>includes=None</em>, <em>errors=None</em>, <em>localized=False</em>, <em>resources=None</em>, <em>depth=0</em>, <em>max_depth=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/resource.html#ResourceLink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.resource.ResourceLink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>Resource Link Class</p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/resource-links">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/resource-links</a></p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-contentful.resource_builder">
 <span id="contentful-resource-builder-module"></span><h2>contentful.resource_builder module<a class="headerlink" href="#module-contentful.resource_builder" title="Permalink to this headline">¶</a></h2>
@@ -1070,6 +1079,34 @@ ordering and filtering queries.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">is_link_array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="go">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">is_link</span><span class="p">([{</span><span class="s1">&#39;sys&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Link&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;foobar&#39;</span><span class="p">}}])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="contentful.utils.is_resource_link">
+<code class="descclassname">contentful.utils.</code><code class="descname">is_resource_link</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/utils.html#is_resource_link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.utils.is_resource_link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if value is a resource link or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> – any object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_resource_link</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_resource_link</span><span class="p">({</span><span class="s1">&#39;sys&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ResourceLink&#39;</span><span class="p">,</span> <span class="s1">&#39;urn&#39;</span><span class="p">:</span> <span class="s1">&#39;foobar&#39;</span><span class="p">}})</span>
 <span class="go">True</span>
 </pre></div>
 </div>

@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.resource &#8212; Contentful 2.1.1 documentation</title>
+    <title>contentful.resource &#8212; Contentful 2.2.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1.1',
+        VERSION:     '2.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -112,6 +112,8 @@
         <span class="k">return</span> <span class="n">_metadata</span>
 
     <span class="k">def</span> <span class="nf">_build_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;type&#39;</span> <span class="ow">in</span> <span class="n">link</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">link</span><span class="p">[</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ResourceLink&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ResourceLink</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -244,6 +246,19 @@
         <span class="k">return</span> <span class="s2">&quot;&lt;Link[</span><span class="si">{0}</span><span class="s2">] id=&#39;</span><span class="si">{1}</span><span class="s2">&#39;&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">link_type</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ResourceLink"><a class="viewcode-back" href="../../contentful.html#contentful.resource.ResourceLink">[docs]</a><span class="k">class</span> <span class="nc">ResourceLink</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Resource Link Class</span>
+
+<span class="sd">    API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/resource-links</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;ResourceLink[</span><span class="si">{0}</span><span class="s2">] urn=&#39;</span><span class="si">{1}</span><span class="s2">&#39;&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">link_type</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">urn</span>
         <span class="p">)</span></div>
 </pre></div>
 
