@@ -1,4 +1,5 @@
 # CHANGELOG
+* Added to integer coerce support to dict vars
 
 ## master
 
