@@ -61,7 +61,8 @@ class IntegerField(BasicField):
 
     def coerce(self, value, **kwargs):
         """Coerces value to int"""
-
+        if isinstance(value, dict) and kwargs['default_locale'] in value:
+            return int(value[kwargs['default_locale']])
         return int(value)
 
 
