@@ -5,7 +5,7 @@ vcrpy==6.0.1
 coverage==4.3.4
 flake8==3.3.0
 tox==2.5.0
-virtualenv==15.1.0
+virtualenv==20.26.6
 requests-mock==1.5.2
 
 Sphinx==1.6.3
