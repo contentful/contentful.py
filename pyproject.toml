@@ -1,0 +1,59 @@
+[project]
+name = "contentful"
+description = "Contentful Delivery API Client"
+authors = [
+    {name = "Contentful GmbH", email = "python@contentful.com"}
+]
+dependencies = [
+    "requests>=2.20.0,<3.0",
+    "python-dateutil"
+]
+requires-python = ">=3.8"
+readme = "README.rst"
+license = {text = "MIT"}
+dynamic = ["version"]
+keywords = ["contentful", "delivery", "cda", "cms", "content"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Topic :: Software Development :: Libraries",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/contentful/contentful.py"
+Documentation = "https://contentful.github.io/contentful.py/"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+version = {source = "file", path = "contentful/__init__.py"}
+
+[tool.pdm.dev-dependencies]
+test = [
+    "vcrpy>=7.0.0",
+    "coverage>=4.3.4",
+    "flake8>=3.3.0",
+    "requests-mock>=1.5.2",
+    "PyYAML",
+]
+docs = [
+    "Sphinx>=1.6.3",
+    "sphinxcontrib-websupport>=1.0.1",
+]
+
+[tool.pdm.scripts]
+test = "python runtests.py"
+lint = "flake8 --exclude=./docs/conf.py,./.pdm/"
+publish = {composite = [
+    "pdm build",
+    "pdm publish"
+]} 
