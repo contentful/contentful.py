@@ -5,10 +5,10 @@ authors = [
     {name = "Contentful GmbH", email = "python@contentful.com"}
 ]
 dependencies = [
-    "requests>=2.20.0,<3.0",
-    "python-dateutil"
+    "requests>=2.31.0,<3.0",
+    "python-dateutil>=2.8.2"
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.8.1"
 readme = "README.rst"
 license = {text = "MIT"}
 dynamic = ["version"]
@@ -39,15 +39,15 @@ version = {source = "file", path = "contentful/__init__.py"}
 
 [tool.pdm.dev-dependencies]
 test = [
-    "vcrpy>=7.0.0",
-    "coverage>=4.3.4",
-    "flake8>=3.3.0",
-    "requests-mock>=1.5.2",
-    "PyYAML",
+    "vcrpy>=4.3.1",
+    "coverage>=6.5.0",
+    "flake8>=6.1.0",
+    "requests-mock>=1.11.0",
+    "PyYAML>=6.0.1",
 ]
 docs = [
-    "Sphinx>=1.6.3",
-    "sphinxcontrib-websupport>=1.0.1",
+    "Sphinx>=6.2.1",
+    "sphinxcontrib-websupport>=1.2.4",
 ]
 
 [tool.pdm.scripts]
@@ -56,4 +56,23 @@ lint = "flake8 --exclude=./docs/conf.py,./.pdm/"
 publish = {composite = [
     "pdm build",
     "pdm publish"
-]} 
+]}
+
+[tool.coverage.run]
+source = ["contentful"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError"
+]
+
+[tool.flake8]
+max-line-length = 180
+exclude = ["./docs/conf.py", "./.pdm/", ".tox", "*.egg", "build", "data"]
+max-complexity = 10 

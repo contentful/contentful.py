@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@3.3.0
+
 jobs:
   test:
     parameters:
@@ -9,13 +12,41 @@ jobs:
       - image: cimg/python:<< parameters.python-version >>
     steps:
       - checkout
-      - run: pip install -r requirements.txt
-      - run: python runtests.py
+      - run:
+          name: Install PDM
+          command: |
+            curl -sSL https://pdm.fming.dev/install-pdm.py | python3 -
+      - run:
+          name: Install dependencies
+          command: pdm install -G test
+      - run:
+          name: Run tests with coverage
+          command: |
+            pdm run coverage run --source contentful runtests.py
+            pdm run coverage xml
+      - codecov/upload
+
+  lint:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Install PDM
+          command: |
+            curl -sSL https://pdm.fming.dev/install-pdm.py | python3 -
+      - run:
+          name: Install dependencies
+          command: pdm install
+      - run:
+          name: Run linting
+          command: pdm run lint
 
 workflows:
   version: 2
-  workflow:
+  test-and-lint:
     jobs:
+      - lint
       - test:
           matrix:
             parameters:
