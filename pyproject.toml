@@ -1,29 +1,27 @@
 [project]
 name = "contentful"
 description = "Contentful Delivery API Client"
-authors = [
-    {name = "Contentful GmbH", email = "python@contentful.com"}
-]
+long_description = "README.rst"
+long_description_content_type = "text/x-rst"
+authors = [{name = "Contentful GmbH", email="prd-ecosystem-dx@contentful.com"}]
 dependencies = [
     "requests>=2.31.0,<3.0",
     "python-dateutil>=2.8.2"
 ]
-requires-python = ">=3.8.1"
+requires-python = ">=3.9"
 readme = "README.rst"
 license = {text = "MIT"}
 dynamic = ["version"]
 keywords = ["contentful", "delivery", "cda", "cms", "content"]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
     "Topic :: Software Development :: Libraries",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 [project.urls]
@@ -39,7 +37,7 @@ build-backend = "pdm.backend"
 [tool.pdm]
 version = {source = "file", path = "contentful/__init__.py"}
 includes = ["contentful"]
-python = {version = ">=3.8,<4.0"}
+python = {version = ">=3.9,<4.0"}
 
 [tool.pdm.scripts]
 clean = {composite = ["clean-build", "clean-pyc", "clean-test"], help = "Remove all build, test, coverage and Python artifacts"}
@@ -87,28 +85,6 @@ exclude_lines = [
     "pass",
     "raise ImportError"
 ]
-
-[tool.flake8]
-max-line-length = 180
-extend-ignore = ["E122"]
-exclude = [
-    "./docs/*",
-    "./_docs/*",
-    "./.pdm/",
-    "./.venv/",
-    "./.git/",
-    "./.pytest_cache/",
-    "./.tox/",
-    "*.egg",
-    "build",
-    "data",
-    "__pycache__",
-    ".venv/*",
-    "*/.venv/*",
-    "venv/*",
-    "*/venv/*"
-]
-max-complexity = 10
 
 [dependency-groups]
 docs = [
