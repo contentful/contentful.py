@@ -13,11 +13,13 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import os
-import sys
-from contentful import __version__
-
-sys.path.insert(0, os.path.abspath('..'))
+# If extensions (or modules to document with autodoc) are in another directory,
+# add these directories to sys.path here. If the directory is relative to the
+# documentation root, use os.path.abspath to make it absolute, like shown here.
+#
+# import os
+# import sys
+# sys.path.insert(0, os.path.abspath('.'))
 
 # -- General configuration ------------------------------------------------
 
@@ -62,6 +64,11 @@ author = 'David Litvak Bruno'
 # built documents.
 #
 # The short X.Y version.
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath('..'))
+from contentful import __version__
 version = __version__
 # The full version, including alpha/beta/rc tags.
 release = __version__
