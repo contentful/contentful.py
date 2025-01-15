@@ -27,8 +27,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/contentful/contentful.py"
-Documentation = "https://contentful.github.io/contentful.py/"
+Homepage = "https://www.contentful.com/"
+Repository = "https://github.com/contentful/contentful.py"
+Documentation = "https://www.contentful.com/developers/docs/references/content-delivery-api/"
+Changelog = "https://github.com/contentful/contentful.py/changelog/"
 
 [build-system]
 requires = ["pdm-backend"]
@@ -36,31 +38,45 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 version = {source = "file", path = "contentful/__init__.py"}
-
-[tool.pdm.dev-dependencies]
-test = [
-    "vcrpy>=4.3.1",
-    "coverage>=6.5.0",
-    "flake8>=6.1.0",
-    "requests-mock>=1.11.0",
-    "PyYAML>=6.0.1",
-]
-docs = [
-    "Sphinx>=6.2.1",
-    "sphinxcontrib-websupport>=1.2.4",
-]
+includes = ["contentful"]
+python = {version = ">=3.8,<4.0"}
 
 [tool.pdm.scripts]
-test = "python runtests.py"
-lint = "flake8 --exclude=./docs/conf.py,./.pdm/"
-publish = {composite = [
-    "pdm build",
-    "pdm publish"
-]}
+clean = {composite = ["clean-build", "clean-pyc", "clean-test"], help = "Remove all build, test, coverage and Python artifacts"}
+clean-build = {shell = "rm -rf build/ dist/ *.egg-info", help = "Remove build artifacts"}
+clean-pyc = {shell = """
+    find . -name '*.pyc' -exec rm -f {} +
+    find . -name '*.pyo' -exec rm -f {} +
+    find . -name '*~' -exec rm -f {} +
+    find . -name '__pycache__' -exec rm -fr {} +
+    """, help = "Remove Python file artifacts"}
+clean-test = {shell = """
+    rm -fr .tox/
+    rm -f .coverage
+    rm -fr htmlcov/
+    """, help = "Remove test and coverage artifacts"}
+lint = {cmd = "flake8 .", help = "Run flake8 linter"}
+test = { cmd = "python -m unittest discover", help = "Run tests with unittest" }
+test-all = {shell = "tox", help = "Run tests on all Python versions with tox"}
+coverage = { cmd = "coverage run --source contentful runtests.py", help = "Run tests with coverage"}
+docs = {shell = """
+    rm -f _docs/contentful.rst
+    rm -f _docs/modules.rst
+    rm -rf _docs/_build/*
+    sphinx-apidoc -o _docs/ contentful
+    make -C _docs html
+    cp _docs/LICENSE _docs/_build/html/
+    rm -rf docs
+    cp -r _docs/_build/html docs
+    open docs/index.html
+    """, help = "Generate Sphinx HTML documentation, including API docs", env = {SPHINXOPTS = "", SPHINXBUILD = "sphinx-build", PAPER = "", BUILDDIR = "_build",PAPEROPT_a4 = "-D latex_paper_size=a4", PAPEROPT_letter = "-D latex_paper_size=letter", ALLSPHINXOPTS = "-d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .", I18NSPHINXOPTS="$(PAPEROPT_$(PAPER)) $(SPHINXOPTS) ."}}
+git-docs = {composite = ["docs", "git add docs", "git commit --amend -C HEAD"], help = "Generate and commit documentation"}
+release = {composite = ["clean", "git-docs", "pdm publish"], help = "Package and upload a release"}
 
 [tool.coverage.run]
 source = ["contentful"]
 branch = true
+command_line = "-m unittest discover"
 
 [tool.coverage.report]
 exclude_lines = [
@@ -74,5 +90,37 @@ exclude_lines = [
 
 [tool.flake8]
 max-line-length = 180
-exclude = ["./docs/conf.py", "./.pdm/", ".tox", "*.egg", "build", "data"]
-max-complexity = 10 
+extend-ignore = ["E122"]
+exclude = [
+    "./docs/*",
+    "./_docs/*",
+    "./.pdm/",
+    "./.venv/",
+    "./.git/",
+    "./.pytest_cache/",
+    "./.tox/",
+    "*.egg",
+    "build",
+    "data",
+    "__pycache__",
+    ".venv/*",
+    "*/.venv/*",
+    "venv/*",
+    "*/venv/*"
+]
+max-complexity = 10
+
+[dependency-groups]
+docs = [
+    "Sphinx>=6.2.1",
+    "sphinxcontrib-websupport>=1.2.4",
+    "tox",
+]
+test = [
+    "vcrpy>=4.3.1",
+    "coverage>=6.5.0",
+    "flake8>=6.1.0",
+    "requests-mock>=1.11.0",
+    "PyYAML>=6.0.1",
+    "tox>=4.23.2",
+]

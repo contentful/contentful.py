@@ -1,5 +1,6 @@
 [flake8]
 max-line-length = 180
+extend-ignore = E122
 exclude = 
     ./docs/conf.py
     ./.pdm/
@@ -7,4 +8,10 @@ exclude =
     *.egg
     build
     data
+    .venv/
+    .venv/*
+    */.venv/*
+    venv/*
+    */venv/*
+    __pycache__
 max-complexity = 10 

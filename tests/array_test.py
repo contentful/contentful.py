@@ -43,8 +43,7 @@ class ArrayTest(TestCase):
             'total': 11,
             'skip': 10,
             'limit': 10
-        },
-        [entry])
+        }, [entry])
 
         self.assertEqual(len(array), 1)
         self.assertEqual(array.total, 11)
@@ -56,4 +55,3 @@ class ArrayTest(TestCase):
             # testing __iter__
             # should be only one, so assert is valid
             self.assertEqual(e, entry)
-
