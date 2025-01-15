@@ -30,8 +30,11 @@ jobs:
       - codecov/upload
 
   lint:
+    parameters:
+      python-version:
+        type: string
     docker:
-      - image: cimg/python:3.12
+      - image: cimg/python:<< parameters.python-version >>
     steps:
       - checkout
       - run:
@@ -51,7 +54,10 @@ workflows:
   version: 2
   test-and-lint:
     jobs:
-      - lint
+      - lint:
+          matrix:
+            parameters:
+              python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
       - test:
           matrix:
             parameters:
