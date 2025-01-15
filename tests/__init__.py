@@ -4,7 +4,7 @@ import os
 from .asset_test import AssetTest
 from .client_test import ClientTest
 from .content_type_cache_test import ContentTypeCacheTest
-from .content_type_field_types_test import ContentTypeFieldTypesTest
+from .content_type_field_types_test import BasicFieldTest, LinkFieldTest, RichTextFieldTest, SymbolFieldTest, ArrayFieldTest, ObjectFieldTest
 from .content_type_field_test import ContentTypeFieldTest
 from .content_type_test import ContentTypeTest
 from .deleted_asset_test import DeletedAssetTest
@@ -24,7 +24,12 @@ __all__ = [
     'AssetTest',
     'ClientTest',
     'ContentTypeCacheTest',
-    'ContentTypeFieldTypesTest',
+    'BasicFieldTest',
+    'LinkFieldTest',
+    'RichTextFieldTest',
+    'SymbolFieldTest',
+    'ArrayFieldTest',
+    'ObjectFieldTest',
     'ContentTypeFieldTest',
     'ContentTypeTest',
     'DeletedAssetTest',
