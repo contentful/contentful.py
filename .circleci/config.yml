@@ -18,12 +18,14 @@ jobs:
             curl -sSL https://pdm.fming.dev/install-pdm.py | python3 -
       - run:
           name: Install dependencies
-          command: pdm install -G test
+          command: |
+            pdm install -G test
+            pip install -e .
       - run:
           name: Run tests with coverage
           command: |
-            python -m pip install coverage
-            python -m coverage run --source contentful runtests.py
+            python -m pip install coverage flake8
+            python -m coverage run -m unittest discover
             python -m coverage xml
       - codecov/upload
 
@@ -38,10 +40,12 @@ jobs:
             curl -sSL https://pdm.fming.dev/install-pdm.py | python3 -
       - run:
           name: Install dependencies
-          command: pdm install
+          command: |
+            pdm install
+            python -m pip install flake8
       - run:
           name: Run linting
-          command: pdm run lint
+          command: python -m flake8 .
 
 workflows:
   version: 2
