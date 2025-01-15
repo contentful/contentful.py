@@ -22,6 +22,7 @@ jobs:
       - run:
           name: Run tests with coverage
           command: |
+            python -m pip install coverage
             pdm run coverage run --source contentful runtests.py
             pdm run coverage xml
       - codecov/upload
