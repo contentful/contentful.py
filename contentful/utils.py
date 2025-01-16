@@ -83,7 +83,7 @@ def is_link(value):
 
     return (
         isinstance(value, dict) and
-        ((value.get('sys', {}).get('type', '') == 'Link'))# or (value.get('sys', {}).get('type', '') == 'ResourceLink'))
+        ((value.get('sys', {}).get('type', '') == 'Link'))  # or (value.get('sys', {}).get('type', '') == 'ResourceLink'))
     )
 
 
