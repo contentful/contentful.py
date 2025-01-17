@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v2.3.0
 ### Added
 - Migrated to PDM for package management and build system
 - Added code coverage reporting to CircleCI pipeline
