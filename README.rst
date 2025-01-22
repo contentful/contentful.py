@@ -1,5 +1,5 @@
-.. image:: ./.github/header.png
-   :target: ./.github/header.png
+.. image:: https://contentful.github.io/contentful.py/.github/header.png
+   :target: https://contentful.github.io/contentful.py/.github/header.png
 
 |Join Community Slack| |Join Community Forum|
 
