@@ -1,5 +1,6 @@
-.. image:: https://contentful.github.io/contentful.py/.github/header.png
-   :target: https://contentful.github.io/contentful.py/.github/header.png
+.. image:: https://raw.githubusercontent.com/contentful/contentful.py/master/.github/header.png
+   :alt: Contentful Python Delivery Library
+   :target: https://www.contentful.com/developers/docs/python/
 
 |Join Community Slack| |Join Community Forum|
 
