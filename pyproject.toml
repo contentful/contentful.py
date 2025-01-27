@@ -1,34 +1,38 @@
 [project]
 name = "contentful"
+version = "2.3.0"
 description = "Contentful Delivery API Client"
 long_description = "README.rst"
 long_description_content_type = "text/x-rst"
-authors = [{name = "Contentful GmbH", email="prd-ecosystem-dx@contentful.com"}]
+authors = [{name = "Contentful GmbH", email="python@contentful.com"}]
 dependencies = [
     "requests>=2.31.0,<3.0",
     "python-dateutil>=2.8.2"
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.7"
 readme = "README.rst"
 license = {text = "MIT"}
-dynamic = ["version"]
-keywords = ["contentful", "delivery", "cda", "cms", "content"]
+keywords = ["contentful", "cms", "content"]
 classifiers = [
-    "Topic :: Software Development :: Libraries",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "Natural Language :: English",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
 [project.urls]
-Homepage = "https://www.contentful.com/"
+Homepage = "https://github.com/contentful/contentful.py"
+Documentation = "https://contentful.github.io/contentful.py"
 Repository = "https://github.com/contentful/contentful.py"
-Documentation = "https://www.contentful.com/developers/docs/references/content-delivery-api/"
-Changelog = "https://github.com/contentful/contentful.py/changelog/"
+Issues = "https://github.com/contentful/contentful.py/issues"
 
 [build-system]
 requires = ["pdm-backend"]
