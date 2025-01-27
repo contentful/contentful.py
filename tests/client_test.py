@@ -39,14 +39,14 @@ class ClientTest(TestCase):
             Client('foo', 'bar', api_version=None)
 
     def test_uses_timeouts(self):
-        c = Client('cfexampleapi', 'b4c0n73n7fu1')
+        c = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False)
         with requests_mock.mock() as m:
             m.register_uri('GET', ANY, status_code=500)
             self.assertRaises(HTTPError, c.entries)
             self.assertEqual(m.call_count, 1)
             self.assertEqual(m.request_history[0].timeout, 1)
 
-        c = Client('cfexampleapi', 'b4c0n73n7fu1', timeout_s=0.1231570235)
+        c = Client('cfexampleapi', 'b4c0n73n7fu1', content_type_cache=False, timeout_s=0.1231570235)
         with requests_mock.mock() as m:
             m.register_uri('GET', ANY, status_code=500)
             self.assertRaises(HTTPError, c.entries)
@@ -222,7 +222,7 @@ class ClientTest(TestCase):
         for e in expected:
             self.assertTrue(e in header)
 
-        self.assertTrue(re.search('os (Windows|macOS|Linux)(\/.*)?;', header))
+        self.assertTrue(re.search(r'os (Windows|macOS|Linux)(/.*)?;', header))
 
         self.assertTrue('integration' not in header)
         self.assertTrue('app' not in header)
@@ -313,7 +313,7 @@ class ClientTest(TestCase):
         for e in expected:
             self.assertTrue(e in header)
 
-        self.assertTrue(re.search('os (Windows|macOS|Linux)(\/.*)?;', header))
+        self.assertTrue(re.search(r'os (Windows|macOS|Linux)(/.*)?;', header))
 
     def test_client_headers(self):
         client = Client(
@@ -337,7 +337,7 @@ class ClientTest(TestCase):
         for e in expected:
             self.assertTrue(e in header)
 
-        self.assertTrue(re.search('os (Windows|macOS|Linux)(\/.*)?;', header))
+        self.assertTrue(re.search(r'os (Windows|macOS|Linux)(/.*)?;', header))
 
     # Integration Tests
 

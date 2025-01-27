@@ -1,4 +1,31 @@
 # CHANGELOG
+
+## Unreleased
+
+## v2.3.0
+### Added
+- Migrated to PDM for package management and build system
+- Added code coverage reporting to CircleCI pipeline
+
+### Changed
+- Updated dependencies to latest versions:
+  - requests>=2.31.0
+  - python-dateutil>=2.8.2
+  - vcrpy>=7.0.0
+  - coverage>=7.4.0
+  - flake8>=7.0.0
+  - requests-mock>=1.11.0
+  - PyYAML>=6.0.1
+  - Sphinx>=7.2.6
+  - sphinxcontrib-websupport>=1.2.7
+- Simplified tox configuration to focus on supported Python versions (3.8-3.12)
+- Updated CircleCI configuration to use PDM
+
+### Removed
+- Removed setup.py in favor of pyproject.toml
+- Removed requirements.txt in favor of PDM dependency management
+- Removed support for legacy Python versions
+
 * Added to integer coerce support to dict vars
 
 ## master

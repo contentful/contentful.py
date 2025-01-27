@@ -33,6 +33,8 @@ class MockResponse(object):
 
 
 http_attempts = 0
+
+
 def mock_http_call(url, query):
     global http_attempts
     if http_attempts < query.get('fail_until', 1):
