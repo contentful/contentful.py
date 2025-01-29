@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## Unreleased
+- Fixed bug in `resource_for_link` function.
 
 ## v2.3.0
 ### Added
