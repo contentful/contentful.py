@@ -1,6 +1,6 @@
 [project]
 name = "contentful"
-version = "2.3.0"
+dynamic = ["version"]
 description = "Contentful Delivery API Client"
 long_description = "README.rst"
 long_description_content_type = "text/x-rst"
@@ -9,7 +9,7 @@ dependencies = [
     "requests>=2.31.0,<3.0",
     "python-dateutil>=2.8.2"
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 readme = "README.rst"
 license = {text = "MIT"}
 keywords = ["contentful", "cms", "content"]
@@ -19,12 +19,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
@@ -73,7 +72,13 @@ docs = {shell = """
     open docs/index.html
     """, help = "Generate Sphinx HTML documentation, including API docs", env = {SPHINXOPTS = "", SPHINXBUILD = "sphinx-build", PAPER = "", BUILDDIR = "_build",PAPEROPT_a4 = "-D latex_paper_size=a4", PAPEROPT_letter = "-D latex_paper_size=letter", ALLSPHINXOPTS = "-d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .", I18NSPHINXOPTS="$(PAPEROPT_$(PAPER)) $(SPHINXOPTS) ."}}
 git-docs = {composite = ["docs", "git add docs", "git commit --amend -C HEAD"], help = "Generate and commit documentation"}
-release = {composite = ["clean", "git-docs", "pdm publish"], help = "Package and upload a release"}
+push-tags = {shell = """
+    VERSION=$(pdm show --version)
+    git tag -a $VERSION -m "version $VERSION"
+    git push --tags
+    git push
+    """, help = "Push version tags to GitHub"}
+release = {composite = ["clean", "git-docs", "pdm publish", "push-tags"], help = "Package and upload a release"}
 
 [tool.coverage.run]
 source = ["contentful"]
