@@ -143,20 +143,19 @@ def unresolvable(item, errors):
 def resource_for_link(link, includes, resources=None, locale=None):
     """Returns the resource that matches the link"""
 
-    # Determine cache key using either 'id' or 'urn'
-    cache_key_id = "{0}:{1}:{2}".format(
-        link['sys']['linkType'],
-        link['sys'].get('id', ''),
-        locale
-    )
-    cache_key_urn = "{0}:{1}:{2}".format(
-        link['sys']['linkType'],
-        link['sys'].get('urn', '').split('/')[-1],
-        locale
-    )
-
-    # Check cache for both 'id' and 'urn'
     if resources is not None:
+        # Determine cache key using either 'id' or 'urn'
+        cache_key_id = "{0}:{1}:{2}".format(
+            link['sys']['linkType'],
+            link['sys'].get('id', ''),
+            locale
+        )
+        cache_key_urn = "{0}:{1}:{2}".format(
+            link['sys']['linkType'],
+            link['sys'].get('urn', '').split('/')[-1],
+            locale
+        )
+
         if cache_key_id in resources:
             return resources[cache_key_id]
         if cache_key_urn in resources:
