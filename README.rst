@@ -177,6 +177,7 @@ Basic queries
     entries = client.entries()
     assets = client.assets()
     nyancat_asset = client.asset('nyancat')
+    asset_key = client.create_asset_key(expires_at=1740568098)  # Unix timestamp for expiry (max 48h from now)
 
 Filtering options
 .................
@@ -463,3 +464,67 @@ Code of Conduct
 We want to provide a safe, inclusive, welcoming, and harassment-free space and experience for all participants, regardless of gender identity and expression, sexual orientation, disability, physical appearance, socioeconomic status, body size, ethnicity, nationality, level of experience, age, religion (or lack thereof), or other identity markers.
 
 `Read our full Code of Conduct <https://github.com/contentful-developer-relations/community-code-of-conduct>`_
+
+Links
+.....
+
+Embargoed Assets
+...............
+
+For accessing embargoed assets, you can create an asset key that will be used for signing URLs. The key is valid for a maximum of 48 hours.
+Note: URL signing requires the ``PyJWT`` package, which can be installed via pip::
+
+    pip install PyJWT
+
+Example usage::
+
+    # Create an asset key that expires in 24 hours
+    import time
+    expires_at = int(time.time() + (24 * 60 * 60))
+    asset_key = client.create_asset_key(expires_at)
+
+    # The asset key contains policy and secret for URL signing
+    policy = asset_key.policy
+    secret = asset_key.secret
+
+To sign an embargoed asset URL, follow these steps::
+
+    import jwt
+
+    # 1. Create the asset key (as shown above)
+    asset_key = client.create_asset_key(expires_at)
+
+    # 2. Create and sign a JWT with the asset URL as the subject
+    embargoed_asset_url = "https://images.ctfassets.net/space_id/asset_id/asset_title.jpg"
+    token = jwt.encode(
+        {"sub": embargoed_asset_url},  # URL as JWT subject
+        asset_key.secret,               # Sign with asset key secret
+        algorithm="HS256"
+    )
+
+    # 3. Construct the signed URL by adding policy and token as query parameters
+    signed_url = f"{embargoed_asset_url}?policy={asset_key.policy}&token={token}"
+
+    # You can also add image API parameters
+    signed_url_with_resize = f"{signed_url}&w=500&h=300&fit=fill"
+
+For more information, check the `Asset Keys API Reference <https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys>`_.
+
+Using different locales
+.......................
+
+Entries can have multiple locales, by default, the client only fetches the entry with only its default locale.
+If you want to fetch a different locale you can do the following::
+
+    entries = client.entries({'locale': 'de-DE'})
+
+Then all the fields will be fetched for the requested locale.
+
+Contentful Delivery API also allows to fetch all locales, you can do so by doing::
+
+    entries = client.entries({'content_type': 'cat', 'locale': '*'})
+
+    # assuming the entry has a field called name
+    my_spanish_name = entries.first.fields('es-AR')['name']
+
+When requesting multiple locales, the object accessor shortcuts only work for the default locale.
