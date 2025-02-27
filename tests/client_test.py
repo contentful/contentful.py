@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import time
+
 import requests_mock
 import vcr
 import re
@@ -8,6 +10,7 @@ from unittest import TestCase
 
 from requests_mock import ANY
 
+from contentful.asset_key import AssetKey
 from contentful.client import Client
 from contentful.content_type_cache import ContentTypeCache
 from contentful.errors import EntryNotFoundError
@@ -479,3 +482,20 @@ class ClientTest(TestCase):
         # Not failing is already a success
         self.assertEqual(str(entry.children[0]), str(entry.children[1]))
         self.assertEqual(str(entry.children[0].body), str(entry.children[1].body))
+
+
+    @vcr.use_cassette('fixtures/client/create_asset_key.yaml', decode_compressed_response=True)
+    def test_create_asset_key(self):
+        client = Client(
+            'o4h6g9w3pooi',
+            'b4c0n73n7fu1',
+            gzip_encoded=False,
+        )
+
+        hours_from_now = 24
+        expires_at = int(time.time() + (hours_from_now * 60 * 60))
+        asset_key = client.create_asset_key(expires_at)
+
+        self.assertIsInstance(asset_key, AssetKey)
+        self.assertTrue(asset_key.policy)
+        self.assertTrue(asset_key.secret)

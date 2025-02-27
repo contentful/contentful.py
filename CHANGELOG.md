@@ -1,6 +1,11 @@
 # CHANGELOG
 
 ## Unreleased
+### Added
+- Added support for embargoed assets through Asset Keys
+  - Added `create_asset_key` method to Client class
+  - Added `AssetKey` class for handling asset key responses
+  - Added support for policy and secret handling in asset keys
 - Fixed bug in `resource_for_link` function.
 
 ## v2.3.0
