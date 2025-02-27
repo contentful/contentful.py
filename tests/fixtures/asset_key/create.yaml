@@ -1,0 +1,76 @@
+interactions:
+- request:
+    body: '{"expiresAt": 1740568098}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip
+      Authorization:
+      - Bearer test_token
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '25'
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      User-Agent:
+      - python-requests/2.32.3
+      X-Contentful-User-Agent:
+      - sdk contentful.py/2.3.2; platform python/3.12.7; os macOS/24.3.0;
+    method: POST
+    uri: https://cdn.contentful.com/spaces/o4h6g9w3pooi/environments/master/asset_keys
+  response:
+    body:
+      string: '{"policy":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjE6MSJ9.eyJleHAiOjE3NDA1NjgwOTgsInN1YiI6Im80aDZnOXczcG9vaSIsImF1ZCI6ImFkbiIsImp0aSI6ImEwN2I5OTlmLTI4ZjAtNDRhMy1iZjQwLTZlYTRjNGUzMzg5NCIsImN0Zjp1bnB1YiI6ZmFsc2V9","secret":"KmNP2qpm--KAPJ_P9DbTBYD64DVk8CYljgUP_SG4NHE"}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Resource-Resolution
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '273'
+      Content-Type:
+      - application/vnd.contentful.management.v1+json
+      Contentful-Api:
+      - cda
+      Contentful-Upstream:
+      - default
+      Date:
+      - Tue, 25 Feb 2025 11:08:19 GMT
+      Server:
+      - Contentful
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Served-By:
+      - cache-ewr-kewr1740052-EWR, cache-mrs10560-MRS
+      X-Timer:
+      - S1740481700.562660,VS0,VE147
+      cache-control:
+      - max-age=0
+      x-contentful-request-id:
+      - 4fd2574b-1871-4a6f-b3d2-9ead2082443a
+      x-contentful-route:
+      - /delivery/spaces/:spaceId/environments/:environmentId/asset_keys
+    status:
+      code: 200
+      message: OK
+version: 1

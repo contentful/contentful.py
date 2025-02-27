@@ -1,5 +1,6 @@
 import base64
 import json
+import time
 
 import requests
 import platform
@@ -249,21 +250,9 @@ class Client(object):
 
         Usage:
             >>> entries = client.entries()
-            [<Entry[cat] id='happycat'>,
-             <Entry[1t9IbcfdCk6m04uISSsaIK] id='5ETMRzkl9KM4omyMwKAOki'>,
-             <Entry[dog] id='6KntaYXaHSyIw8M6eo26OK'>,
-             <Entry[1t9IbcfdCk6m04uISSsaIK] id='7qVBlCjpWE86Oseo40gAEY'>,
-             <Entry[cat] id='garfield'>,
-             <Entry[1t9IbcfdCk6m04uISSsaIK] id='4MU1s3potiUEM2G4okYOqw'>,
-             <Entry[cat] id='nyancat'>,
-             <Entry[1t9IbcfdCk6m04uISSsaIK] id='ge1xHyH3QOWucKWCCAgIG'>,
-             <Entry[human] id='finn'>,
-             <Entry[dog] id='jake'>]
+            [<Entry[cat] id='nyancat'>,
+             <Entry[1t9IbcfdCk6m04uISSsaIK] id='happycat'>]
         """
-
-        if query is None:
-            query = {}
-        self._normalize_select(query)
 
         return self._get(
             self.environment_url('/entries'),
@@ -629,9 +618,84 @@ class Client(object):
             'https': proxy
         }
 
+    def _http_post(self, url, data):
+        """
+        Performs the HTTP POST Request.
+        """
+
+        kwargs = {
+            'headers': self._request_headers(),
+            'timeout': self.timeout_s,
+            'json': data
+        }
+
+        if self._has_proxy():
+            kwargs['proxies'] = self._proxy_parameters()
+
+        response = requests.post(
+            self._url(url),
+            **kwargs
+        )
+
+        if response.status_code == 429:
+            raise RateLimitExceededError(response)
+
+        return response
+
+    def _post(self, url, data=None):
+        """
+        Wrapper for the HTTP POST request.
+        Rate Limit Backoff is handled here,
+        Responses are Processed with ResourceBuilder.
+        """
+        if data is None:
+            data = {}
+
+        response = retry_request(self)(self._http_post)(url, data)
+
+        if self.raw_mode:
+            return response
+
+        if response.status_code != 200:  # Asset key creation returns 201 Created
+            error = get_error(response)
+            if self.raise_errors:
+                raise error
+            return error
+
+        return ResourceBuilder(
+            self.default_locale,
+            False,
+            response.json(),
+            max_depth=self.max_include_resolution_depth,
+            reuse_entries=self.reuse_entries
+        ).build()
+
     def __repr__(self):
         return '<contentful.Client space_id="{0}" access_token="{1}" default_locale="{2}">'.format(  # noqa: E501
             self.space_id,
             self.access_token,
             self.default_locale
+        )
+
+    def create_asset_key(self, expires_at):
+        """Creates an asset key for signing embargoed asset URLs.
+
+        API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys/create-asset-key
+
+        :param expires_at: (optional) Unix timestamp when the key should expire (max 48h from now).
+        :return: Dict containing policy and secret for signing URLs.
+        :rtype: dict
+
+        Usage:
+            >>> asset_key = client.create_asset_key()
+            {'policy': 'policy_string', 'secret': 'secret_string'}
+        """
+
+        data = {
+            'expiresAt': expires_at
+        }
+
+        return self._post(
+            self.environment_url('/asset_keys'),
+            data
         )

@@ -2,6 +2,13 @@
 
 ## Unreleased
 - Fixed bug in `resource_for_link` function.
+- Reorganized test fixtures:
+  - Created a root-level `fixtures` directory
+  - Moved asset key fixtures from `fixtures/` to `tests/fixtures/`
+  - Updated test files to use new fixture paths
+- Added support for embargoed assets:
+  - Added `create_asset_key` method to Client
+  - Added AssetKey resource type for handling asset key responses
 
 ## v2.3.0
 ### Added
