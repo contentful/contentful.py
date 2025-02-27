@@ -483,7 +483,6 @@ class ClientTest(TestCase):
         self.assertEqual(str(entry.children[0]), str(entry.children[1]))
         self.assertEqual(str(entry.children[0].body), str(entry.children[1].body))
 
-
     @vcr.use_cassette('fixtures/client/create_asset_key.yaml', decode_compressed_response=True)
     def test_create_asset_key(self):
         client = Client(
