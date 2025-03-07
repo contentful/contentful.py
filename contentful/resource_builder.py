@@ -1,4 +1,5 @@
 from .array import Array
+from .asset_key import AssetKey
 from .entry import Entry
 from .asset import Asset
 from .space import Space
@@ -50,7 +51,8 @@ class ResourceBuilder(object):
 
     def build(self):
         """Creates the objects from the JSON response"""
-
+        if 'policy' in self.json and 'secret' in self.json:
+            return self._build_asset_key()
         if self.json['sys']['type'] == 'Array':
             if any(k in self.json for k in ['nextSyncUrl', 'nextPageUrl']):
                 return SyncPage(
@@ -144,3 +146,11 @@ class ResourceBuilder(object):
         errors += self.json.get('errors', [])
 
         return errors
+
+    def _build_asset_key(self):
+        """Creates an AssetKey Resource."""
+
+        return AssetKey(
+            self.json,
+            default_locale=self.default_locale
+        )
