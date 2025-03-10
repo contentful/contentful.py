@@ -1,0 +1,160 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - identity
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      User-Agent:
+      - python-requests/2.32.3
+      X-Contentful-User-Agent:
+      - sdk contentful.py/2.3.2; platform python/3.12.7; os macOS/24.3.0;
+    method: GET
+    uri: https://cdn.contentful.com/spaces/o4h6g9w3pooi/environments/master/content_types
+  response:
+    body:
+      string: '{"sys":{"type":"Array"},"total":7,"skip":0,"limit":100,"items":[{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"o4h6g9w3pooi"}},"id":"aaa","type":"ContentType","createdAt":"2025-02-12T10:25:48.169Z","updatedAt":"2025-02-12T10:25:48.169Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"revision":1},"displayField":"title","name":"AAA","description":"","fields":[{"id":"title","name":"title","type":"Symbol","localized":false,"required":false,"disabled":false,"omitted":false},{"id":"bar","name":"bar","type":"RichText","localized":false,"required":false,"disabled":false,"omitted":false}]},{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"o4h6g9w3pooi"}},"id":"oneWithDefaultValue","type":"ContentType","createdAt":"2024-07-25T21:13:25.958Z","updatedAt":"2024-07-25T21:13:25.958Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"revision":1},"displayField":"title","name":"One
+        with Default Value","description":"","fields":[{"id":"title","name":"title","type":"Symbol","localized":false,"required":false,"disabled":false,"omitted":false}]},{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"o4h6g9w3pooi"}},"id":"footer","type":"ContentType","createdAt":"2024-07-25T21:05:24.916Z","updatedAt":"2024-07-25T21:05:50.888Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"revision":2},"displayField":"dag","name":"footer","description":"","fields":[{"id":"id","name":"id","type":"Integer","localized":false,"required":false,"disabled":false,"omitted":false},{"id":"dag","name":"dag","type":"Symbol","localized":false,"required":false,"disabled":false,"omitted":false}]},{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"o4h6g9w3pooi"}},"id":"author","type":"ContentType","createdAt":"2024-05-24T17:30:14.130Z","updatedAt":"2024-05-24T17:30:14.130Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"revision":1},"displayField":"name","name":"Author","description":"","fields":[{"id":"name","name":"name","type":"Symbol","localized":false,"required":false,"disabled":false,"omitted":false},{"id":"avatar","name":"avatar","type":"Link","localized":false,"required":false,"disabled":false,"omitted":false,"linkType":"Asset"}]},{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"o4h6g9w3pooi"}},"id":"post","type":"ContentType","createdAt":"2024-05-24T17:26:07.511Z","updatedAt":"2024-05-24T17:29:31.352Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"revision":4},"displayField":"fTitle","name":"Post","description":"","fields":[{"id":"fTitle","name":"F
+        Title","type":"Symbol","localized":false,"required":false,"disabled":false,"omitted":false},{"id":"same","name":"same","type":"Link","localized":false,"required":false,"disabled":false,"omitted":false,"linkType":"Entry"},{"id":"different","name":"different","type":"ResourceLink","localized":false,"required":false,"disabled":false,"omitted":false,"allowedResources":[{"type":"Contentful:Entry","source":"crn:contentful:::content:spaces/yb41ceqgyiw5","contentTypes":["category"]}]}]},{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"o4h6g9w3pooi"}},"id":"category","type":"ContentType","createdAt":"2024-05-04T08:09:44.893Z","updatedAt":"2024-05-04T08:09:44.893Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"revision":1},"displayField":"title","name":"Category","description":"","fields":[{"id":"title","name":"title","type":"Symbol","localized":false,"required":false,"disabled":false,"omitted":false},{"id":"photo","name":"photo","type":"Link","localized":false,"required":false,"disabled":false,"omitted":false,"linkType":"Asset"},{"id":"subCategory","name":"sub-category","type":"Link","localized":false,"required":false,"disabled":false,"omitted":false,"linkType":"Entry"}]},{"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"o4h6g9w3pooi"}},"id":"crossSpace","type":"ContentType","createdAt":"2022-12-25T18:51:16.085Z","updatedAt":"2022-12-25T18:51:16.085Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"revision":1},"displayField":"title","name":"Cross
+        Space","description":"","fields":[{"id":"title","name":"title","type":"Symbol","localized":false,"required":false,"disabled":false,"omitted":false},{"id":"singleSpace","name":"Single
+        Space","type":"ResourceLink","localized":false,"required":false,"disabled":false,"omitted":false,"allowedResources":[{"type":"Contentful:Entry","source":"crn:contentful:::content:spaces/yb41ceqgyiw5","contentTypes":["category"]}]}]}]}
+
+        '
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Resource-Resolution
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Age:
+      - '890'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4633'
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Contentful-Api:
+      - cda
+      Date:
+      - Thu, 27 Feb 2025 13:36:38 GMT
+      Server:
+      - Contentful
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - 0, 3
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Served-By:
+      - cache-ewr-kewr1740078-EWR, cache-cpt13825-CPT
+      X-Timer:
+      - S1740663399.702058,VS0,VE0
+      cf-environment-id:
+      - master
+      cf-environment-uuid:
+      - a8fd17fd-5c8e-465f-bf8d-eb67f144dca0
+      cf-organization-id:
+      - 4kQeJmhUWIKtNNmMkketza
+      cf-space-id:
+      - o4h6g9w3pooi
+      etag:
+      - '"14622748896511582396"'
+      x-contentful-request-id:
+      - 7c7e313b-4a2d-4e10-b521-52f87d9dd0f6
+      x-contentful-route:
+      - /spaces/:space/environments/:environment/content_types
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"expiresAt": 1740749798}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - identity
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '25'
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      User-Agent:
+      - python-requests/2.32.3
+      X-Contentful-User-Agent:
+      - sdk contentful.py/2.3.2; platform python/3.12.7; os macOS/24.3.0;
+    method: POST
+    uri: https://cdn.contentful.com/spaces/o4h6g9w3pooi/environments/master/asset_keys
+  response:
+    body:
+      string: '{"policy":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjE6MSJ9.eyJleHAiOjE3NDA3NDk3OTgsInN1YiI6Im80aDZnOXczcG9vaSIsImF1ZCI6ImFkbiIsImp0aSI6ImM5NjMwYjk1LTcxYmMtNDQyMi1hNmU4LTYxN2MxOTk3YjJhMCIsImN0Zjp1bnB1YiI6ZmFsc2V9","secret":"eDDy6IgTeA9fAR9hjtMKIX8Uj5-7gzarD3QQTta-LCQ"}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Resource-Resolution
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '273'
+      Content-Type:
+      - application/vnd.contentful.management.v1+json
+      Contentful-Api:
+      - cda
+      Date:
+      - Thu, 27 Feb 2025 13:36:39 GMT
+      Server:
+      - Contentful
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Served-By:
+      - cache-ewr-kewr1740056-EWR, cache-cpt13825-CPT
+      X-Timer:
+      - S1740663399.021528,VS0,VE255
+      cache-control:
+      - max-age=0
+      x-contentful-request-id:
+      - 8543c1d2-fad0-442f-8088-5e3c4b4f95b5
+      x-contentful-route:
+      - /delivery/spaces/:spaceId/environments/:environmentId/asset_keys
+    status:
+      code: 200
+      message: OK
+version: 1

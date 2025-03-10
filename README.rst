@@ -177,6 +177,26 @@ Basic queries
     entries = client.entries()
     assets = client.assets()
     nyancat_asset = client.asset('nyancat')
+    # Create an asset key that expires in 24 hours
+    expires_at = int(time.time() + (24 * 60 * 60))
+    asset_key = client.create_asset_key(expires_at)  # Returns policy and secret for embargoed assets
+
+Embargoed Assets
+...............
+
+You can create asset keys for accessing embargoed assets. Asset keys consist of a policy and a secret that are valid for a specified time period::
+
+    import time
+    
+    # Create an asset key that expires in 24 hours
+    expires_at = int(time.time() + (24 * 60 * 60))
+    asset_key = client.create_asset_key(expires_at)
+    
+    # The asset key contains:
+    # asset_key.policy - The policy for accessing the asset
+    # asset_key.secret - The secret key for authentication
+
+For more information, check the `Asset Keys API Reference <https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys>`_.
 
 Filtering options
 .................
