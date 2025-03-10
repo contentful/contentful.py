@@ -2,15 +2,13 @@
 name = "contentful"
 dynamic = ["version"]
 description = "Contentful Delivery API Client"
-long_description = "README.rst"
-long_description_content_type = "text/x-rst"
+readme = "README.rst"
 authors = [{name = "Contentful GmbH", email="python@contentful.com"}]
 dependencies = [
     "requests>=2.31.0,<3.0",
     "python-dateutil>=2.8.2"
 ]
 requires-python = ">=3.9"
-readme = "README.rst"
 license = {text = "MIT"}
 keywords = ["contentful", "cms", "content"]
 classifiers = [
