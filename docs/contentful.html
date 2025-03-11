@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful package &#8212; Contentful 2.3.2 documentation</title>
+    <title>contentful package &#8212; Contentful 2.4.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.3.2',
+        VERSION:     '2.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -118,6 +118,16 @@ with serialized parameters.</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="module-contentful.asset_key">
+<span id="contentful-asset-key-module"></span><h2>contentful.asset_key module<a class="headerlink" href="#module-contentful.asset_key" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="contentful.asset_key.AssetKey">
+<em class="property">class </em><code class="descclassname">contentful.asset_key.</code><code class="descname">AssetKey</code><span class="sig-paren">(</span><em>item</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/asset_key.html#AssetKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.asset_key.AssetKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#contentful.resource.Resource" title="contentful.resource.Resource"><code class="xref py py-class docutils literal"><span class="pre">contentful.resource.Resource</span></code></a></p>
+<p>API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys</a></p>
 </dd></dl>
 
 </div>
@@ -320,6 +330,21 @@ level for Resources, defaults to 20 (max include level * 2).</li>
 </div>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="contentful.client.Client.create_asset_key">
+<code class="descname">create_asset_key</code><span class="sig-paren">(</span><em>expires_at</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contentful/client.html#Client.create_asset_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contentful.client.Client.create_asset_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an asset key for signing embargoed asset URLs.
+API Reference: <a class="reference external" href="https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys/create-asset-key">https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys/create-asset-key</a>
+:param expires_at: (optional) Unix timestamp when the key should expire (max 48h from now).
+:return: Dict containing policy and secret for signing URLs.
+:rtype: dict
+Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">asset_key</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_asset_key</span><span class="p">()</span>
+<span class="go">{&#39;policy&#39;: &#39;policy_string&#39;, &#39;secret&#39;: &#39;secret_string&#39;}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1197,6 +1222,7 @@ depends on the Python version.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-contentful.asset">contentful.asset module</a></li>
+<li><a class="reference internal" href="#module-contentful.asset_key">contentful.asset_key module</a></li>
 <li><a class="reference internal" href="#module-contentful.client">contentful.client module</a></li>
 <li><a class="reference internal" href="#module-contentful.content_type">contentful.content_type module</a></li>
 <li><a class="reference internal" href="#module-contentful.content_type_cache">contentful.content_type_cache module</a><ul>

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>contentful.deleted_entry &#8212; Contentful 2.4.0 documentation</title>
+    <title>contentful.asset_key &#8212; Contentful 2.4.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -40,31 +40,34 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for contentful.deleted_entry</h1><div class="highlight"><pre>
+  <h1>Source code for contentful.asset_key</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">contentful.deleted_entry</span>
-<span class="sd">~~~~~~~~~~~~~~~~~~~~~~~~</span>
-
-<span class="sd">This module implements the DeletedEntry class.</span>
-
-<span class="sd">API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</span>
-
-<span class="sd">:copyright: (c) 2016 by Contentful GmbH.</span>
+<span class="sd">contentful.asset_key</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~</span>
+<span class="sd">This module implements the AssetKey class.</span>
+<span class="sd">API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys</span>
+<span class="sd">:copyright: (c) 2024 by Contentful GmbH.</span>
 <span class="sd">:license: MIT, see LICENSE for more details.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="DeletedEntry"><a class="viewcode-back" href="../../contentful.html#contentful.deleted_entry.DeletedEntry">[docs]</a><span class="k">class</span> <span class="nc">DeletedEntry</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+<div class="viewcode-block" id="AssetKey"><a class="viewcode-back" href="../../contentful.html#contentful.asset_key.AssetKey">[docs]</a><span class="k">class</span> <span class="nc">AssetKey</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</span>
+<span class="sd">    API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AssetKey</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;policy&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">secret</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;secret&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;DeletedEntry id=&#39;</span><span class="si">{0}</span><span class="s2">&#39;&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;AssetKey policy=&#39;</span><span class="si">{0}</span><span class="s2">&#39; secret=&#39;</span><span class="si">{1}</span><span class="s2">&#39;&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">secret</span>
         <span class="p">)</span></div>
 </pre></div>
 

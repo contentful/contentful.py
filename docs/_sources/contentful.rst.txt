@@ -20,6 +20,14 @@ contentful\.asset module
     :undoc-members:
     :show-inheritance:
 
+contentful\.asset\_key module
+-----------------------------
+
+.. automodule:: contentful.asset_key
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 contentful\.client module
 -------------------------
 

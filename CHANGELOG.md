@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v2.4.0
 ### Added
 - Added support for embargoed assets through Asset Keys
   - Added `create_asset_key` method to Client class
