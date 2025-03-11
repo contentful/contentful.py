@@ -182,7 +182,7 @@ Basic queries
     asset_key = client.create_asset_key(expires_at)  # Returns policy and secret for embargoed assets
 
 Embargoed Assets
-...............
+................
 
 You can create asset keys for accessing embargoed assets. Asset keys consist of a policy and a secret that are valid for a specified time period::
 
