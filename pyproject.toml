@@ -31,6 +31,21 @@ Documentation = "https://contentful.github.io/contentful.py"
 Repository = "https://github.com/contentful/contentful.py"
 Issues = "https://github.com/contentful/contentful.py/issues"
 
+[project.optional-dependencies]
+test = [
+    "vcrpy>=4.3.1",
+    "coverage>=6.5.0",
+    "flake8>=6.1.0",
+    "requests-mock>=1.11.0",
+    "PyYAML>=6.0.1",
+    "tox>=4.23.2",
+]
+docs = [
+    "Sphinx>=6.2.1",
+    "sphinxcontrib-websupport>=1.2.4",
+    "tox",
+]
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
@@ -93,12 +108,7 @@ exclude_lines = [
     "raise ImportError"
 ]
 
-[dependency-groups]
-docs = [
-    "Sphinx>=6.2.1",
-    "sphinxcontrib-websupport>=1.2.4",
-    "tox",
-]
+[tool.pdm.dev-dependencies]
 test = [
     "vcrpy>=4.3.1",
     "coverage>=6.5.0",
@@ -106,4 +116,9 @@ test = [
     "requests-mock>=1.11.0",
     "PyYAML>=6.0.1",
     "tox>=4.23.2",
+]
+docs = [
+    "Sphinx>=6.2.1",
+    "sphinxcontrib-websupport>=1.2.4",
+    "tox",
 ]
