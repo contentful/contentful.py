@@ -1,6 +1,9 @@
 # CHANGELOG
 
 ## Unreleased
+### Changed
+- Moved test and docs dependencies to project.optional-dependencies
+- Fixed PDM dependency configuration for CI environment
 
 ## v2.4.0
 ### Added
