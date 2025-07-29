@@ -35,7 +35,8 @@ class Resource(object):
             resources=None,
             depth=0,
             max_depth=20):
-        self.raw = item
+        import copy
+        self.raw = copy.deepcopy(item)
         self.default_locale = default_locale
         self._depth = depth
         self._max_depth = max_depth
