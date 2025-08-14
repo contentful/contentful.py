@@ -498,3 +498,31 @@ class ClientTest(TestCase):
         self.assertIsInstance(asset_key, AssetKey)
         self.assertTrue(asset_key.policy)
         self.assertTrue(asset_key.secret)
+
+    @vcr.use_cassette('fixtures/client/taxonomy_concept.yaml', decode_compressed_response=True)
+    def test_client_fetches_one_taxonomy_concept(self):
+        client = Client('o4h6g9w3pooi', 'b4c0n73n7fu1', content_type_cache=False)
+        concept = client.taxonomy_concept('5iRG7dAusVFUOh9SrexDqQ')
+
+        self.assertEqual(str(concept), "<TaxonomyConcept id='5iRG7dAusVFUOh9SrexDqQ'>")
+
+    @vcr.use_cassette('fixtures/client/taxonomy_concepts.yaml', decode_compressed_response=True)
+    def test_client_fetches_all_taxonomy_concepts(self):
+        client = Client('o4h6g9w3pooi', 'b4c0n73n7fu1', content_type_cache=False)
+        concepts = client.taxonomy_concepts()
+
+        self.assertEqual(str(concepts), "<Array size='3' total='0' limit='100' skip='0'>")
+
+    @vcr.use_cassette('fixtures/client/taxonomy_concept_scheme.yaml', decode_compressed_response=True)
+    def test_client_fetches_one_taxonomy_concept_scheme(self):
+        client = Client('o4h6g9w3pooi', 'b4c0n73n7fu1', content_type_cache=False)
+        scheme = client.taxonomy_concept_scheme('4EQT881T6sG9XpzNwb9y9R')
+
+        self.assertEqual(str(scheme), "<TaxonomyConceptScheme id='4EQT881T6sG9XpzNwb9y9R'>")
+
+    @vcr.use_cassette('fixtures/client/taxonomy_concept_schemes.yaml', decode_compressed_response=True)
+    def test_client_fetches_all_taxonomy_concept_schemes(self):
+        client = Client('o4h6g9w3pooi', 'b4c0n73n7fu1', content_type_cache=False)
+        schemes = client.taxonomy_concept_schemes()
+
+        self.assertEqual(str(schemes), "<Array size='1' total='0' limit='100' skip='0'>")

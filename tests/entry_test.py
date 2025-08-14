@@ -93,6 +93,56 @@ class EntryTest(TestCase):
         self.assertEqual(tag.id, 'nyCampaign')
         self.assertEqual(tag.link_type, 'Tag')
 
+    def test_metadata_concepts(self):
+        ContentTypeCache.__CACHE__ = {}
+
+        entry = Entry({
+            'sys': {
+                'space': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'Space',
+                        'id': 'foo'
+                    }
+                },
+                'contentType': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'ContentType',
+                        'id': 'foo'
+                    }
+                },
+                'type': 'Entry',
+                'createdAt': '2016-06-06',
+                'updatedAt': '2016-06-06',
+                'deletedAt': '2016-06-06',
+                'id': 'foobar',
+                'version': 1
+            },
+            'metadata': {
+                'tags': [],
+                'concepts': [
+                    {
+                        "sys": {
+                          "type": "Link",
+                          "linkType": "TaxonomyConcept",
+                          "id": "3DMf5gdax6J22AfcJ6fvsC"
+                        }
+                    }
+                ]
+            },
+            'fields': {
+                'name': 'foobar',
+                'date': '2016-06-06'
+            }
+        })
+
+        self.assertEqual(len(entry._metadata['concepts']), 1)
+        concept = entry._metadata['concepts'][0]
+        self.assertEqual(str(concept), "<Link[TaxonomyConcept] id='3DMf5gdax6J22AfcJ6fvsC'>")
+        self.assertEqual(concept.id, '3DMf5gdax6J22AfcJ6fvsC')
+        self.assertEqual(concept.link_type, 'TaxonomyConcept')
+
     def test_entry_unresolved_link(self):
         ContentTypeCache.__CACHE__ = {}
 

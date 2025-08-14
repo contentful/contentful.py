@@ -86,6 +86,53 @@ class AssetTest(TestCase):
         self.assertEqual(tag.id, 'nyCampaign')
         self.assertEqual(tag.link_type, 'Tag')
 
+    def test_metadata_concepts(self):
+        asset = Asset({
+            'sys': {
+                'type': 'Asset',
+                'id': 'foo',
+                'createdAt': '2016-12-01T11:39:20.257859',
+                'updatedAt': '2016-12-01T11:39:20.257859',
+                'space': {
+                    'sys': {
+                        'type': 'Link',
+                        'linkType': 'Space',
+                        'id': 'foo'
+                    }
+                }
+            },
+            'metadata': {
+                'tags': [],
+                'concepts': [
+                    {
+                        "sys": {
+                          "type": "Link",
+                          "linkType": "TaxonomyConcept",
+                          "id": "3DMf5gdax6J22AfcJ6fvsC"
+                        }
+                    }
+                ]
+            },
+            'fields': {
+                'title': 'Awesome Pic',
+                'description': 'A picture of something',
+                'file': {
+                    'fileName': 'foobar',
+                    'contentType': 'image/jpeg',
+                    'url': '//images.contentful.com/...',
+                    'details': {
+                        'size': 300
+                    }
+                }
+            }
+        })
+
+        self.assertEqual(len(asset._metadata['concepts']), 1)
+        concept = asset._metadata['concepts'][0]
+        self.assertEqual(str(concept), "<Link[TaxonomyConcept] id='3DMf5gdax6J22AfcJ6fvsC'>")
+        self.assertEqual(concept.id, '3DMf5gdax6J22AfcJ6fvsC')
+        self.assertEqual(concept.link_type, 'TaxonomyConcept')
+
     def test_asset_with_no_file_can_be_serialized_correctly(self):
         asset = Asset({
             'sys': {
