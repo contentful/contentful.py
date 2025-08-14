@@ -198,6 +198,16 @@ You can create asset keys for accessing embargoed assets. Asset keys consist of 
 
 For more information, check the `Asset Keys API Reference <https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/asset-keys>`_.
 
+Taxonomy API
+............
+
+You can query for taxonomy concepts and concept schemes::
+
+    concepts = client.taxonomy_concepts()
+    concept = client.taxonomy_concept('concept_id')
+    schemes = client.taxonomy_concept_schemes()
+    scheme = client.taxonomy_concept_scheme('scheme_id')
+
 Filtering options
 .................
 
@@ -245,6 +255,17 @@ Accessing tags
     nyancat._metadata['tags'] # => [<Link[Tag] id='nyCampaign'>]
 
 Tags can be accessed via the ``#_metadata`` method.
+
+
+Accessing concepts
+..................
+
+::
+
+    nyancat = client.entry('nyancat')
+    nyancat._metadata['concepts'] # => [<Link[TaxonomyConcept] id='conceptId'>]
+
+Concepts can be accessed via the ``#_metadata`` method.
 
 
 Using different locales
