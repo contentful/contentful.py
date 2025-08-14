@@ -370,6 +370,26 @@ also all the fields on present on ``fields`` will be available as properties, fo
     # will return the size of the image
     # this is equivalent to asset.fields()['file']['details']['size']
 
+Accessing Metadata
+..................
+
+Both Entries and Assets can contain a ``metadata`` field. This field is accessible via the ``_metadata`` property on the resource object.
+
+Currently, ``tags`` and ``concepts`` are supported within the metadata.
+
+::
+
+    # For an Entry
+    entry = client.entry('nyancat')
+    entry._metadata['tags'] # => [<Link[Tag] id='nyCampaign'>]
+    entry._metadata['concepts'] # => [<Link[TaxonomyConcept] id='conceptId'>]
+
+    # For an Asset
+    asset = client.asset('happycat')
+    asset._metadata['tags'] # => [<Link[Tag] id='someOtherCampaign'>]
+    asset._metadata['concepts'] # => [<Link[TaxonomyConcept] id='anotherConceptId'>]
+
+
 Other resources, which contain top level properties other than ``sys`` or ``fields``,
 have those available as object properties, for example::
 
