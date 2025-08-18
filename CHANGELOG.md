@@ -2,13 +2,7 @@
 
 ## Unreleased
 ### Added
-- Added support for Taxonomy API:
-  - `client.taxonomy_concept(concept_id)`
-  - `client.taxonomy_concepts()`
-  - `client.taxonomy_concept_scheme(scheme_id)`
-  - `client.taxonomy_concept_schemes()`
-  - `entry._metadata['concepts']`
-  - `asset._metadata['concepts']`
+- Added support for Taxonomy API
 
 ### Changed
 - Moved test and docs dependencies to project.optional-dependencies
