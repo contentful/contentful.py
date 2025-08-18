@@ -1,6 +1,9 @@
 # CHANGELOG
 
 ## Unreleased
+### Fixed
+- Fixed issue where `entry.raw` contained non-serializable Entry/Link objects, making JSON serialization fail
+
 ### Changed
 - Moved test and docs dependencies to project.optional-dependencies
 - Fixed PDM dependency configuration for CI environment
