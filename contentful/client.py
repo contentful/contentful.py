@@ -364,6 +364,68 @@ class Client(object):
             query
         )
 
+    def taxonomy_concept(self, concept_id, query=None):
+        """Fetches a single taxonomy concept by ID.
+        :param concept_id: The ID of the target concept.
+        :param query: (optional) Dict with API options.
+        :return: :class:`TaxonomyConcept <contentful.taxonomy_concept.TaxonomyConcept>` object.
+        :rtype: contentful.taxonomy_concept.TaxonomyConcept
+        Usage:
+            >>> concept = client.taxonomy_concept('3DMf5gdax6J22AfcJ6fvsC')
+            <TaxonomyConcept id='3DMf5gdax6J22AfcJ6fvsC'>
+        """
+        return self._get(
+            self.environment_url(
+                '/taxonomy/concepts/{0}'.format(concept_id)
+            ),
+            query
+        )
+
+    def taxonomy_concepts(self, query=None):
+        """Fetches all taxonomy concepts.
+        :param query: (optional) Dict with API options.
+        :return: :class:`Array <contentful.array.Array>` of :class:`TaxonomyConcept <contentful.taxonomy_concept.TaxonomyConcept>` objects.
+        :rtype: contentful.array.Array
+        Usage:
+            >>> concepts = client.taxonomy_concepts()
+            <Array size=1 total=1 limit=100 skip=0>
+        """
+        return self._get(
+            self.environment_url('/taxonomy/concepts'),
+            query
+        )
+
+    def taxonomy_concept_scheme(self, scheme_id, query=None):
+        """Fetches a single taxonomy concept scheme by ID.
+        :param scheme_id: The ID of the target concept scheme.
+        :param query: (optional) Dict with API options.
+        :return: :class:`TaxonomyConceptScheme <contentful.taxonomy_concept_scheme.TaxonomyConceptScheme>` object.
+        :rtype: contentful.taxonomy_concept_scheme.TaxonomyConceptScheme
+        Usage:
+            >>> scheme = client.taxonomy_concept_scheme('7CzXPy6XvYYd0D7SomitgI')
+            <TaxonomyConceptScheme id='7CzXPy6XvYYd0D7SomitgI'>
+        """
+        return self._get(
+            self.environment_url(
+                '/taxonomy/concept-schemes/{0}'.format(scheme_id)
+            ),
+            query
+        )
+
+    def taxonomy_concept_schemes(self, query=None):
+        """Fetches all taxonomy concept schemes.
+        :param query: (optional) Dict with API options.
+        :return: :class:`Array <contentful.array.Array>` of :class:`TaxonomyConceptScheme <contentful.taxonomy_concept_scheme.TaxonomyConceptScheme>` objects.
+        :rtype: contentful.array.Array
+        Usage:
+            >>> schemes = client.taxonomy_concept_schemes()
+            <Array size=1 total=1 limit=100 skip=0>
+        """
+        return self._get(
+            self.environment_url('/taxonomy/concept-schemes'),
+            query
+        )
+
     def environment_url(self, url):
         """Formats the URL with the environment."""
 

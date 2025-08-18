@@ -64,7 +64,7 @@ class Resource(object):
     def _hydrate_metadata(self, item):
         _metadata = {}
         for k, v in item.get('metadata', {}).items():
-            if k == 'tags':
+            if k in ['tags', 'concepts']:
                 v = list(map(self._build_link, v))
             _metadata[snake_case(k)] = v
         return _metadata
