@@ -9,6 +9,8 @@ from .deleted_entry import DeletedEntry
 from .locale import Locale
 from .sync_page import SyncPage
 from .utils import unresolvable
+from .taxonomy_concept import TaxonomyConcept
+from .taxonomy_concept_scheme import TaxonomyConceptScheme
 
 
 """
@@ -103,7 +105,9 @@ class ResourceBuilder(object):
             'Space': Space,
             'DeletedEntry': DeletedEntry,
             'DeletedAsset': DeletedAsset,
-            'Locale': Locale
+            'Locale': Locale,
+            'TaxonomyConcept': TaxonomyConcept,
+            'TaxonomyConceptScheme': TaxonomyConceptScheme
         }
 
         resource = self._resource_from_cache(item) if self.reuse_entries else None

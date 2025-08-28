@@ -35,7 +35,8 @@ class Resource(object):
             resources=None,
             depth=0,
             max_depth=20):
-        self.raw = item
+        import copy
+        self.raw = copy.deepcopy(item)
         self.default_locale = default_locale
         self._depth = depth
         self._max_depth = max_depth
@@ -63,7 +64,7 @@ class Resource(object):
     def _hydrate_metadata(self, item):
         _metadata = {}
         for k, v in item.get('metadata', {}).items():
-            if k == 'tags':
+            if k in ['tags', 'concepts']:
                 v = list(map(self._build_link, v))
             _metadata[snake_case(k)] = v
         return _metadata

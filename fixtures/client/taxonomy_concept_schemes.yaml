@@ -1,0 +1,78 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      User-Agent:
+      - python-requests/2.32.3
+      X-Contentful-User-Agent:
+      - sdk contentful.py/2.4.0; platform python/3.12.7; os macOS/24.5.0;
+    method: GET
+    uri: https://cdn.contentful.com/spaces/o4h6g9w3pooi/environments/master/taxonomy/concept-schemes
+  response:
+    body:
+      string: '{"sys":{"type":"Array"},"limit":100,"items":[{"sys":{"id":"4EQT881T6sG9XpzNwb9y9R","type":"TaxonomyConceptScheme","createdAt":"2025-03-21T05:53:46.063Z","updatedAt":"2025-03-21T05:55:26.969Z","version":2},"uri":"https://example.com/testscheme","topConcepts":[{"sys":{"id":"5iRG7dAusVFUOh9SrexDqQ","type":"Link","linkType":"TaxonomyConcept"}}],"concepts":[{"sys":{"id":"5iRG7dAusVFUOh9SrexDqQ","type":"Link","linkType":"TaxonomyConcept"}}],"totalConcepts":1,"prefLabel":{"en-US":"TestScheme"},"definition":{"en-US":""}}],"pages":{}}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Resource-Resolution
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Age:
+      - '79'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '531'
+      Content-Type:
+      - application/json; charset=utf-8
+      Contentful-Api:
+      - cda
+      Date:
+      - Thu, 14 Aug 2025 20:34:47 GMT
+      Server:
+      - Contentful
+      Strict-Transport-Security:
+      - max-age=15768000
+      Via:
+      - 1.1 varnish, 1.1 varnish
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - 0, 0
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Region:
+      - us-east-1
+      X-Served-By:
+      - cache-ewr-kewr1740029-EWR, cache-fra-eddf8230099-FRA
+      X-Timer:
+      - S1755203687.325430,VS0,VE1
+      cache-control:
+      - no-cache
+      etag:
+      - '"1175497962317909239"'
+      x-contentful-request-id:
+      - d06f5122-991b-4baa-a08c-3cdf2b432ade
+      x-contentful-route:
+      - /spaces/:spaceId/environments/:environmentId/taxonomy/concept-schemes
+    status:
+      code: 200
+      message: OK
+version: 1
