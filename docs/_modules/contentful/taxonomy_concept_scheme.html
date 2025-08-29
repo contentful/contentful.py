@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>contentful.deleted_asset &#8212; Contentful 2.4.0 documentation</title>
+    <title>contentful.taxonomy_concept_scheme &#8212; Contentful 2.4.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=039e1c02" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=6fe989de"></script>
@@ -28,30 +28,26 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for contentful.deleted_asset</h1><div class="highlight"><pre>
+  <h1>Source code for contentful.taxonomy_concept_scheme</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.resource</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resource</span>
 
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">contentful.deleted_asset</span>
-<span class="sd">~~~~~~~~~~~~~~~~~~~~~~~~</span>
-
-<span class="sd">This module implements the DeletedAsset class.</span>
-
-<span class="sd">API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</span>
-
-<span class="sd">:copyright: (c) 2016 by Contentful GmbH.</span>
-<span class="sd">:license: MIT, see LICENSE for more details.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-
-<div class="viewcode-block" id="DeletedAsset"><a class="viewcode-back" href="../../contentful.html#contentful.deleted_asset.DeletedAsset">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">DeletedAsset</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+<div class="viewcode-block" id="TaxonomyConceptScheme"><a class="viewcode-back" href="../../contentful.html#contentful.taxonomy_concept_scheme.TaxonomyConceptScheme">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TaxonomyConceptScheme</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization</span>
+<span class="sd">    Represents a single taxonomy concept scheme.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TaxonomyConceptScheme</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uri&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pref_label</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prefLabel&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">definition</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;definition&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_concepts</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;topConcepts&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concepts</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;concepts&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_concepts</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;totalConcepts&#39;</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;DeletedAsset id=&#39;</span><span class="si">{0}</span><span class="s2">&#39;&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;TaxonomyConceptScheme id=&#39;</span><span class="si">{0}</span><span class="s2">&#39;&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="p">)</span></div>
 </pre></div>

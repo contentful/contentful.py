@@ -1,26 +1,15 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>contentful.content_type_field_types &#8212; Contentful 2.4.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=6fe989de"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -29,8 +18,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -44,14 +32,14 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">simplejson</span> <span class="k">as</span> <span class="nn">json</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">simplejson</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">json</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">json</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
-<span class="kn">import</span> <span class="nn">dateutil.parser</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">unicode_class</span><span class="p">,</span> <span class="n">resource_for_link</span><span class="p">,</span> <span class="n">unresolvable</span>
-<span class="kn">from</span> <span class="nn">.resource</span> <span class="kn">import</span> <span class="n">FieldsResource</span><span class="p">,</span> <span class="n">Link</span><span class="p">,</span> <span class="n">Resource</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dateutil.parser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">unicode_class</span><span class="p">,</span> <span class="n">resource_for_link</span><span class="p">,</span> <span class="n">unresolvable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.resource</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldsResource</span><span class="p">,</span> <span class="n">Link</span><span class="p">,</span> <span class="n">Resource</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">contentful.content_type_field_types</span>
@@ -64,89 +52,89 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="BasicField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BasicField">[docs]</a><span class="k">class</span> <span class="nc">BasicField</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="BasicField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BasicField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">BasicField</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base Coercion Class&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="n">items</span>
 
-<div class="viewcode-block" id="BasicField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BasicField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="BasicField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BasicField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Just returns the value.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">value</span></div>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">{0}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="SymbolField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.SymbolField">[docs]</a><span class="k">class</span> <span class="nc">SymbolField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="SymbolField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.SymbolField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SymbolField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Symbol Coercion Class&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SymbolField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.SymbolField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SymbolField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.SymbolField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces value to str&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">unicode_class</span><span class="p">()(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="TextField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.TextField">[docs]</a><span class="k">class</span> <span class="nc">TextField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="TextField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.TextField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TextField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Text Coercion Class&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TextField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.TextField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="TextField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.TextField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces value to str&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">unicode_class</span><span class="p">()(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="IntegerField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.IntegerField">[docs]</a><span class="k">class</span> <span class="nc">IntegerField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="IntegerField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.IntegerField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">IntegerField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Integer Coercion Class&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="IntegerField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.IntegerField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="IntegerField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.IntegerField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces value to int&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;default_locale&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;default_locale&#39;</span><span class="p">]])</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="NumberField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.NumberField">[docs]</a><span class="k">class</span> <span class="nc">NumberField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="NumberField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.NumberField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">NumberField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Number Coercion Class&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="NumberField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.NumberField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="NumberField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.NumberField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces value to float&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="DateField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.DateField">[docs]</a><span class="k">class</span> <span class="nc">DateField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="DateField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.DateField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">DateField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Date Coercion Class&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DateField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.DateField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DateField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.DateField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces ISO8601 date to :class:`datetime.datetime` object.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="BooleanField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BooleanField">[docs]</a><span class="k">class</span> <span class="nc">BooleanField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="BooleanField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BooleanField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">BooleanField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Boolean Coercion Class&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BooleanField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BooleanField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="BooleanField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.BooleanField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces value to boolean&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="LocationField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.LocationField">[docs]</a><span class="k">class</span> <span class="nc">LocationField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="LocationField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.LocationField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">LocationField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Location Coercion Class&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LocationField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.LocationField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LocationField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.LocationField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces value to Location object&quot;&quot;&quot;</span>
 
         <span class="n">Location</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Location&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">Location</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)))</span></div></div>
 
 
-<div class="viewcode-block" id="LinkField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.LinkField">[docs]</a><span class="k">class</span> <span class="nc">LinkField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="LinkField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.LinkField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">LinkField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    LinkField</span>
 
@@ -157,7 +145,7 @@
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="ResourceLinkField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ResourceLinkField">[docs]</a><span class="k">class</span> <span class="nc">ResourceLinkField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="ResourceLinkField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ResourceLinkField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ResourceLinkField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ResourceLinkField</span>
 
@@ -168,17 +156,17 @@
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="ArrayField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ArrayField">[docs]</a><span class="k">class</span> <span class="nc">ArrayField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="ArrayField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ArrayField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ArrayField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Array Coercion Class</span>
 
 <span class="sd">    Coerces items in collection with it&#39;s proper Coercion Class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ArrayField</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_coercion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_coercion</span><span class="p">()</span>
 
-<div class="viewcode-block" id="ArrayField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ArrayField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ArrayField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ArrayField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces array items with proper coercion.&quot;&quot;&quot;</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
@@ -186,27 +174,27 @@
             <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coercion</span><span class="o">.</span><span class="n">coerce</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_coercion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_coercion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">globals</span><span class="p">()[</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">Field&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">))]()</span></div>
 
 
-<div class="viewcode-block" id="ObjectField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ObjectField">[docs]</a><span class="k">class</span> <span class="nc">ObjectField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="ObjectField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ObjectField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ObjectField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Object Coercion Class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ObjectField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ObjectField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ObjectField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.ObjectField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces JSON values properly.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div></div>
 
 
-<div class="viewcode-block" id="RichTextField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.RichTextField">[docs]</a><span class="k">class</span> <span class="nc">RichTextField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
+<div class="viewcode-block" id="RichTextField"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.RichTextField">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">RichTextField</span><span class="p">(</span><span class="n">BasicField</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Coerces Rich Text fields and resolves includes for entries included.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_coerce_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_coerce_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;target&#39;</span><span class="p">][</span><span class="s1">&#39;sys&#39;</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Link&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
 
@@ -226,7 +214,7 @@
         <span class="k">if</span> <span class="n">resource</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Resource is valid but not reachable on includes</span>
             <span class="k">return</span> <span class="n">Link</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;target&#39;</span><span class="p">])</span>
 
-        <span class="kn">from</span> <span class="nn">.resource_builder</span> <span class="kn">import</span> <span class="n">ResourceBuilder</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.resource_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResourceBuilder</span>
         <span class="k">return</span> <span class="n">ResourceBuilder</span><span class="p">(</span>
             <span class="n">default_locale</span><span class="p">,</span>
             <span class="n">locale</span> <span class="ow">and</span> <span class="n">locale</span> <span class="o">==</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
@@ -237,7 +225,7 @@
             <span class="n">resources</span><span class="o">=</span><span class="n">resources</span>
         <span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_coerce_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_coerce_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;content&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">value</span>
 
@@ -279,7 +267,7 @@
 
         <span class="k">return</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="RichTextField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.RichTextField.coerce">[docs]</a>    <span class="k">def</span> <span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="RichTextField.coerce"><a class="viewcode-back" href="../../contentful.html#contentful.content_type_field_types.RichTextField.coerce">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">coerce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">includes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default_locale</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerces Rich Text properly.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">includes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -302,7 +290,29 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Contentful</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=contentful&repo=contentful.py&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">contentful</a></li>
+</ul>
+
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
@@ -312,15 +322,23 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>

@@ -4,147 +4,170 @@ contentful package
 Submodules
 ----------
 
-contentful\.array module
-------------------------
+contentful.array module
+-----------------------
 
 .. automodule:: contentful.array
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.asset module
-------------------------
+contentful.asset module
+-----------------------
 
 .. automodule:: contentful.asset
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.client module
--------------------------
+contentful.asset\_key module
+----------------------------
+
+.. automodule:: contentful.asset_key
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+contentful.client module
+------------------------
 
 .. automodule:: contentful.client
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.content\_type module
---------------------------------
+contentful.content\_type module
+-------------------------------
 
 .. automodule:: contentful.content_type
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.content\_type\_cache module
----------------------------------------
+contentful.content\_type\_cache module
+--------------------------------------
 
 .. automodule:: contentful.content_type_cache
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.content\_type\_field module
----------------------------------------
+contentful.content\_type\_field module
+--------------------------------------
 
 .. automodule:: contentful.content_type_field
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.content\_type\_field\_types module
-----------------------------------------------
+contentful.content\_type\_field\_types module
+---------------------------------------------
 
 .. automodule:: contentful.content_type_field_types
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.deleted\_asset module
----------------------------------
+contentful.deleted\_asset module
+--------------------------------
 
 .. automodule:: contentful.deleted_asset
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.deleted\_entry module
----------------------------------
+contentful.deleted\_entry module
+--------------------------------
 
 .. automodule:: contentful.deleted_entry
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.entry module
-------------------------
+contentful.entry module
+-----------------------
 
 .. automodule:: contentful.entry
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.errors module
--------------------------
+contentful.errors module
+------------------------
 
 .. automodule:: contentful.errors
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.locale module
--------------------------
+contentful.locale module
+------------------------
 
 .. automodule:: contentful.locale
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.resource module
----------------------------
+contentful.resource module
+--------------------------
 
 .. automodule:: contentful.resource
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.resource\_builder module
-------------------------------------
+contentful.resource\_builder module
+-----------------------------------
 
 .. automodule:: contentful.resource_builder
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.space module
-------------------------
+contentful.space module
+-----------------------
 
 .. automodule:: contentful.space
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.sync\_page module
------------------------------
+contentful.sync\_page module
+----------------------------
 
 .. automodule:: contentful.sync_page
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-contentful\.utils module
-------------------------
+contentful.taxonomy\_concept module
+-----------------------------------
+
+.. automodule:: contentful.taxonomy_concept
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+contentful.taxonomy\_concept\_scheme module
+-------------------------------------------
+
+.. automodule:: contentful.taxonomy_concept_scheme
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+contentful.utils module
+-----------------------
 
 .. automodule:: contentful.utils
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: contentful
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
