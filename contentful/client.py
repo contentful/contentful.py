@@ -370,6 +370,7 @@ class Client(object):
         :param query: (optional) Dict with API options.
         :return: :class:`TaxonomyConcept <contentful.taxonomy_concept.TaxonomyConcept>` object.
         :rtype: contentful.taxonomy_concept.TaxonomyConcept
+
         Usage:
             >>> concept = client.taxonomy_concept('3DMf5gdax6J22AfcJ6fvsC')
             <TaxonomyConcept id='3DMf5gdax6J22AfcJ6fvsC'>
@@ -386,6 +387,7 @@ class Client(object):
         :param query: (optional) Dict with API options.
         :return: :class:`Array <contentful.array.Array>` of :class:`TaxonomyConcept <contentful.taxonomy_concept.TaxonomyConcept>` objects.
         :rtype: contentful.array.Array
+
         Usage:
             >>> concepts = client.taxonomy_concepts()
             <Array size=1 total=1 limit=100 skip=0>
@@ -401,6 +403,7 @@ class Client(object):
         :param query: (optional) Dict with API options.
         :return: :class:`TaxonomyConceptScheme <contentful.taxonomy_concept_scheme.TaxonomyConceptScheme>` object.
         :rtype: contentful.taxonomy_concept_scheme.TaxonomyConceptScheme
+
         Usage:
             >>> scheme = client.taxonomy_concept_scheme('7CzXPy6XvYYd0D7SomitgI')
             <TaxonomyConceptScheme id='7CzXPy6XvYYd0D7SomitgI'>
@@ -417,6 +420,7 @@ class Client(object):
         :param query: (optional) Dict with API options.
         :return: :class:`Array <contentful.array.Array>` of :class:`TaxonomyConceptScheme <contentful.taxonomy_concept_scheme.TaxonomyConceptScheme>` objects.
         :rtype: contentful.array.Array
+
         Usage:
             >>> schemes = client.taxonomy_concept_schemes()
             <Array size=1 total=1 limit=100 skip=0>
@@ -704,6 +708,7 @@ class Client(object):
         :param expires_at: (optional) Unix timestamp when the key should expire (max 48h from now).
         :return: Dict containing policy and secret for signing URLs.
         :rtype: dict
+
         Usage:
             >>> asset_key = client.create_asset_key()
             {'policy': 'policy_string', 'secret': 'secret_string'}
