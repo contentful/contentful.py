@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## v2.5.0
 ### Added
 - Added support for Taxonomy API
 

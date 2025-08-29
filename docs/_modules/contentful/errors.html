@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>contentful.errors &#8212; Contentful 2.4.0 documentation</title>
+    <title>contentful.errors &#8212; Contentful 2.5.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=039e1c02" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=6fe989de"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../_static/documentation_options.js?v=3c4615cf"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -42,7 +43,9 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="HTTPError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.HTTPError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">HTTPError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="HTTPError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.HTTPError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HTTPError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base HTTP Error Class</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -97,7 +100,10 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="BadRequestError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.BadRequestError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BadRequestError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.BadRequestError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    400</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -120,7 +126,10 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">inner_details</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="UnauthorizedError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.UnauthorizedError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="UnauthorizedError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.UnauthorizedError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    401</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -129,7 +138,10 @@
         <span class="k">return</span> <span class="s2">&quot;The authorization token was invalid.&quot;</span></div>
 
 
-<div class="viewcode-block" id="AccessDeniedError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.AccessDeniedError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">AccessDeniedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="AccessDeniedError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.AccessDeniedError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AccessDeniedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    403</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -141,7 +153,10 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">Reasons:</span><span class="se">\n\t\t</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\t\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;reasons&#39;</span><span class="p">]))</span></div>
 
 
-<div class="viewcode-block" id="NotFoundError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.NotFoundError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NotFoundError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.NotFoundError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    404</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -170,7 +185,10 @@
         <span class="k">return</span> <span class="n">message</span></div>
 
 
-<div class="viewcode-block" id="RateLimitExceededError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.RateLimitExceededError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">RateLimitExceededError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RateLimitExceededError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.RateLimitExceededError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RateLimitExceededError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    429</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -180,12 +198,15 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_has_reset_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RATE_LIMIT_RESET_HEADER_KEY</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span>
 
-<div class="viewcode-block" id="RateLimitExceededError.reset_time"><a class="viewcode-back" href="../../contentful.html#contentful.errors.RateLimitExceededError.reset_time">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reset_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RateLimitExceededError.reset_time">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.RateLimitExceededError.reset_time">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the reset time in seconds until next available request.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">RATE_LIMIT_RESET_HEADER_KEY</span>
         <span class="p">])</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_has_additional_error_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_reset_time</span><span class="p">()</span>
@@ -197,7 +218,10 @@
         <span class="k">return</span> <span class="s2">&quot;Rate limit exceeded. Too many requests.&quot;</span></div>
 
 
-<div class="viewcode-block" id="ServerError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.ServerError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ServerError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.ServerError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    500</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -206,7 +230,10 @@
         <span class="k">return</span> <span class="s2">&quot;Internal server error.&quot;</span></div>
 
 
-<div class="viewcode-block" id="BadGatewayError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.BadGatewayError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">BadGatewayError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BadGatewayError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.BadGatewayError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BadGatewayError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    502</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -215,7 +242,10 @@
         <span class="k">return</span> <span class="s2">&quot;The requested space is hibernated.&quot;</span></div>
 
 
-<div class="viewcode-block" id="ServiceUnavailableError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.ServiceUnavailableError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ServiceUnavailableError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.ServiceUnavailableError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    503</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -224,14 +254,20 @@
         <span class="k">return</span> <span class="s2">&quot;The request was malformed or missing a required parameter.&quot;</span></div>
 
 
-<div class="viewcode-block" id="EntryNotFoundError"><a class="viewcode-back" href="../../contentful.html#contentful.errors.EntryNotFoundError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">EntryNotFoundError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+
+<div class="viewcode-block" id="EntryNotFoundError">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.EntryNotFoundError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EntryNotFoundError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Error for entry not found.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="get_error"><a class="viewcode-back" href="../../contentful.html#contentful.errors.get_error">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_error</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+
+<div class="viewcode-block" id="get_error">
+<a class="viewcode-back" href="../../contentful.html#contentful.errors.get_error">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_error</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Gets Error by HTTP Status Code&quot;&quot;&quot;</span>
 
     <span class="n">errors</span> <span class="o">=</span> <span class="p">{</span>
@@ -250,13 +286,14 @@
         <span class="n">error_class</span> <span class="o">=</span> <span class="n">errors</span><span class="p">[</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">error_class</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></div>
+
 </pre></div>
 
           </div>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="../../index.html">Contentful</a></h1>
 
@@ -288,7 +325,7 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -296,7 +333,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
 
 
@@ -311,13 +348,13 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2016, Contentful GmbH.
+      &#169;2016, Contentful GmbH.
       
     </div>
 
     
     <a href="https://github.com/contentful/contentful.py" class="github">
-        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
     </a>
     
 
