@@ -34,9 +34,12 @@ class Resource(object):
             localized=False,
             resources=None,
             depth=0,
-            max_depth=20):
-        import copy
-        self.raw = copy.deepcopy(item)
+            max_depth=20,
+            includes_index=None,
+            error_ids=None):
+        # Lazy deep copy: store reference, copy only when raw is accessed
+        self._raw_source = item
+        self._raw_copy = None
         self.default_locale = default_locale
         self._depth = depth
         self._max_depth = max_depth
@@ -50,6 +53,20 @@ class Resource(object):
                 item['sys'].get('locale', '*')
             )
             resources[cache_key] = self
+
+    @property
+    def raw(self):
+        """Lazily deep copy the raw item only when accessed."""
+        if self._raw_copy is None:
+            import copy
+            self._raw_copy = copy.deepcopy(self._raw_source)
+        return self._raw_copy
+
+    @raw.setter
+    def raw(self, value):
+        """Allow setting raw directly for backwards compatibility."""
+        self._raw_copy = value
+        self._raw_source = value
 
     def _hydrate_sys(self, item):
         sys = {}
@@ -103,6 +120,8 @@ class FieldsResource(Resource):
             errors=None,
             localized=False,
             resources=None,
+            includes_index=None,
+            error_ids=None,
             **kwargs):
         super(FieldsResource, self).__init__(
             item,
@@ -110,12 +129,22 @@ class FieldsResource(Resource):
             errors=errors,
             localized=localized,
             resources=resources,
+            includes_index=includes_index,
+            error_ids=error_ids,
             **kwargs
         )
 
-        self._fields = self._hydrate_fields(item, localized, includes, errors, resources=resources)
+        self._includes_index = includes_index
+        self._error_ids = error_ids
+        self._fields = self._hydrate_fields(
+            item, localized, includes, errors,
+            resources=resources,
+            includes_index=includes_index,
+            error_ids=error_ids
+        )
 
-    def _hydrate_fields(self, item, localized, includes, errors, resources=None):
+    def _hydrate_fields(self, item, localized, includes, errors, resources=None,
+                        includes_index=None, error_ids=None):
         if 'fields' not in item:
             return {}
 
@@ -128,12 +157,19 @@ class FieldsResource(Resource):
         locale = self._locale()
         fields = {locale: {}}
         if localized:
-            self._hydrate_localized_entry(fields, item, includes, errors, resources)
+            self._hydrate_localized_entry(
+                fields, item, includes, errors, resources,
+                includes_index=includes_index, error_ids=error_ids
+            )
         else:
-            self._hydrate_non_localized_entry(fields, item, includes, errors, resources)
+            self._hydrate_non_localized_entry(
+                fields, item, includes, errors, resources,
+                includes_index=includes_index, error_ids=error_ids
+            )
         return fields
 
-    def _hydrate_localized_entry(self, fields, item, includes, errors, resources=None):
+    def _hydrate_localized_entry(self, fields, item, includes, errors, resources=None,
+                                  includes_index=None, error_ids=None):
         for k, locales in item['fields'].items():
             for locale, v in locales.items():
                 if locale not in fields:
@@ -144,10 +180,13 @@ class FieldsResource(Resource):
                     True,
                     includes,
                     errors,
-                    resources=resources
+                    resources=resources,
+                    includes_index=includes_index,
+                    error_ids=error_ids
                 )
 
-    def _hydrate_non_localized_entry(self, fields, item, includes, errors, resources=None):
+    def _hydrate_non_localized_entry(self, fields, item, includes, errors, resources=None,
+                                      includes_index=None, error_ids=None):
         for k, v in item['fields'].items():
             fields[self._locale()][snake_case(k)] = self._coerce(
                 snake_case(k),
@@ -155,10 +194,13 @@ class FieldsResource(Resource):
                 False,
                 includes,
                 errors,
-                resources=resources
+                resources=resources,
+                includes_index=includes_index,
+                error_ids=error_ids
             )
 
-    def _coerce(self, field_id, value, localized, includes, errors, resources=None):
+    def _coerce(self, field_id, value, localized, includes, errors, resources=None,
+                includes_index=None, error_ids=None):
         return value
 
     def fields(self, locale=None):

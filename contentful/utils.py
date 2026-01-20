@@ -128,10 +128,61 @@ def is_link_array(value):
     return False
 
 
-def unresolvable(item, errors):
+def build_includes_index(includes):
+    """Build dict for O(1) include lookups.
+
+    :param includes: list of include items from the API response.
+    :return: dict mapping "{type}:{id}" to item for O(1) lookups.
+    :rtype: dict
+    """
+    index = {}
+    for item in includes:
+        if 'sys' in item and 'id' in item['sys'] and 'type' in item['sys']:
+            key = "{0}:{1}".format(item['sys']['type'], item['sys']['id'])
+            index[key] = item
+    return index
+
+
+def build_error_ids_set(errors):
+    """Build set for O(1) error lookups.
+
+    :param errors: list of error objects from the API response.
+    :return: set of error IDs and URNs for O(1) lookups.
+    :rtype: set
+    """
+    error_ids = set()
+    for error in errors:
+        details = error.get('details', {})
+        if 'id' in details:
+            error_ids.add(details['id'])
+        if 'urn' in details:
+            error_ids.add(details['urn'])
+    return error_ids
+
+
+def unresolvable(item, errors, error_ids=None):
+    """Check if an item is unresolvable due to errors.
+
+    :param item: the item to check.
+    :param errors: list of error objects (used for fallback linear search).
+    :param error_ids: optional pre-built set of error IDs for O(1) lookup.
+    :return: True if the item is unresolvable.
+    :rtype: bool
+    """
     if not item:
         return True
 
+    # Fast path: use pre-built error_ids set for O(1) lookup
+    if error_ids is not None:
+        item_id = item.get('sys', {}).get('id')
+        item_urn = item.get('sys', {}).get('urn')
+        if item_id and item_id in error_ids:
+            return True
+        if item_urn and item_urn in error_ids:
+            return True
+        return False
+
+    # Fallback: linear search through errors
     for error in errors:
         if 'id' in item['sys'] and (error.get('details', {}).get('id', None) == item['sys']['id']):
             return True
@@ -140,8 +191,16 @@ def unresolvable(item, errors):
     return False
 
 
-def resource_for_link(link, includes, resources=None, locale=None):
-    """Returns the resource that matches the link"""
+def resource_for_link(link, includes, resources=None, locale=None, includes_index=None):
+    """Returns the resource that matches the link.
+
+    :param link: the link object to resolve.
+    :param includes: list of include items (used for fallback linear search).
+    :param resources: optional cache of already-built resources.
+    :param locale: locale for cache key generation.
+    :param includes_index: optional pre-built dict for O(1) include lookups.
+    :return: the matching resource or None.
+    """
 
     if resources is not None:
         # Determine cache key using either 'id' or 'urn'
@@ -161,7 +220,26 @@ def resource_for_link(link, includes, resources=None, locale=None):
         if cache_key_urn in resources:
             return resources[cache_key_urn]
 
-    # Search through includes
+    # Fast path: use pre-built includes_index for O(1) lookup
+    if includes_index is not None:
+        link_id = link['sys'].get('id')
+        link_type = link['sys'].get('linkType')
+
+        if link_id:
+            key = "{0}:{1}".format(link_type, link_id)
+            result = includes_index.get(key)
+            if result is not None:
+                return result
+
+        # Handle URN-based links
+        if 'urn' in link['sys']:
+            urn_id = link['sys']['urn'].split('/')[-1]
+            key = "{0}:{1}".format(link_type, urn_id)
+            return includes_index.get(key)
+
+        return None
+
+    # Fallback: linear search through includes
     for i in includes:
         if ('id' in i['sys'] and 'id' in link['sys'] and
                 i['sys']['id'] == link['sys']['id'] and

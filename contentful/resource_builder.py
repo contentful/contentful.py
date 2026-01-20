@@ -8,7 +8,7 @@ from .deleted_asset import DeletedAsset
 from .deleted_entry import DeletedEntry
 from .locale import Locale
 from .sync_page import SyncPage
-from .utils import unresolvable
+from .utils import unresolvable, build_includes_index, build_error_ids_set
 from .taxonomy_concept import TaxonomyConcept
 from .taxonomy_concept_scheme import TaxonomyConceptScheme
 
@@ -37,7 +37,9 @@ class ResourceBuilder(object):
             reuse_entries=False,
             resources=None,
             depth=0,
-            max_depth=20):
+            max_depth=20,
+            includes_index=None,
+            error_ids=None):
         self.default_locale = default_locale
         self.localized = localized
         self.json = json
@@ -50,6 +52,12 @@ class ResourceBuilder(object):
         if resources is None:
             resources = {} if self.reuse_entries else None
         self.resources = resources
+
+        # Cached values for performance optimization
+        self._cached_errors = None
+        self._cached_error_ids = error_ids
+        self._cached_includes = None
+        self._cached_includes_index = includes_index
 
     def build(self):
         """Creates the objects from the JSON response"""
@@ -73,26 +81,41 @@ class ResourceBuilder(object):
         if self.errors_for_single is not None:
             errors = self.errors_for_single
 
+        # Use cached indexes if available, otherwise build them
+        includes_index = self._cached_includes_index
+        if includes_index is None and includes:
+            includes_index = build_includes_index(includes)
+
+        error_ids = self._cached_error_ids
+        if error_ids is None and errors:
+            error_ids = build_error_ids_set(errors)
+
         return self._build_item(
             self.json,
             includes=includes,
-            errors=errors
+            errors=errors,
+            includes_index=includes_index,
+            error_ids=error_ids
         )
 
     def _build_array(self):
-        includes = self._includes()
         errors = self._errors()
+        error_ids = self._error_ids()
+        includes = self._includes(error_ids)
+        includes_index = self._includes_index(includes)
 
         items = [self._build_item(
                     item,
                     includes=includes,
-                    errors=errors
+                    errors=errors,
+                    includes_index=includes_index,
+                    error_ids=error_ids
                  ) for item in self.json['items']
-                 if not unresolvable(item, self._errors())]
+                 if not unresolvable(item, errors, error_ids=error_ids)]
 
         return Array(self.json, items)
 
-    def _build_item(self, item, includes=None, errors=None):
+    def _build_item(self, item, includes=None, errors=None, includes_index=None, error_ids=None):
         if includes is None:
             includes = []
         if errors is None:
@@ -123,7 +146,9 @@ class ResourceBuilder(object):
                 errors=errors,
                 resources=self.resources,
                 depth=self.depth,
-                max_depth=self.max_depth
+                max_depth=self.max_depth,
+                includes_index=includes_index,
+                error_ids=error_ids
             )
 
     def _resource_from_cache(self, item):
@@ -135,21 +160,51 @@ class ResourceBuilder(object):
         if self.resources and cache_key in self.resources:
             return self.resources[cache_key]
 
-    def _includes(self):
+    def _includes(self, error_ids=None):
+        if self._cached_includes is not None:
+            return self._cached_includes
+
         includes = list(self.json['items'])
+        errors = self._errors()
+        if error_ids is None:
+            error_ids = self._error_ids()
+
         for e in ['Entry', 'Asset']:
             if e in self.json.get('includes', {}):
                 includes += [item for item in self.json['includes'].get(e, [])
-                             if not unresolvable(item, self._errors())]
+                             if not unresolvable(item, errors, error_ids=error_ids)]
+
+        self._cached_includes = includes
         return includes
 
     def _errors(self):
+        if self._cached_errors is not None:
+            return self._cached_errors
+
         errors = []
         if self.errors_for_single is not None:
-            errors = self.errors_for_single
-        errors += self.json.get('errors', [])
+            errors = list(self.errors_for_single)
+        errors = errors + self.json.get('errors', [])
 
+        self._cached_errors = errors
         return errors
+
+    def _error_ids(self):
+        if self._cached_error_ids is not None:
+            return self._cached_error_ids
+
+        self._cached_error_ids = build_error_ids_set(self._errors())
+        return self._cached_error_ids
+
+    def _includes_index(self, includes=None):
+        if self._cached_includes_index is not None:
+            return self._cached_includes_index
+
+        if includes is None:
+            includes = self._includes()
+
+        self._cached_includes_index = build_includes_index(includes)
+        return self._cached_includes_index
 
     def _build_asset_key(self):
         """Creates an AssetKey Resource."""

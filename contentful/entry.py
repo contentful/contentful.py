@@ -21,21 +21,24 @@ class Entry(FieldsResource):
     API Reference: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/entries
     """
 
-    def _coerce(self, field_id, value, localized, includes, errors, resources=None):
+    def _coerce(self, field_id, value, localized, includes, errors, resources=None,
+                includes_index=None, error_ids=None):
         if is_link(value):
-            if unresolvable(value, errors):
+            if unresolvable(value, errors, error_ids=error_ids):
                 return None
             return self._build_nested_resource(
                 value,
                 localized,
                 includes,
                 errors,
-                resources=resources
+                resources=resources,
+                includes_index=includes_index,
+                error_ids=error_ids
             )
         elif is_link_array(value):
             items = []
             for link in value:
-                if unresolvable(link, errors):
+                if unresolvable(link, errors, error_ids=error_ids):
                     continue
                 items.append(
                     self._build_nested_resource(
@@ -43,20 +46,24 @@ class Entry(FieldsResource):
                         localized,
                         includes,
                         errors,
-                        resources=resources
+                        resources=resources,
+                        includes_index=includes_index,
+                        error_ids=error_ids
                     )
                 )
 
             return items
         elif is_resource_link(value):
-            if unresolvable(value, errors):
+            if unresolvable(value, errors, error_ids=error_ids):
                 return None
             return self._build_nested_resource(
                 value,
                 localized,
                 includes,
                 errors,
-                resources=resources
+                resources=resources,
+                includes_index=includes_index,
+                error_ids=error_ids
             )
 
         content_type = ContentTypeCache.get(
@@ -71,7 +78,9 @@ class Entry(FieldsResource):
                     errors=errors,
                     resources=resources,
                     default_locale=self.default_locale,
-                    locale=self.sys.get('locale', '*')
+                    locale=self.sys.get('locale', '*'),
+                    includes_index=includes_index,
+                    error_ids=error_ids
                 )
 
         return super(Entry, self)._coerce(
@@ -80,10 +89,13 @@ class Entry(FieldsResource):
             localized,
             includes,
             errors,
-            resources
+            resources,
+            includes_index=includes_index,
+            error_ids=error_ids
         )
 
-    def _build_nested_resource(self, value, localized, includes, errors, resources=None):
+    def _build_nested_resource(self, value, localized, includes, errors, resources=None,
+                               includes_index=None, error_ids=None):
         # Maximum include Depth is 10 in the API, but we raise it to 20 (default),
         # in case one of the included items has a reference in an upper level,
         # so we can keep the include chain for that object as well
@@ -95,7 +107,8 @@ class Entry(FieldsResource):
             value,
             includes,
             resources=resources,
-            locale=self.sys.get('locale', '*')
+            locale=self.sys.get('locale', '*'),
+            includes_index=includes_index
         )
 
         if isinstance(resource, FieldsResource):  # Resource comes from instance cache
@@ -108,12 +121,15 @@ class Entry(FieldsResource):
                     localized,
                     includes,
                     errors,
-                    resources=resources
+                    resources=resources,
+                    includes_index=includes_index,
+                    error_ids=error_ids
                 )
 
         return self._build_link(value)
 
-    def _resolve_include(self, resource, localized, includes, errors, resources=None):
+    def _resolve_include(self, resource, localized, includes, errors, resources=None,
+                         includes_index=None, error_ids=None):
         from .resource_builder import ResourceBuilder
         return ResourceBuilder(
             self.default_locale,
@@ -124,7 +140,9 @@ class Entry(FieldsResource):
             reuse_entries=bool(resources),
             resources=resources,
             depth=self._depth + 1,
-            max_depth=self._max_depth
+            max_depth=self._max_depth,
+            includes_index=includes_index,
+            error_ids=error_ids
         ).build()
 
     def incoming_references(self, client=None, query=None):
