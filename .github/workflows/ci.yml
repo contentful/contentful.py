@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run lint checks in dev container
+        uses: devcontainers/ci@v0.3
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        with:
+          push: never
+          runCmd: pdm run lint
+
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run test suite in dev container
+        uses: devcontainers/ci@v0.3
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        with:
+          push: never
+          runCmd: pdm run coverage

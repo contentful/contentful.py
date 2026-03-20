@@ -24,9 +24,9 @@ contentful.py - Contentful Python Delivery Library
    :alt: MIT License
    :target: LICENSE.txt
 
-.. |Build Status| image:: https://travis-ci.org/contentful/contentful.py.svg?branch=master
+.. |Build Status| image:: https://github.com/contentful/contentful.py/actions/workflows/ci.yml/badge.svg
    :alt: Build Status
-   :target: https://travis-ci.org/contentful/contentful.py
+   :target: https://github.com/contentful/contentful.py/actions/workflows/ci.yml
 
 **What is Contentful?**
 
@@ -512,6 +512,12 @@ Get involved
    :alt: PRs Welcome
 
 We appreciate any help on our repositories. For more details about how to contribute see our `CONTRIBUTING.md <./CONTRIBUTING.md>`_ document.
+
+For a reproducible local setup, open this repository in its included dev container. The container installs the project dependencies automatically when it is created.
+
+To verify the environment, run::
+
+    pdm run lint && pdm run coverage
 
 License
 -------
