@@ -1,43 +1,38 @@
 # Contributing
-In the spirit of [free software][free-sw], **everyone** is encouraged to help
-improve this project.
 
-[free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
+Thanks for helping improve `contentful.py`.
 
-Here are some ways *you* can contribute:
+## Development with Dev Containers
 
-* by using alpha, beta, and prerelease versions
-* by reporting bugs
-* by suggesting new features
-* by writing or editing documentation
-* by writing specifications
-* by writing code ( **no patch is too small** : fix typos, add comments, clean up inconsistent whitespace )
-* by refactoring code
-* by closing [issues][]
-* by reviewing patches
+This repository includes a `.devcontainer` configuration for a reproducible local setup. GitHub Actions uses the same devcontainer configuration for CI.
 
-[issues]: https://github.com/contentful/contentful.py/issues
+### Visual Studio Code
 
-## Submitting an Issue
-We use the [GitHub issue tracker][issues] to track bugs and features. Before
-submitting a bug report or feature request, check to make sure it hasn't
-already been submitted. When submitting a bug report, please include a [Gist][]
-that includes a stack trace and any details that may be necessary to reproduce
-the bug, including your pip version, Python version, and operating system.
-Ideally, a bug report should include a pull request with failing specs.
+Open the repository in Visual Studio Code, install the Dev Containers extension if needed, then run `Dev Containers: Reopen in Container`. Wait for the container build and post-create setup to finish.
 
-[gist]: https://gist.github.com/
+### Terminal or other editors
 
-## Submitting a Pull Request
-1. [Fork the repository.][fork]
-2. [Create a topic branch.][branch]
-3. Add specs for your unimplemented feature or bug fix.
-4. Run `make test-all`. If your specs pass, return to step 3.
-5. Implement your feature or bug fix.
-6. Run `make test-all`. If your specs fail, return to step 5.
-7. Add, commit, and push your changes.
-8. [Submit a pull request.][pr]
+Install Docker and the Dev Container CLI (`npm install -g @devcontainers/cli`). From the repository root, run:
 
-[fork]: http://help.github.com/fork-a-repo/
-[branch]: http://learn.github.com/p/branching.html
-[pr]: http://help.github.com/send-pull-requests/
+```bash
+devcontainer up --workspace-folder .
+devcontainer exec --workspace-folder . bash
+```
+
+### Verify the environment
+
+```bash
+pdm run lint && pdm run coverage
+```
+
+## Other Useful Commands
+
+```bash
+python -m unittest discover
+```
+
+## Pull Requests
+
+1. Fork the repository and create a branch for your change.
+2. Run the relevant checks from the dev container.
+3. Open a pull request with a short summary of the change and any follow-up context.

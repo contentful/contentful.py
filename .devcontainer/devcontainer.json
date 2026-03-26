@@ -1,0 +1,20 @@
+{
+  "name": "contentful.py",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "PYTHON_VERSION": "${localEnv:PYTHON_VERSION:3.12}"
+    }
+  },
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "remoteUser": "vscode",
+  "postCreateCommand": "pdm install -G test && python -m pip install -e .",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  }
+}

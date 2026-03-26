@@ -59,7 +59,7 @@ clean-test = {shell = """
 lint = {cmd = "flake8 .", help = "Run flake8 linter"}
 test = { cmd = "python -m unittest discover", help = "Run tests with unittest" }
 test-all = {shell = "tox", help = "Run tests on all Python versions with tox"}
-coverage = { cmd = "coverage run --source contentful runtests.py", help = "Run tests with coverage"}
+coverage = {shell = "python -m coverage run -m unittest discover && python -m coverage report", help = "Run tests with coverage"}
 docs = {shell = """
     rm -f _docs/contentful.rst
     rm -f _docs/modules.rst

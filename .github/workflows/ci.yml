@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
+
+      - name: Run lint checks in dev container
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "pdm run lint"
+
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli@0
+
+      - name: Run test suite in dev container
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        run: |
+          devcontainer up --workspace-folder .
+          devcontainer exec --workspace-folder . bash -lc "pdm run coverage"
