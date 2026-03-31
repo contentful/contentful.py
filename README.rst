@@ -1,7 +1,6 @@
 .. image:: https://raw.githubusercontent.com/contentful/contentful.py/master/.github/header.png
    :alt: Contentful Python Delivery Library
    :target: https://www.contentful.com/developers/docs/python/
-
 |Join Community Slack| |Join Community Forum|
 
 .. |Join Community Slack| image:: https://img.shields.io/badge/-Join%20Community%20Slack-2AB27B.svg?logo=slack&maxAge=31557600
