@@ -1,0 +1,32 @@
+contentful.py domain invariants — things that commonly break or are non-obvious:
+
+CDA-only boundary:
+- This library NEVER implements write operations. Any PR adding create, update, publish, delete, or upload functionality is out of scope and must be rejected. Write operations belong in contentful-management.py.
+
+ResourceBuilder & deserialization:
+- All JSON-to-object deserialization must go through ResourceBuilder.build(). Client never constructs resource objects directly.
+- New CDA resource types (e.g., future API additions) must be added to ResourceBuilder._build_* dispatch and to contentful/__init__.py exports.
+- The ContentTypeCache is populated at Client init. Field coercion in Entry._coerce() depends on it. Changes to caching strategy are high-impact — the cache dict is keyed by (space_id, content_type_id).
+
+Link resolution:
+- max_include_resolution_depth (default 20) prevents infinite recursion in circular content graphs. This cap must never be removed.
+- Unresolvable links (link in response but not in includes) must return None, not raise an exception (unless raise_errors is set at client level). This is relied upon by users to handle partial content graphs gracefully.
+- reuse_entries=True enables object reuse across a request's deserialization pass — this is intentionally off by default to prevent surprising shared-state mutations.
+
+HTTP behavior:
+- Default timeout is 1 second (timeout_s=1). This is a public documented default. Do not change it without a version bump and explicit migration note — users build retry logic around it.
+- Rate limit retry logic is in utils.retry_request. Changes here affect all API calls — test thoroughly.
+- gzip_encoded=True is the default. The Accept-Encoding header is set accordingly. Changes affect payload size and latency.
+
+Test fixtures:
+- VCR cassettes in fixtures/**/*.yaml are recorded from live API responses. They must not be hand-edited — any behavioral change to a cassette requires re-recording.
+- Tests must not make live network calls. All HTTP is intercepted by VCR or requests-mock.
+
+Public API stability:
+- contentful.py is a published library. Any change to Client.__init__ parameter names, defaults, or semantics is a potential breaking change. Changes to resource class attributes (entry.fields, asset.url, etc.) are also breaking.
+- Python version support is 3.9–3.13 (pyproject.toml). Do not use language features from newer versions.
+
+PDM and lockfile:
+- pdm.lock must be regenerated via `pdm lock` — never hand-edited.
+- Optional dependency groups (test, docs) must be kept consistent with pyproject.toml. Stale lockfile groups cause "Requested groups not in lockfile" at install/release time.
+- `contentful/__init__.py::__version__` is the canonical version. Update it before releasing.
