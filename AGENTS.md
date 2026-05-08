@@ -19,7 +19,7 @@ Read this file first. It tells you where to find context in this repo.
 
 - **This is a CDA/CPA client only.** Never add write operations (create, update, publish, delete). Those belong in `contentful-management.py`. Any PR adding a CMA endpoint should be rejected.
 - **`pdm.lock` is the source of truth for dependencies.** Do not hand-edit it. Regenerate with `pdm lock -d` if stale. Committing a lockfile with broken groups causes release failures.
-- **`docs/` is auto-generated.** It is the Sphinx HTML output committed by `pdm run git-docs`. Do not hand-edit files under `docs/` — regenerate with `pdm run docs`.
+- **`docs/` is auto-generated Sphinx HTML — never hand-edit it.** It is rebuilt by `pdm run git-docs` on every release. ADRs and specs live in `AI_CONTEXT/`, not `docs/`.
 - **`contentful/__init__.py::__version__` is the version source.** PDM reads it dynamically. Update here before releasing — do not update `pyproject.toml` directly.
 - **VCR cassettes are recorded fixtures, not mocks.** Cassettes in `fixtures/**/*.yaml` are generated from real API responses. Hand-editing them breaks test replay. Re-record by deleting the cassette and running the test with live credentials.
 - **Default HTTP timeout is 1 second.** This is intentional and documented in the `Client` docstring. Do not raise it without user-visible opt-in; it is a breaking change for users who rely on the current behavior.

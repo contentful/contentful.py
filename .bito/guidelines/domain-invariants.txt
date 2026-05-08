@@ -30,3 +30,7 @@ PDM and lockfile:
 - pdm.lock must be regenerated via `pdm lock` — never hand-edited.
 - Optional dependency groups (test, docs) must be kept consistent with pyproject.toml. Stale lockfile groups cause "Requested groups not in lockfile" at install/release time.
 - `contentful/__init__.py::__version__` is the canonical version. Update it before releasing.
+
+Docs directory:
+- docs/ contains ONLY auto-generated Sphinx HTML (rebuilt by `pdm run git-docs`). Never hand-edit anything in docs/.
+- ADRs live in AI_CONTEXT/ADRs/. Specs live in AI_CONTEXT/specs/. These are human-maintained and intentionally outside docs/.
