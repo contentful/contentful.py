@@ -10,10 +10,10 @@ Read this file first. It tells you where to find context in this repo.
 |---|---|
 | What this repo is and how it works | [ARCHITECTURE.md](./ARCHITECTURE.md) |
 | How to build, test, and contribute | [CONTRIBUTING.md](./CONTRIBUTING.md) |
-| Why architectural decisions were made | [docs/ADRs/](./docs/ADRs/) |
+| Why architectural decisions were made | [AI_CONTEXT/ADRs/](./AI_CONTEXT/ADRs/) |
 | What this repo does (user-facing) | [README.rst](./README.rst) |
 | PR review rules | [.bito/guidelines/](./.bito/guidelines/) |
-| Active specs / in-progress work | [docs/specs/](./docs/specs/) |
+| Active specs / in-progress work | [AI_CONTEXT/specs/](./AI_CONTEXT/specs/) |
 
 ## Sharp Edges & Invariants
 

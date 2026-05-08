@@ -1,6 +1,6 @@
 Use the repository's written documentation as review context and check whether the change matches the documented intent.
 
-- Start from README.rst, ARCHITECTURE.md, AGENTS.md, CONTRIBUTING.md, and docs/ADRs/ for architectural context.
+- Start from README.rst, ARCHITECTURE.md, AGENTS.md, CONTRIBUTING.md, and AI_CONTEXT/ADRs/ for architectural context.
 - Check whether code, tests, and documentation all tell the same story. Flag mismatches between implementation and the documented architecture or ADRs.
 - Treat AGENTS.md as the authoritative guide for sharp edges and invariants. If a change violates an invariant documented there, flag it.
 - If CI or another required check already enforces a merge rule, do not ask for duplicate PR template sections or manual checklists.

@@ -112,7 +112,7 @@ client.sync({'sync_token': token})
 | `flake8` (test only) | Linting — configured via `.flake8` (max line length 180, complexity 10). |
 | `requests-mock` (test only) | Request mocking for error/edge-case tests. |
 | `Sphinx` (docs only) | API docs generation from docstrings; output committed to `docs/`. |
-| `pdm` (build) | Dependency management, lockfile, and release tooling. See [ADR: PDM Package Manager](./docs/ADRs/2025-01-16-pdm-package-manager.md). |
+| `pdm` (build) | Dependency management, lockfile, and release tooling. See [ADR: PDM Package Manager](./AI_CONTEXT/ADRs/2025-01-16-pdm-package-manager.md). |
 
 ## Configuration
 
