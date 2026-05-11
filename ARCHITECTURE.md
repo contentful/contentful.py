@@ -32,7 +32,7 @@ graph TD
 | `contentful/asset_key.py` | `AssetKey` resource — embargoed asset policy/secret used for signed URL generation. |
 | `contentful/space.py` | `Space` resource — space metadata. |
 | `contentful/content_type.py` | `ContentType` resource — schema definition for entries. |
-| `contentful/content_type_cache.py` | In-process cache of `ContentType` objects keyed by `(space_id, content_type_id)`. Populated on `Client` init; used by `Entry._coerce()` to hydrate fields without extra API calls. |
+| `contentful/content_type_cache.py` | In-process cache of `ContentType` objects keyed by `space_id`, storing a list per space. `get(space_id, content_type_id)` searches that list linearly. Populated on `Client` init; used by `Entry._coerce()` to hydrate fields without extra API calls. |
 | `contentful/content_type_field.py` | Models a single field in a content type schema, including its type and coercion logic. |
 | `contentful/content_type_field_types.py` | Type coercers — converts raw JSON values to Python types (`date`, `int`, `float`, `RichText`, `Link`, `Array`, etc.). |
 | `contentful/locale.py` | `Locale` resource — locale definition. |
