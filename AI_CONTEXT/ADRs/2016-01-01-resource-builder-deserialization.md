@@ -24,7 +24,7 @@ Source: Initial architecture committed in `c771b38`; pattern unchanged through v
 
 ## Consequences
 
-- A single code path owns the full JSON-to-object transformation, making it easy to add new resource types (e.g., `TaxonomyConcept` in PR #111, `AssetKey` in PR #101)
+- A single code path owns the full JSON-to-object transformation; adding a new resource type means registering it in the `buildables` dict inside `ResourceBuilder._build_item` (e.g., `TaxonomyConcept` in PR #111, `AssetKey` in PR #101)
 - `ContentTypeCache` must be populated before any entry deserialization; `Client.__init__` does this by default (`content_type_cache=True`)
 - Disabling `content_type_cache=False` means fields fall back to uncoerced raw values — acceptable for raw/tooling use cases but not for typed consumer use
 - Recursive link resolution is depth-capped by `max_include_resolution_depth` (default 20) to prevent stack overflows on deeply nested content graphs
