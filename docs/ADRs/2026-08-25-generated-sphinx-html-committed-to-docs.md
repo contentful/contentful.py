@@ -92,9 +92,12 @@ For the mechanics as operating documentation rather than as a decision, see
   which — it records that the conflict exists so the next person does not
   rediscover it by losing a file.
 - The repo's four pre-existing decision records live at `AI_CONTEXT/ADRs/`
-  (CDA-only scope, resource-builder deserialization, PDM, devcontainer/CI
-  parity), and `AGENTS.md` links there. `docs/ADRs/` is therefore a **second**
-  ADR location, not a replacement — anyone auditing decisions must read both.
+  (001 CDA-only scope, 002 resource-builder deserialization, 003 PDM,
+  004 devcontainer/CI parity), and `AGENTS.md` links there. `docs/ADRs/` is
+  therefore a **second** ADR location, not a replacement. This record is
+  numbered **005**, continuing that sequence rather than restarting it, so the
+  two indexes form one unbroken series — but anyone auditing decisions for this
+  repo must still read both directories.
 - Doc freshness is coupled to releases. Between releases, `docs/` reflects the
   last tagged version, not `master`. `docs/index.html` currently reports
   "Contentful 2.5.0 documentation".
