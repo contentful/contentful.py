@@ -67,8 +67,9 @@ docs = {shell = """
     sphinx-apidoc -o _docs/ contentful
     make -C _docs html
     cp _docs/LICENSE _docs/_build/html/
-    rm -rf docs
-    cp -r _docs/_build/html docs
+    mkdir -p docs
+    find docs -mindepth 1 -maxdepth 1 ! -name ADRs -exec rm -rf {} +
+    cp -R _docs/_build/html/. docs/
     open docs/index.html
     """, help = "Generate Sphinx HTML documentation, including API docs", env = {SPHINXOPTS = "", SPHINXBUILD = "sphinx-build", PAPER = "", BUILDDIR = "_build",PAPEROPT_a4 = "-D latex_paper_size=a4", PAPEROPT_letter = "-D latex_paper_size=letter", ALLSPHINXOPTS = "-d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .", I18NSPHINXOPTS="$(PAPEROPT_$(PAPER)) $(SPHINXOPTS) ."}}
 git-docs = {composite = ["docs", "git add docs", "git commit --amend -C HEAD"], help = "Generate and commit documentation"}
