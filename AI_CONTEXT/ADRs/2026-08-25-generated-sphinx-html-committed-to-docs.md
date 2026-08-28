@@ -81,23 +81,23 @@ For the mechanics as operating documentation rather than as a decision, see
 - **`docs/` is not a writable directory.** Any hand-authored file placed there is
   deleted by the next `pdm run docs`. `AGENTS.md` states this as an invariant and
   points contributors at `AI_CONTEXT/` instead.
-- **This ADR is itself subject to that deletion.** `docs/ADRs/` is the location
-  required by the organisation-wide AI harness readiness controls
+- **This record therefore lives at `AI_CONTEXT/ADRs/`, not `docs/ADRs/`.** It was
+  first drafted under `docs/ADRs/` to match the directory named by the
+  organisation-wide AI harness readiness controls
   ([DX-1324](https://contentful.atlassian.net/browse/DX-1324), parent
-  [DX-1296](https://contentful.atlassian.net/browse/DX-1296)), which only accept
-  decision records under `docs/`. That requirement collides head-on with the
-  `rm -rf docs` step. The collision is real and unresolved: the next release run
-  will remove `docs/ADRs/` unless the `docs` script is changed to preserve it, or
-  the control is taught to accept `AI_CONTEXT/ADRs/`. This record does not decide
-  which — it records that the conflict exists so the next person does not
-  rediscover it by losing a file.
-- The repo's four pre-existing decision records live at `AI_CONTEXT/ADRs/`
-  (001 CDA-only scope, 002 resource-builder deserialization, 003 PDM,
-  004 devcontainer/CI parity), and `AGENTS.md` links there. `docs/ADRs/` is
-  therefore a **second** ADR location, not a replacement. This record is
-  numbered **005**, continuing that sequence rather than restarting it, so the
-  two indexes form one unbroken series — but anyone auditing decisions for this
-  repo must still read both directories.
+  [DX-1296](https://contentful.atlassian.net/browse/DX-1296)). That placement
+  collides head-on with the `rm -rf docs` step above: the next `pdm run docs` or
+  `pdm run release` would have deleted the record silently. Rather than carry a
+  file that the release process is guaranteed to destroy — or bend the release
+  script to carve out an exception inside generated output — the record was moved
+  to `AI_CONTEXT/ADRs/`, which is durable, is already this repo's ADR home, and is
+  where `AGENTS.md` points. `docs/` stays exclusively Sphinx output, and the
+  invariant above holds without a special case.
+- **There is one ADR location, not two.** The repo's four pre-existing decision
+  records live at `AI_CONTEXT/ADRs/` (001 CDA-only scope, 002 resource-builder
+  deserialization, 003 PDM, 004 devcontainer/CI parity). This record is numbered
+  **005**, continuing that sequence in the same directory and the same index, so
+  auditing the decisions for this repo means reading one directory.
 - Doc freshness is coupled to releases. Between releases, `docs/` reflects the
   last tagged version, not `master`. `docs/index.html` currently reports
   "Contentful 2.5.0 documentation".

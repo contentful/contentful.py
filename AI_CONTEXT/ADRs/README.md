@@ -8,3 +8,4 @@
 | [002](./2016-01-01-resource-builder-deserialization.md) | 2016-01-01 | Accepted | Resource Builder Deserialization Pattern |
 | [003](./2025-01-16-pdm-package-manager.md) | 2025-01-16 | Accepted | PDM as Package Manager and Build Tool |
 | [004](./2025-01-16-devcontainer-ci-parity.md) | 2025-01-16 | Accepted | Devcontainer for Reproducible Dev and CI Parity |
+| [005](./2026-08-25-generated-sphinx-html-committed-to-docs.md) | 2026-08-25 | Accepted | API Reference Published as Generated Sphinx HTML Committed to `docs/` |
