@@ -33,5 +33,5 @@ PDM and lockfile:
 - `contentful/__init__.py::__version__` is the canonical version. Update it before releasing.
 
 Docs directory:
-- docs/ contains ONLY auto-generated Sphinx HTML (rebuilt by `pdm run git-docs`). Never hand-edit anything in docs/.
-- ADRs live in AI_CONTEXT/ADRs/. Specs live in AI_CONTEXT/specs/. These are human-maintained and intentionally outside docs/.
+- docs/ contains auto-generated Sphinx HTML (rebuilt by `pdm run git-docs`) everywhere except docs/ADRs/. Never hand-edit anything under docs/ other than docs/ADRs/.
+- ADRs live in docs/ADRs/, which the docs build explicitly excludes from its prune. Specs live in AI_CONTEXT/specs/. Both are human-maintained.

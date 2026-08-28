@@ -10,7 +10,7 @@ Read this file first. It tells you where to find context in this repo.
 |---|---|
 | What this repo is and how it works | [ARCHITECTURE.md](./ARCHITECTURE.md) |
 | How to build, test, and contribute | [CONTRIBUTING.md](./CONTRIBUTING.md) |
-| Why architectural decisions were made | [AI_CONTEXT/ADRs/](./AI_CONTEXT/ADRs/) |
+| Why architectural decisions were made | [docs/ADRs/](./docs/ADRs/) |
 | What this repo does (user-facing) | [README.rst](./README.rst) |
 | PR review rules | [.bito/guidelines/](./.bito/guidelines/) |
 | Active specs / in-progress work | [AI_CONTEXT/specs/](./AI_CONTEXT/specs/) |
@@ -19,7 +19,7 @@ Read this file first. It tells you where to find context in this repo.
 
 - **This is a CDA/CPA client only.** Never add write operations (create, update, publish, delete). Those belong in `contentful-management.py`. Any PR adding a CMA endpoint should be rejected.
 - **`pdm.lock` is the source of truth for dependencies.** Do not hand-edit it. Regenerate with `pdm lock -d` if stale. Committing a lockfile with broken groups causes release failures.
-- **`docs/` is auto-generated Sphinx HTML — never hand-edit it.** It is rebuilt by `pdm run git-docs` on every release. ADRs and specs live in `AI_CONTEXT/`, not `docs/`.
+- **Everything under `docs/` except `docs/ADRs/` is auto-generated Sphinx HTML — never hand-edit it.** It is rebuilt by `pdm run git-docs` on every release, which empties every entry directly under `docs/` apart from `docs/ADRs/`. Decision records live in `docs/ADRs/` and are the one hand-authored thing there; specs live in `AI_CONTEXT/specs/`.
 - **`contentful/__init__.py::__version__` is the version source.** PDM reads it dynamically. Update here before releasing — do not update `pyproject.toml` directly.
 - **VCR cassettes are recorded fixtures, not mocks.** Cassettes in `fixtures/**/*.yaml` are generated from real API responses. Hand-editing them breaks test replay. Re-record by deleting the cassette and running the test with live credentials.
 - **Default HTTP timeout is 1 second.** This is intentional and documented in the `Client` docstring. Do not raise it without user-visible opt-in; it is a breaking change for users who rely on the current behavior.

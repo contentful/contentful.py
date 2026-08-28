@@ -57,15 +57,17 @@ The mechanics, all defined in `pyproject.toml → [tool.pdm.scripts]`:
 
 | Script | What it does |
 |---|---|
-| `docs` | Deletes `_docs/contentful.rst` and `_docs/modules.rst`, runs `sphinx-apidoc -o _docs/ contentful`, builds with `make -C _docs html`, then **`rm -rf docs`** and `cp -r _docs/_build/html docs` |
+| `docs` | Deletes `_docs/contentful.rst` and `_docs/modules.rst`, runs `sphinx-apidoc -o _docs/ contentful`, builds with `make -C _docs html`, then **empties every entry directly under `docs/` except `docs/ADRs/`** and copies `_docs/_build/html/.` into `docs/` |
 | `git-docs` | Composite: `docs` → `git add docs` → `git commit --amend -C HEAD` |
 | `release` | Composite: `clean` → `git-docs` → `pdm publish` → `push-tags` |
 
 Two consequences of that wiring are worth stating explicitly, because they are
 not obvious from reading either script in isolation:
 
-1. `docs` is **destructive** — `rm -rf docs` removes the whole directory before
-   the copy. Nothing may live under `docs/` that is not produced by Sphinx.
+1. `docs` is **destructive within its own output** — it empties every entry
+   directly under `docs/` before copying the new build in. Exactly one entry is
+   carved out of that prune: `docs/ADRs/`. Nothing else may live under `docs/`
+   that is not produced by Sphinx.
 2. `release` **amends the last commit on `master`** via `git-docs`, so the
    version tag points at a commit whose contents differ from what was reviewed.
 
@@ -78,26 +80,35 @@ For the mechanics as operating documentation rather than as a decision, see
 
 ## Consequences
 
-- **`docs/` is not a writable directory.** Any hand-authored file placed there is
-  deleted by the next `pdm run docs`. `AGENTS.md` states this as an invariant and
-  points contributors at `AI_CONTEXT/` instead.
-- **This record therefore lives at `AI_CONTEXT/ADRs/`, not `docs/ADRs/`.** It was
-  first drafted under `docs/ADRs/` to match the directory named by the
+- **`docs/` is writable in exactly one place: `docs/ADRs/`.** Any other
+  hand-authored file placed under `docs/` is still deleted by the next
+  `pdm run docs`. `AGENTS.md` states this as an invariant.
+- **The prune carve-out exists because the records have nowhere else to go.** The
   organisation-wide AI harness readiness controls
   ([DX-1324](https://contentful.atlassian.net/browse/DX-1324), parent
-  [DX-1296](https://contentful.atlassian.net/browse/DX-1296)). That placement
-  collides head-on with the `rm -rf docs` step above: the next `pdm run docs` or
-  `pdm run release` would have deleted the record silently. Rather than carry a
-  file that the release process is guaranteed to destroy — or bend the release
-  script to carve out an exception inside generated output — the record was moved
-  to `AI_CONTEXT/ADRs/`, which is durable, is already this repo's ADR home, and is
-  where `AGENTS.md` points. `docs/` stays exclusively Sphinx output, and the
-  invariant above holds without a special case.
-- **There is one ADR location, not two.** The repo's four pre-existing decision
-  records live at `AI_CONTEXT/ADRs/` (001 CDA-only scope, 002 resource-builder
-  deserialization, 003 PDM, 004 devcontainer/CI parity). This record is numbered
-  **005**, continuing that sequence in the same directory and the same index, so
-  auditing the decisions for this repo means reading one directory.
+  [DX-1296](https://contentful.atlassian.net/browse/DX-1296)) accept decision
+  records only under `docs/ADRs/`, `docs/adr/`, `docs/decision-records/` or
+  `docs/decisions/`. All four are inside `docs/`, so there is no compliant
+  location that a whole-directory `rm -rf docs` would spare. Relocating the
+  records outside `docs/` — this repo's previous `AI_CONTEXT/ADRs/` among them —
+  keeps them safe from the build at the cost of making them invisible to the
+  audit, which is not a fix. The narrower prune is therefore the change that
+  resolves the collision, matching how
+  [contentful/node-apps-toolkit#857](https://github.com/contentful/node-apps-toolkit/pull/857)
+  settled the same conflict: the generator stops owning the whole directory.
+- **GitHub Pages constrains the shape of the fix.** `node-apps-toolkit` could give
+  its generator a subdirectory (`docs/api/`) because it publishes through a
+  workflow whose `publish_dir` is settable. This repo uses legacy Pages serving
+  `master:/docs`, and legacy Pages accepts only `/` or `/docs` as a source — not
+  `docs/api`. Moving the HTML down a level would 404 the site root and shift every
+  published URL under `/api/`, so the generated output stays at the `docs/` root
+  and the carve-out is expressed in the prune instead.
+- **There is one ADR location, not two.** All five records now live at
+  `docs/ADRs/` — 001 CDA-only scope, 002 resource-builder deserialization, 003
+  PDM, 004 devcontainer/CI parity, and this record as **005**. They previously
+  lived at `AI_CONTEXT/ADRs/`; that directory now holds only `specs/`. Auditing
+  the decisions for this repo means reading one directory, and it is the one the
+  control looks in.
 - Doc freshness is coupled to releases. Between releases, `docs/` reflects the
   last tagged version, not `master`. `docs/index.html` currently reports
   "Contentful 2.5.0 documentation".
