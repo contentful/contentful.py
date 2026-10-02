@@ -163,18 +163,20 @@ class RichTextField(BasicField):
     Coerces Rich Text fields and resolves includes for entries included.
     """
 
-    def _coerce_link(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
+    def _coerce_link(self, value, includes=None, errors=None, resources=None,
+                     default_locale='en-US', locale=None, includes_index=None, error_ids=None):
         if value['data']['target']['sys']['type'] != 'Link':
             return value['data']['target']
 
-        if unresolvable(value['data']['target'], errors):
+        if unresolvable(value['data']['target'], errors, error_ids=error_ids):
             return None
 
         resource = resource_for_link(
             value['data']['target'],
             includes,
             resources,
-            locale=locale if locale else '*'
+            locale=locale if locale else '*',
+            includes_index=includes_index
         )
 
         if isinstance(resource, FieldsResource):  # Resource comes from instance cache
@@ -191,10 +193,13 @@ class RichTextField(BasicField):
             includes_for_single=includes,
             errors_for_single=errors,
             reuse_entries=bool(resources),
-            resources=resources
+            resources=resources,
+            includes_index=includes_index,
+            error_ids=error_ids
         ).build()
 
-    def _coerce_block(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
+    def _coerce_block(self, value, includes=None, errors=None, resources=None,
+                      default_locale='en-US', locale=None, includes_index=None, error_ids=None):
         if not (isinstance(value, dict) and 'content' in value):
             return value
 
@@ -212,7 +217,9 @@ class RichTextField(BasicField):
                     errors=errors,
                     resources=resources,
                     default_locale=default_locale,
-                    locale=locale
+                    locale=locale,
+                    includes_index=includes_index,
+                    error_ids=error_ids
                 )
                 if link:
                     node['data']['target'] = link
@@ -225,7 +232,9 @@ class RichTextField(BasicField):
                     errors=errors,
                     resources=resources,
                     default_locale=default_locale,
-                    locale=locale
+                    locale=locale,
+                    includes_index=includes_index,
+                    error_ids=error_ids
                 )
 
         for node_index, coerced_node in coerced_nodes.items():
@@ -236,7 +245,8 @@ class RichTextField(BasicField):
 
         return value
 
-    def coerce(self, value, includes=None, errors=None, resources=None, default_locale='en-US', locale=None):
+    def coerce(self, value, includes=None, errors=None, resources=None,
+               default_locale='en-US', locale=None, includes_index=None, error_ids=None):
         """Coerces Rich Text properly."""
 
         if includes is None:
@@ -250,5 +260,7 @@ class RichTextField(BasicField):
             errors=errors,
             resources=resources,
             default_locale=default_locale,
-            locale=locale
+            locale=locale,
+            includes_index=includes_index,
+            error_ids=error_ids
         )
