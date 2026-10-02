@@ -90,6 +90,31 @@ This library can also be used with the Preview API. In order to do so, you need 
 You can query for entries, assets, etc. very similar as described in the `Delivery API Documentation <https://www.contentful.com/developers/docs/references/content-delivery-api/>`_.
 Please note, that all methods of the Python client library are ``snake_cased``, instead of JavaScript's ``camelCase``.
 
+Using this library with asyncio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``contentful.Client`` performs synchronous, blocking HTTP requests. If you're working within an ``asyncio`` application and don't want those requests to block the event loop, use ``contentful.AsyncClient`` instead. It accepts the same arguments as ``Client``, and every method that performs a network request can be awaited::
+
+    import asyncio
+    import contentful
+
+    async def main():
+        client = contentful.AsyncClient('cfexampleapi', 'b4c0n73n7fu1')
+        entry = await client.entry('nyancat')
+        return entry
+
+    entry = asyncio.run(main())
+
+``AsyncClient`` runs the same underlying request on a background thread, so it doesn't require an additional HTTP dependency.
+
+Two things are worth knowing before reaching for it:
+
+* Each awaited call occupies a thread from the default ``asyncio`` executor for the duration of the request. Throughput is therefore bounded by that executor's size, not by the event loop, so this is not equivalent to a natively async HTTP client under high concurrency.
+* Rate limit retries sleep on the worker thread, and ``max_rate_limit_wait`` defaults to 60 seconds. A burst of 429 responses can therefore park every thread in the default executor, which also starves unrelated ``asyncio.to_thread`` calls elsewhere in your application. Pass ``max_rate_limit_retries=0`` and handle the retry yourself with ``asyncio.sleep`` if that matters to you.
+* Helpers that take a client and call it synchronously — ``Entry.incoming_references``, ``Asset.incoming_references`` and ``SyncPage.next`` — need the underlying synchronous client, available as ``sync_client``::
+
+    references = await asyncio.to_thread(entry.incoming_references, client.sync_client)
+
 Authentication
 ~~~~~~~~~~~~~~
 

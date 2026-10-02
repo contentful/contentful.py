@@ -1,6 +1,7 @@
 import sys
 import os
 
+from .async_client_test import AsyncClientTest
 from .asset_test import AssetTest
 from .client_test import ClientTest
 from .content_type_cache_test import ContentTypeCacheTest
@@ -21,6 +22,7 @@ from .utils_test import UtilsTest
 sys.path.insert(0, os.path.abspath('..'))
 
 __all__ = [
+    'AsyncClientTest',
     'AssetTest',
     'ClientTest',
     'ContentTypeCacheTest',
