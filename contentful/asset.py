@@ -1,3 +1,5 @@
+from urllib.parse import urlsplit, urlunsplit
+
 from .resource import FieldsResource
 
 
@@ -37,7 +39,9 @@ class Asset(FieldsResource):
         args = ['{0}={1}'.format(k, v) for k, v in kwargs.items()]
 
         if args:
-            url += '?{0}'.format('&'.join(args))
+            parts = urlsplit(url)
+            query = '&'.join(filter(None, [parts.query, '&'.join(args)]))
+            url = urlunsplit(parts._replace(query=query))
 
         return url
 
